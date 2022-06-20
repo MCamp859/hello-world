@@ -41,12 +41,11 @@ To run the reference implementation, you will need to first download and install
 
 
 
-| Table 1 |  |
-| --------------------------- | ---------------------------------- |
-|  **Time to Complete**       | 20 - 25 minutes |
-|  **Programming Language**   | Python\* |
-|  **Software**               | Intel® Distribution of OpenVINO™ toolkit 2021 Release |
-|                             | Intel® Smart Edge Open 21.12                                     |
+*  **Time to Complete:**  20 - 25 minutes
+*  **Programming Language:**  Python\*
+*  **Software:**
+   *  Intel® Distribution of OpenVINO™ toolkit 2021 Release
+   *  Intel® Smart Edge Open 21.12
 
 
 ## Target System Requirements
@@ -56,7 +55,7 @@ To run the reference implementation, you will need to first download and install
 
     -   Intel® Xeon® Scalable processor.
 
-    -   Intel® Xeon® processor D.
+    -   Intel® Xeon® Processor D.
 
 -   At least 64 GB RAM.
 
@@ -64,9 +63,9 @@ To run the reference implementation, you will need to first download and install
 
 -   An Internet connection.
 
--   CentOS* 7.9.2009
-    
--   IP camera or pre-recorded video(s)
+-   CentOS* 7.9.2009.
+
+-   IP camera or pre-recorded video(s).
 
 ### Edge Nodes
 
@@ -74,7 +73,7 @@ To run the reference implementation, you will need to first download and install
 
     -   Intel® Xeon® Scalable processor.
 
-    -   Intel® Xeon® processor D.
+    -   Intel® Xeon® Processor D.
 
 -   At least 64 GB RAM.
 
@@ -82,9 +81,9 @@ To run the reference implementation, you will need to first download and install
 
 -   An Internet connection.
 
--   CentOS* 7.9.2009
-    
--   IP camera or pre-recorded video(s)
+-   CentOS* 7.9.2009.
+
+-   IP camera or pre-recorded video(s).
 
 ## How It Works
 
@@ -100,7 +99,7 @@ The Wireless Network-Ready application requires the application pod,
 database and a visualizer. Once the installation is successful, the
 application is ready to be deployed using helm. After the deployment,
 the application pod takes in the virtual/real RTSP stream addresses and
-performs inference and sends metadata for each stream to the influxdb
+performs inference and sends metadata for each stream to the InfluxDB\*
 database. The visualizer in parallel shows the analysis over the
 metadata like pedestrians detected, observed collisions and processed
 video feed.
@@ -124,24 +123,21 @@ To run the reference implementation, you will need to first download and install
 
 Ensure that the following conditions are met properly to ensure a smooth installation process for a reference implementation done through Edge Software Provisioner (ESP) Intel® Smart Edge Open Private Wireless Experience Kit package.
 
-1.  Hardware Requirements
+1. Hardware Requirements
 
-    Make sure you have a fresh **CentOS* 7.9.2009** installation
-    with the Hardware specified in the
-
-    “**Target System Requirements**” section.
+   Make sure you have a fresh **CentOS\* 7.9.2009** installation with the
+   Hardware specified in the [Target System
+   Requirements](#target-system-requirements) section.
 
 
 ### Step 1: Install the Reference Implementation
 
->**NOTE:** The following sections may use &lt;Controller_IP&gt; in a URL
+>**NOTE:** The following sections may use ``<Controller_IP>`` in a URL
 or command. Make note of your Edge Controller’s IP address and
-substitute it in these instructions. 
+substitute it in these instructions.
 
-Select **Configure &
-Download** to download
-the reference implementation and then follow the steps below to install
-it.
+Select **Configure & Download** to download the reference implementation and
+then follow the steps below to install it.
 
 [Configure &
 Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/wireless_network_ready_intelligent_traffic_management)
@@ -150,47 +146,48 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/wirele
     before proceeding further.
 
 
-2.  If you are behind a proxy network, please ensure that proxy addresses are configured in the system.
+2.  If you are behind a proxy network, be sure that proxy addresses are configured in the system:
 
     ```
     export http_proxy=proxy-address:proxy-port
-    
     export https_proxy=proxy-address:proxy-port
     ```
 
-3.  Under the user deploy PWEK, for example smartedge-open, download ITM RI package.
+3.  Under the user deploy PWEK, for example smartedge-open, download ITM RI package:
 
     ```
     mkdir path-of-downloaded-directory
-
     ```
 
-4.  Open a new terminal and move the downloaded .zip package to the /home/smartedge-open folder.
-    ```    
+4.  Open a new terminal and move the downloaded .zip package to the ``/home/smartedge-open`` folder:
+    ```
     mv path-of-downloaded-directory/wireless_network_ready_intelligent_traffic_management.zip /home/smartedge-open
     ```
 
-5.  Go to the /home/smartedge-open directory using the following command
-    and unzip the RI.
+5.  Go to the ``/home/smartedge-open`` directory using the following command
+    and unzip the RI:
     ```
     cd /home/smartedge-open
-    
     unzip wireless_network_ready_intelligent_traffic_management.zip
     ```
 
-6.  Go to the wireless_network_ready_intelligent_traffic_management/
-    directory.
-
-    `cd wireless_network_ready_intelligent_traffic_management`
+6.  Go to the ``wireless_network_ready_intelligent_traffic_management/``
+    directory:
+    ```
+    cd wireless_network_ready_intelligent_traffic_management
+    ```
 
 7.  Change permissions of the executable edgesoftware file to enable
-    execution.
-
-    `chmod +x edgesoftware`
+    execution:
+    ```
+    chmod +x edgesoftware
+    ```
 
 8.  Run the command below to install the Reference Implementation:
 
-    `./edgesoftware install`
+    ```
+    ./edgesoftware install
+    ```
 
 9.  During the installation, you will be prompted for the Product Key.
     The Product Key is contained in the email you received from Intel
@@ -198,245 +195,255 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/wirele
 
     > **NOTE:** Installation logs are available at path:
     >
-    > /var/log/esb-cli/Wireless_NetworkReady_Intelligent_Traffic_Management_&lt;version&gt;/&lt;Component_Name&gt;/install.log
-    
-
-Figure 3: Product key
+    > ``/var/log/esb-cli/Wireless_NetworkReady_Intelligent_Traffic_Management_<version>/<Component_Name>/install.log``
 
 
-10.  When the installation is complete, you see the message “Installation
+    Figure 3: Product Key
+
+
+10. When the installation is complete, you see the message “Installation
     of package complete” and the installation status for each module.
 
-<img src="images/wnr_itm_4_install_success.png" />
+    <img src="images/wnr_itm_4_install_success.png" />
 
-Figure 4: Successful installation
+    Figure 4: Successful Installation
 
-11.  check the images of ITM.
+11. Check the ITM images with the command:
 
-&emsp;`docker images`
+    ```
+    docker images
+    ```
 
-<img src="images/itm-images-check.png" />
+    <img src="images/itm-images-check.png" />
 
-Figure 5: Run the commands below to deploy Grafana and InfluxDB containers
+Figure 5: Check Images
 
-### Step 2： Start to install the ITM application
+### Step 2: Install the ITM Application
 
-#### 1. Apply Network Attachment Definition
+1. Apply the Network Attachment Definition using the provided
+   ``net-sriov-itm.yaml`` file:
+   ```
+   cd wireless_network_ready_intelligent_traffic_management/Wireless_NetworkReady_Intelligent_Traffic_Management_5.0.0/Wireless_NetworkReady_Intelligent_Traffic_Management/WNR_ITM
 
-The network attachment file "net-sriov-itm.yaml" is provided. 
-```
- cd wireless_network_ready_intelligent_traffic_management/Wireless_NetworkReady_Intelligent_Traffic_Management_5.0.0/Wireless_NetworkReady_Intelligent_Traffic_Management/WNR_ITM
- # create Network Attachment Definition
-kubectl create -f net-sriov-itm.yaml
-```
+   # create Network Attachment Definition
+   kubectl create -f net-sriov-itm.yaml
+   ```
 
-#### 2. Apply the network policy
-The network policy file "itm_network_policy.yaml" is provided.
-```
-cd wireless_network_ready_intelligent_traffic_management/Wireless_NetworkReady_Intelligent_Traffic_Management_5.0.0/Wireless_NetworkReady_Intelligent_Traffic_Management/WNR_ITM
+2. Apply the network policy using the provided ``itm_network_policy.yaml`` file:
+   ```
+   cd wireless_network_ready_intelligent_traffic_management/Wireless_NetworkReady_Intelligent_Traffic_Management_5.0.0/Wireless_NetworkReady_Intelligent_Traffic_Management/WNR_ITM
 
-# create netpol for the ITM
-kubectl create -f itm_network_policy.yaml
-```
+   # create netpol for the ITM
+   kubectl create -f itm_network_policy.yaml
+   ```
 
-#### 3. Deploy Grafana and Influxdb
-The helm is used to deploy the Grafana and Influxdb pods.
-```
-cd WNR_ITM/deploy
-Cluster_ControllerIP=$(kubectl get node -o wide |grep control-plane | awk '{print $6}')
-helm install grafana ./grafana --set hostIP=${Cluster_ControllerIP}
-helm install influxdb ./influxdb
+3. Deploy Grafana and Influxdb pods using Helm:
+   ```
+   cd WNR_ITM/deploy
+   Cluster_ControllerIP=$(kubectl get node -o wide |grep control-plane | awk '{print $6}')
+   helm install grafana ./grafana --set hostIP=${Cluster_ControllerIP}
+   helm install influxdb ./influxdb
 
-# check the Grafana and Influxdb pod
-kubectl get pod -n smartedge-apps
+   # check the Grafana and Influxdb pod
+   kubectl get pod -n smartedge-apps
 
-NAME                        READY   STATUS    RESTARTS   AGE
-grafana-796b7f677-lsrh4     1/1     Running   0          44h
-influxdb-585c4b8bb5-8f2lc   1/1     Running   0          44h
-```
+   NAME                        READY   STATUS    RESTARTS   AGE
+   grafana-796b7f677-lsrh4     1/1     Running   0          44h
+   influxdb-585c4b8bb5-8f2lc   1/1     Running   0          44h
+   ```
 
-#### 4. Deploy the ITM application
-```
-# Get the Grafana sriov ip
-grafana_pod=$(kubectl get pod -n smartedge-apps |grep grafana | awk '{print $1}')
-sriov_IP=$(kubectl exec -n smartedge-apps ${grafana_pod} -- ip a s net1 | grep inet |awk '{print $2}' | cut -d '/' -f 1)
- 
-# helm install ITM
-cd WNR_ITM/deploy
-grafana_ip=$(kubectl get pod -n smartedge-apps -owide |grep grafana | awk '{print $6}')
-Passwd=admin
-helm install itm ./itm --set hostIP=${Cluster_ControllerIP} --set sriovIP=${sriov_IP} --set grafanaPassword="${Passwd}" --set grafanaHost=${grafana_ip}
- 
-# check the ITM pod
-kubectl get pod -n smartedge-apps
+4. Deploy the ITM application:
+   ```
+   # Get the Grafana sriov ip
+   grafana_pod=$(kubectl get pod -n smartedge-apps |grep grafana | awk '{print $1}')
+   sriov_IP=$(kubectl exec -n smartedge-apps ${grafana_pod} -- ip a s net1 | grep inet |awk '{print $2}' | cut -d '/' -f 1)
 
-NAME                   READY   STATUS    RESTARTS   AGE
-itm-75758c684f-cdxt5   1/1     Running   0          44h
-```
+   # helm install ITM
+   cd WNR_ITM/deploy
+   grafana_ip=$(kubectl get pod -n smartedge-apps -owide |grep grafana | awk '{print $6}')
+   Passwd=admin
+   helm install itm ./itm --set hostIP=${Cluster_ControllerIP} --set sriovIP=${sriov_IP} --set grafanaPassword="${Passwd}" --set grafanaHost=${grafana_ip}
 
-> NOTE: <Cluster_ControllerIP> is the cluster controller ip.
+   # check the ITM pod
+   kubectl get pod -n smartedge-apps
 
-#### 5. Start the nginx service in the Grafana pod
-Start the nginx service by executing the following commands in the controller node.
-```
-kubectl exec -n smartedge-apps ${grafana_pod} -- sudo sed -i "s/try_files \$uri \$uri\/ =404;/proxy_pass http:\/\/${Cluster_ControllerIP}:30300;/"  /etc/nginx/sites-available/default
-kubectl exec -n smartedge-apps ${grafana_pod} -- sudo nginx -g "daemon on;"
-```
+   NAME                   READY   STATUS    RESTARTS   AGE
+   itm-75758c684f-cdxt5   1/1     Running   0          44h
+   ```
 
-#### 6. Add routing rule for Grafana
-In the edge node perform the following commands to add an additional rule for Grafana.
-```
-# Login the edge node, and add an additional route rule for Grafana
-[smartedge-open@node]# docker ps | grep k8s_grafana_grafana* | awk '{print $1}'
-32e0eade6b0d
+   > NOTE: ``<Cluster_ControllerIP>`` is the cluster controller IP.
 
-[smartedge-open@node]# docker inspect -f {{.State.Pid}} 32e0eade6b0d
-86372
-[smartedge-open@node]# sudo nsenter -n -t 86372
+5. Start the nginx service in the Grafana pod by executing the following
+   commands on the controller node.
+   ```
+   kubectl exec -n smartedge-apps ${grafana_pod} -- sudo sed -i "s/try_files \$uri \$uri\/ =404;/proxy_pass http:\/\/${Cluster_ControllerIP}:30300;/"  /etc/nginx/sites-available/default
+   kubectl exec -n smartedge-apps ${grafana_pod} -- sudo nginx -g "daemon on;"
+   ```
 
-[smartedge-open@node]# sudo ip route add 192.171.1.0/24 via 6.6.6.11
+6. Add routing rule for Grafana on the edge node:
+   ```
+   # Login to the edge node, and add an additional route rule for Grafana
+   [smartedge-open@node]# docker ps | grep k8s_grafana_grafana* | awk '{print $1}'
+   32e0eade6b0d
 
-[smartedge-open@node]# route
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         gateway         0.0.0.0         UG    0      0        0 eth0
-6.6.6.0         0.0.0.0         255.255.255.0   U     0      0        0 net1
-gateway         0.0.0.0         255.255.255.255 UH    0      0        0 eth0
-192.171.1.0     6.6.6.11        255.255.255.0   UG    0      0        0 net1
-```
-> NOTE: The subnet 192.171.1.0/24 is the UE (User Equipment) network segment allocated by 5GC network functions.
+   [smartedge-open@node]# docker inspect -f {{.State.Pid}} 32e0eade6b0d
+   86372
+   [smartedge-open@node]# sudo nsenter -n -t 86372
+
+   [smartedge-open@node]# sudo ip route add 192.171.1.0/24 via 6.6.6.11
+
+   [smartedge-open@node]# route
+   Kernel IP routing table
+   Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+   default         gateway         0.0.0.0         UG    0      0        0 eth0
+   6.6.6.0         0.0.0.0         255.255.255.0   U     0      0        0 net1
+   gateway         0.0.0.0         255.255.255.255 UH    0      0        0 eth0
+   192.171.1.0     6.6.6.11        255.255.255.0   UG    0      0        0 net1
+   ```
+   > NOTE: The subnet 192.171.1.0/24 is the UE (User Equipment) network segment allocated by 5GC network functions.
 
 
-#### 7. Add routing rule for edgedns
-In the edge node perform the following commands to add an additional rule for egdedns.
+7. Add routing rule in the edge node to add an additional rule for edgeDNS.
 
-Create a net-attach-def resource for edgeDNS:
-```shell
-$ cat edgedns-net-attch-def.yaml
-apiVersion: sriovnetwork.openshift.io/v1
-kind: SriovNetwork
-metadata:
-  name: intel-sriov-edgedns
-  namespace: sriov-network-operator
-spec:
-  resourceName: intel_sriov_10G_VEDIOSTREAM
-  networkNamespace: smartedge-system
-  ipam: |-
-    {
-        "type": "host-local",
-        "subnet": "6.6.6.0/24",
-        "rangeStart": "6.6.6.66",
-        "rangeEnd": "6.6.6.66",
-        "routes": [{
-          "dst": "0.0.0.0/0"
-        }],
-        "gateway": "6.6.6.1"
-    }
-```
-```shell
-kubectl apply -f edgedns-net-attch-def.yaml
-```
-Patch the original edgedns daemonSet with the following patch:
-```shell
-$ cat edgedns-ds-patch.yaml
-spec:
-  template:
-    metadata:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: intel-sriov-edgedns
-    spec:
-      containers:
-      - name: edgedns
-        resources:
-          limits:
-            intel.com/intel_sriov_10G_VEDIOSTREAM: "1"
-          requests:
-            intel.com/intel_sriov_10G_VEDIOSTREAM: "1"
-```
-```shell
-kubectl patch ds -n smartedge-system edgedns --patch "$(cat edgedns-ds-patch.yaml)"
-```
-```
-# Login the edge node, and add an additional route rule for Grafana
-[smartedge-open@node]# docker ps | grep edgednssvr* | awk '{print $1}'
-6e4d8ea23ecb
+   Create a net-attach-def resource for edgeDNS:
 
-[smartedge-open@node]# docker inspect -f {{.State.Pid}} 6e4d8ea23ecb
-102569
-[smartedge-open@node]# sudo nsenter -n -t 102569
+   ```shell
+   $ cat edgedns-net-attch-def.yaml
+   apiVersion: sriovnetwork.openshift.io/v1
+   kind: SriovNetwork
+   metadata:
+   name: intel-sriov-edgedns
+   namespace: sriov-network-operator
+   spec:
+   resourceName: intel_sriov_10G_VEDIOSTREAM
+   networkNamespace: smartedge-system
+   ipam: |-
+      {
+         "type": "host-local",
+         "subnet": "6.6.6.0/24",
+         "rangeStart": "6.6.6.66",
+         "rangeEnd": "6.6.6.66",
+         "routes": [{
+            "dst": "0.0.0.0/0"
+         }],
+         "gateway": "6.6.6.1"
+      }
 
-[smartedge-open@node]# sudo ip route add 192.171.1.0/24 via 6.6.6.11
+   kubectl apply -f edgedns-net-attch-def.yaml
+   ```
+   Patch the original edgedns daemonSet with the following patch:
+   ```shell
+   $ cat edgedns-ds-patch.yaml
+   spec:
+   template:
+      metadata:
+         annotations:
+         k8s.v1.cni.cncf.io/networks: intel-sriov-edgedns
+      spec:
+         containers:
+         - name: edgedns
+         resources:
+            limits:
+               intel.com/intel_sriov_10G_VEDIOSTREAM: "1"
+            requests:
+               intel.com/intel_sriov_10G_VEDIOSTREAM: "1"
 
-[smartedge-open@node]# route
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         gateway         0.0.0.0         UG    0      0        0 eth0
-6.6.6.0         0.0.0.0         255.255.255.0   U     0      0        0 net1
-gateway         0.0.0.0         255.255.255.255 UH    0      0        0 eth0
-192.171.1.0     6.6.6.11        255.255.255.0   UG    0      0        0 net1
-```
+   kubectl patch ds -n smartedge-system edgedns --patch "$(cat edgedns-ds-patch.yaml)"
+   ```
+   Login to the edge node, and add an additional route rule for Grafana:
+   ```
+   [smartedge-open@node]# docker ps | grep edgednssvr* | awk '{print $1}'
+   6e4d8ea23ecb
 
-#### 8. Create a domain name for ITM
-In the controller node perform the following commands to add an additional rule for egdedns.
+   [smartedge-open@node]# docker inspect -f {{.State.Pid}} 6e4d8ea23ecb
+   102569
+   [smartedge-open@node]# sudo nsenter -n -t 102569
 
-```
-# Replace sriov-ip with real IP, you can get sriov-ip with command 'echo ${sriov_IP}'
-kubectl edgedns add www.wnr-itm.com:${sriov_IP}
-```
+   [smartedge-open@node]# sudo ip route add 192.171.1.0/24 via 6.6.6.11
 
-#### 9. Data Visualization on Grafana
+   [smartedge-open@node]# route
+   Kernel IP routing table
+   Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+   default         gateway         0.0.0.0         UG    0      0        0 eth0
+   6.6.6.0         0.0.0.0         255.255.255.0   U     0      0        0 net1
+   gateway         0.0.0.0         255.255.255.255 UH    0      0        0 eth0
+   192.171.1.0     6.6.6.11        255.255.255.0   UG    0      0        0 net1
+   ```
+
+8. Create a domain name for ITM on the controller node:
+
+   ```
+   # Replace sriov-ip with real IP, you can get sriov-ip with command 'echo ${sriov_IP}'
+   kubectl edgedns add www.wnr-itm.com:${sriov_IP}
+   ```
+
+### Step 3: Data Visualization on Grafana
 
 Check the Grafana dashboard in the UE browser.
 
-1.  Input the address "www.wnr-itm.com:3000". Login with user as admin and password as admin. No need to reset password, just skip. Click Home --> select one channel to check the ITM data
+1. Input the address "www.wnr-itm.com:3000". Login with user as ``admin`` and
+   password as ``admin``. No need to reset password, just skip. 
 
-2.  Click **Home** and Select the **ITM** to open the main dashboard.
+   Click Home --> select one channel to check the ITM data.
 
-<img src="images/wnr_itm_9_grafana_home_screen.png" />
+2. Click **Home** and Select the **ITM** to open the main dashboard.
 
-Figure 9: Grafana Home Screen
+   <img src="images/wnr_itm_9_grafana_home_screen.png" />
 
-<img src="images/wnr_itm_10_grafana_dashboard_list.png" />
+   Figure 9: Grafana Home Screen
 
-Figure 10: Grafana Dashboard list
+   <img src="images/wnr_itm_10_grafana_dashboard_list.png" />
 
-<img src="images/wnr_itm_13_grafana_dashboard_individual_camera_feed.png" />
+   Figure 10: Grafana Dashboard list
 
-Figure 11: Grafana Dashboard of an individual camera feed
+   <img src="images/wnr_itm_13_grafana_dashboard_individual_camera_feed.png" />
+
+   Figure 11: Grafana Dashboard of an individual camera feed
 
 
-### Step 3: Uninstall the Application
+### Step 4: Uninstall the Application
 
-1.  Check installed modules with the following command:
-    ```
-    cd /home/smartedge-open/wireless_network_ready_intelligent_traffic_management
+1. Check installed modules with the following command:
+   ```
+   cd /home/smartedge-open/wireless_network_ready_intelligent_traffic_management
 
-    ./edgesoftware list
-    ```
+   ./edgesoftware list
+   ```
 
-All installed modules will show as seen in the screen below:
+   All installed modules will be shown as seen in the screen below:
 
-<img src="images/wnr_itm_15_installed_modules_list.png" />
+   <img src="images/wnr_itm_15_installed_modules_list.png" />
 
-Figure 12: Installed modules list
+   Figure 12: Installed Modules List
 
-2.  Run the command below to uninstall all the modules:
+2. Run the command below to uninstall all the modules:
 
-    `./edgesoftware uninstall –a`
+   ```
+   ./edgesoftware uninstall –a
+   ```
 
-3.  Run the command below to uninstall the Wireless Network Ready ITM reference implementation:
+3. Run the command below to uninstall the Wireless Network Ready ITM reference
+   implementation:
 
-    `./edgesoftware uninstall <itm-id get from step 1>`
+   ```
+   ./edgesoftware uninstall <itm-id get from step 1>
+   ```
 
-<img src="images/wnr_itm_16_uninstall_modules.png" />
+   <img src="images/wnr_itm_16_uninstall_modules.png" />
 
-Figure 13: Uninstall modules
+   Figure 13: Uninstall modules
 
 
 ## Node Feature Discovery (NFD) Feature
-Wireless Network-Ready Intelligent Traffic Management uses Intel® Distribution of OpenVINO™ toolkit which is optimized for Intel® processors that
-support special instructions like AVX512VNNI for optimized performance.  This NFD features ensures
-to deploy the application on the node supported with these features. NFD is installed by [Intel® Smart Edge Open Developer Experience Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits) and running as two pods on [Intel® Smart Edge Open](https://software.intel.com/content/www/us/en/develop/tools/smart-edge-open.html).
+
+Wireless Network-Ready Intelligent Traffic Management uses Intel® Distribution
+of OpenVINO™ toolkit which is optimized for Intel® processors that support
+special instructions like AVX512VNNI for optimized performance. This NFD
+feature ensures to deploy the application on the node supported with these
+features. NFD is installed by [Intel® Smart Edge Open Developer Experience
+Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits)
+and running as two pods on [Intel® Smart Edge
+Open](https://software.intel.com/content/www/us/en/develop/tools/smart-edge-open.html).
 
 
 ```shell
@@ -484,7 +491,6 @@ cd /home/smartedge-open/wireless_network_ready_intelligent_traffic_management/Wi
 ```
 
 
-
 Use your preferred text editor to make the following file updates.
 
 In the next steps, the tag `<REPOSITORY_PATH>` indicates the path to the repository.
@@ -492,7 +498,7 @@ In the next steps, the tag `<REPOSITORY_PATH>` indicates the path to the reposit
 In the Change examples, replace the line indicated by - with the line indicated by +
 
 
-### Optional Steps 
+### Optional Steps
 
 #### Stop the Application
 
@@ -502,7 +508,9 @@ following commands.
 >**NOTE:** The following commands will remove all the running pods and
 the data and configuration stored in the device.
 
-`helm delete itm`
+```
+helm delete itm
+```
 
 ## Summary and Next Steps
 
@@ -541,29 +549,30 @@ resources:
 
 ### Pods status check
 
-Verify that the pods are “**Ready**” as well as in “**Running**” state
+Verify that the pods are **Ready** as well as in **Running** state
 using below command:
 
-`kubectl get pods -n smartedge-apps`
+```
+kubectl get pods -n smartedge-apps
+```
 
-If any pods are not in “Running” state, use the following command to get
-more information about the pod state:
+If any pods are not in **Running** state, use the following command to get more
+information about the pod state:
 
-`kubectl describe -n smartedge-apps pod <pod_name>`
+```
+kubectl describe -n smartedge-apps pod <pod_name>
+```
 
 ### Pod status shows “ContainerCreating” for long time
 
-If Pod status shows “ContainerCreating” or “Error” or “CrashLoopBackOff” for a while (5 minutes or more), run the following commands:
+If Pod status shows “ContainerCreating” or “Error” or “CrashLoopBackOff” for a
+while (5 minutes or more), run the following commands:
 
 ```
 reboot
-
 su
-  
 swapoff -a
-
 systemctl restart kubelet  # Wait till all pods are in “Running” state.
-
 ./edgesoftware install
 ```
 
@@ -571,7 +580,9 @@ systemctl restart kubelet  # Wait till all pods are in “Running” state.
 
 If you see any error related to subprocess, run the command below:
 
-`pip install --ignore-installed subprocess32==3.5.4`
+```
+pip install --ignore-installed subprocess32==3.5.4
+```
 
 ### Grafana Dashboard Not Showing on Browser
 
@@ -591,4 +602,6 @@ To attach the installation logs with your issue, execute the command below to co
 of the log files in tar.gz compressed format, e.g., **ITM.tar.gz**.
 
 
-`tar -czvf ITM.tar.gz /var/log/esb-cli/Wireless_NetworkReady_Intelligent_Traffic_Management_<version>/Component_name/install.log`
+```
+tar -czvf ITM.tar.gz /var/log/esb-cli/Wireless_NetworkReady_Intelligent_Traffic_Management_<version>/<Component_name>/install.log
+```
