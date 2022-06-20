@@ -220,104 +220,104 @@ Figure 5: Check Images
 
 ### Step 2: Install the ITM Application
 
-1. Apply the Network Attachment Definition using the provided
-   ``net-sriov-itm.yaml`` file:
-   ```
-   cd wireless_network_ready_intelligent_traffic_management/Wireless_NetworkReady_Intelligent_Traffic_Management_5.0.0/Wireless_NetworkReady_Intelligent_Traffic_Management/WNR_ITM
+1.  Apply the Network Attachment Definition using the provided
+    ``net-sriov-itm.yaml`` file:
+    ```
+    cd wireless_network_ready_intelligent_traffic_management/Wireless_NetworkReady_Intelligent_Traffic_Management_5.0.0/Wireless_NetworkReady_Intelligent_Traffic_Management/WNR_ITM
 
-   # create Network Attachment Definition
-   kubectl create -f net-sriov-itm.yaml
-   ```
+    # create Network Attachment Definition
+    kubectl create -f net-sriov-itm.yaml
+    ```
 
-2. Apply the network policy using the provided ``itm_network_policy.yaml`` file:
-   ```
-   cd wireless_network_ready_intelligent_traffic_management/Wireless_NetworkReady_Intelligent_Traffic_Management_5.0.0/Wireless_NetworkReady_Intelligent_Traffic_Management/WNR_ITM
+2.  Apply the network policy using the provided ``itm_network_policy.yaml`` file:
+    ```
+    cd wireless_network_ready_intelligent_traffic_management/Wireless_NetworkReady_Intelligent_Traffic_Management_5.0.0/Wireless_NetworkReady_Intelligent_Traffic_Management/WNR_ITM
 
-   # create netpol for the ITM
-   kubectl create -f itm_network_policy.yaml
-   ```
+    # create netpol for the ITM
+    kubectl create -f itm_network_policy.yaml
+    ```
 
-3. Deploy Grafana and Influxdb pods using Helm:
-   ```
-   cd WNR_ITM/deploy
-   Cluster_ControllerIP=$(kubectl get node -o wide |grep control-plane | awk '{print $6}')
-   helm install grafana ./grafana --set hostIP=${Cluster_ControllerIP}
-   helm install influxdb ./influxdb
+3.  Deploy Grafana and Influxdb pods using Helm:
+    ```
+    cd WNR_ITM/deploy
+    Cluster_ControllerIP=$(kubectl get node -o wide |grep control-plane | awk '{print $6}')
+    helm install grafana ./grafana --set hostIP=${Cluster_ControllerIP}
+    helm install influxdb ./influxdb
 
-   # check the Grafana and Influxdb pod
-   kubectl get pod -n smartedge-apps
+    # check the Grafana and Influxdb pod
+    kubectl get pod -n smartedge-apps
 
-   NAME                        READY   STATUS    RESTARTS   AGE
-   grafana-796b7f677-lsrh4     1/1     Running   0          44h
-   influxdb-585c4b8bb5-8f2lc   1/1     Running   0          44h
-   ```
+    NAME                        READY   STATUS    RESTARTS   AGE
+    grafana-796b7f677-lsrh4     1/1     Running   0          44h
+    influxdb-585c4b8bb5-8f2lc   1/1     Running   0          44h
+    ```
 
-4. Deploy the ITM application:
-   ```
-   # Get the Grafana sriov ip
-   grafana_pod=$(kubectl get pod -n smartedge-apps |grep grafana | awk '{print $1}')
-   sriov_IP=$(kubectl exec -n smartedge-apps ${grafana_pod} -- ip a s net1 | grep inet |awk '{print $2}' | cut -d '/' -f 1)
+4.  Deploy the ITM application:
+    ```
+    # Get the Grafana sriov ip
+    grafana_pod=$(kubectl get pod -n smartedge-apps |grep grafana | awk '{print $1}')
+    sriov_IP=$(kubectl exec -n smartedge-apps ${grafana_pod} -- ip a s net1 | grep inet |awk '{print $2}' | cut -d '/' -f 1)
 
-   # helm install ITM
-   cd WNR_ITM/deploy
-   grafana_ip=$(kubectl get pod -n smartedge-apps -owide |grep grafana | awk '{print $6}')
-   Passwd=admin
-   helm install itm ./itm --set hostIP=${Cluster_ControllerIP} --set sriovIP=${sriov_IP} --set grafanaPassword="${Passwd}" --set grafanaHost=${grafana_ip}
+    # helm install ITM
+    cd WNR_ITM/deploy
+    grafana_ip=$(kubectl get pod -n smartedge-apps -owide |grep grafana | awk '{print $6}')
+    Passwd=admin
+    helm install itm ./itm --set hostIP=${Cluster_ControllerIP} --set sriovIP=${sriov_IP} --set grafanaPassword="${Passwd}" --set grafanaHost=${grafana_ip}
 
-   # check the ITM pod
-   kubectl get pod -n smartedge-apps
+    # check the ITM pod
+    kubectl get pod -n smartedge-apps
 
-   NAME                   READY   STATUS    RESTARTS   AGE
-   itm-75758c684f-cdxt5   1/1     Running   0          44h
-   ```
+    NAME                   READY   STATUS    RESTARTS   AGE
+    itm-75758c684f-cdxt5   1/1     Running   0          44h
+    ```
 
-   > NOTE: ``<Cluster_ControllerIP>`` is the cluster controller IP.
+    > NOTE: ``<Cluster_ControllerIP>`` is the cluster controller IP.
 
-5. Start the nginx service in the Grafana pod by executing the following
-   commands on the controller node.
-   ```
-   kubectl exec -n smartedge-apps ${grafana_pod} -- sudo sed -i "s/try_files \$uri \$uri\/ =404;/proxy_pass http:\/\/${Cluster_ControllerIP}:30300;/"  /etc/nginx/sites-available/default
-   kubectl exec -n smartedge-apps ${grafana_pod} -- sudo nginx -g "daemon on;"
-   ```
+5.  Start the nginx service in the Grafana pod by executing the following
+    commands on the controller node.
+    ```
+    kubectl exec -n smartedge-apps ${grafana_pod} -- sudo sed -i "s/try_files \$uri \$uri\/ =404;/proxy_pass http:\/\/${Cluster_ControllerIP}:30300;/"  /etc/nginx/sites-available/default
+    kubectl exec -n smartedge-apps ${grafana_pod} -- sudo nginx -g "daemon on;"
+    ```
 
-6. Add routing rule for Grafana on the edge node:
-   ```
-   # Login to the edge node, and add an additional route rule for Grafana
-   [smartedge-open@node]# docker ps | grep k8s_grafana_grafana* | awk '{print $1}'
-   32e0eade6b0d
+6.  Add routing rule for Grafana on the edge node:
+    ```
+    # Login to the edge node, and add an additional route rule for Grafana
+    [smartedge-open@node]# docker ps | grep k8s_grafana_grafana* | awk '{print $1}'
+    32e0eade6b0d
 
-   [smartedge-open@node]# docker inspect -f {{.State.Pid}} 32e0eade6b0d
-   86372
-   [smartedge-open@node]# sudo nsenter -n -t 86372
+    [smartedge-open@node]# docker inspect -f {{.State.Pid}} 32e0eade6b0d
+    86372
+    [smartedge-open@node]# sudo nsenter -n -t 86372
 
    [smartedge-open@node]# sudo ip route add 192.171.1.0/24 via 6.6.6.11
 
-   [smartedge-open@node]# route
-   Kernel IP routing table
-   Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-   default         gateway         0.0.0.0         UG    0      0        0 eth0
-   6.6.6.0         0.0.0.0         255.255.255.0   U     0      0        0 net1
-   gateway         0.0.0.0         255.255.255.255 UH    0      0        0 eth0
-   192.171.1.0     6.6.6.11        255.255.255.0   UG    0      0        0 net1
-   ```
-   > NOTE: The subnet 192.171.1.0/24 is the UE (User Equipment) network segment allocated by 5GC network functions.
+    [smartedge-open@node]# route
+    Kernel IP routing table
+    Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+    default         gateway         0.0.0.0         UG    0      0        0 eth0
+    6.6.6.0         0.0.0.0         255.255.255.0   U     0      0        0 net1
+    gateway         0.0.0.0         255.255.255.255 UH    0      0        0 eth0
+    192.171.1.0     6.6.6.11        255.255.255.0   UG    0      0        0 net1
+    ```
+    > NOTE: The subnet 192.171.1.0/24 is the UE (User Equipment) network segment allocated by 5GC network functions.
 
 
-7. Add routing rule in the edge node to add an additional rule for edgeDNS.
+7.  Add routing rule in the edge node to add an additional rule for edgeDNS.
 
-   Create a net-attach-def resource for edgeDNS:
+    Create a net-attach-def resource for edgeDNS:
 
-   ```shell
-   $ cat edgedns-net-attch-def.yaml
-   apiVersion: sriovnetwork.openshift.io/v1
-   kind: SriovNetwork
-   metadata:
-   name: intel-sriov-edgedns
-   namespace: sriov-network-operator
-   spec:
-   resourceName: intel_sriov_10G_VEDIOSTREAM
-   networkNamespace: smartedge-system
-   ipam: |-
+    ```shell
+    $ cat edgedns-net-attch-def.yaml
+    apiVersion: sriovnetwork.openshift.io/v1
+    kind: SriovNetwork
+    metadata:
+    name: intel-sriov-edgedns
+    namespace: sriov-network-operator
+    spec:
+    resourceName: intel_sriov_10G_VEDIOSTREAM
+    networkNamespace: smartedge-system
+    ipam: |-
       {
          "type": "host-local",
          "subnet": "6.6.6.0/24",
@@ -329,60 +329,60 @@ Figure 5: Check Images
          "gateway": "6.6.6.1"
       }
 
-   kubectl apply -f edgedns-net-attch-def.yaml
-   ```
-   Patch the original edgedns daemonSet with the following patch:
-   ```shell
-   $ cat edgedns-ds-patch.yaml
-   spec:
-   template:
-      metadata:
-         annotations:
-         k8s.v1.cni.cncf.io/networks: intel-sriov-edgedns
-      spec:
-         containers:
-         - name: edgedns
-         resources:
-            limits:
-               intel.com/intel_sriov_10G_VEDIOSTREAM: "1"
-            requests:
-               intel.com/intel_sriov_10G_VEDIOSTREAM: "1"
+    kubectl apply -f edgedns-net-attch-def.yaml
+    ```
+    Patch the original edgedns daemonSet with the following patch:
+    ```shell
+    $ cat edgedns-ds-patch.yaml
+    spec:
+    template:
+       metadata:
+          annotations:
+          k8s.v1.cni.cncf.io/networks: intel-sriov-edgedns
+       spec:
+          containers:
+          - name: edgedns
+          resources:
+             limits:
+                intel.com/intel_sriov_10G_VEDIOSTREAM: "1"
+             requests:
+                intel.com/intel_sriov_10G_VEDIOSTREAM: "1"
 
-   kubectl patch ds -n smartedge-system edgedns --patch "$(cat edgedns-ds-patch.yaml)"
-   ```
-   Login to the edge node, and add an additional route rule for Grafana:
-   ```
-   [smartedge-open@node]# docker ps | grep edgednssvr* | awk '{print $1}'
-   6e4d8ea23ecb
+    kubectl patch ds -n smartedge-system edgedns --patch "$(cat edgedns-ds-patch.yaml)"
+    ```
+    Login to the edge node, and add an additional route rule for Grafana:
+    ```
+    [smartedge-open@node]# docker ps | grep edgednssvr* | awk '{print $1}'
+    6e4d8ea23ecb
 
-   [smartedge-open@node]# docker inspect -f {{.State.Pid}} 6e4d8ea23ecb
-   102569
-   [smartedge-open@node]# sudo nsenter -n -t 102569
+    [smartedge-open@node]# docker inspect -f {{.State.Pid}} 6e4d8ea23ecb
+    102569
+    [smartedge-open@node]# sudo nsenter -n -t 102569
 
-   [smartedge-open@node]# sudo ip route add 192.171.1.0/24 via 6.6.6.11
+    [smartedge-open@node]# sudo ip route add 192.171.1.0/24 via 6.6.6.11
 
-   [smartedge-open@node]# route
-   Kernel IP routing table
-   Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-   default         gateway         0.0.0.0         UG    0      0        0 eth0
-   6.6.6.0         0.0.0.0         255.255.255.0   U     0      0        0 net1
-   gateway         0.0.0.0         255.255.255.255 UH    0      0        0 eth0
-   192.171.1.0     6.6.6.11        255.255.255.0   UG    0      0        0 net1
-   ```
+    [smartedge-open@node]# route
+    Kernel IP routing table
+    Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+    default         gateway         0.0.0.0         UG    0      0        0 eth0
+    6.6.6.0         0.0.0.0         255.255.255.0   U     0      0        0 net1
+    gateway         0.0.0.0         255.255.255.255 UH    0      0        0 eth0
+    192.171.1.0     6.6.6.11        255.255.255.0   UG    0      0        0 net1
+    ```
 
-8. Create a domain name for ITM on the controller node:
+8.  Create a domain name for ITM on the controller node:
 
-   ```
-   # Replace sriov-ip with real IP, you can get sriov-ip with command 'echo ${sriov_IP}'
-   kubectl edgedns add www.wnr-itm.com:${sriov_IP}
-   ```
+    ```
+    # Replace sriov-ip with real IP, you can get sriov-ip with command 'echo ${sriov_IP}'
+    kubectl edgedns add www.wnr-itm.com:${sriov_IP}
+    ```
 
 ### Step 3: Data Visualization on Grafana
 
 Check the Grafana dashboard in the UE browser.
 
 1. Input the address "www.wnr-itm.com:3000". Login with user as ``admin`` and
-   password as ``admin``. No need to reset password, just skip. 
+   password as ``admin``. No need to reset password, just skip.
 
    Click Home --> select one channel to check the ITM data.
 
