@@ -44,6 +44,7 @@ To run the reference implementation, you will need to first download and install
 *  **Time to Complete:**  20 - 25 minutes
 *  **Programming Language:**  Python\*
 *  **Software:**
+
    *  Intel® Distribution of OpenVINO™ toolkit 2021 Release
    *  Intel® Smart Edge Open 21.12
 
