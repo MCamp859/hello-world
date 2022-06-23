@@ -28,14 +28,17 @@ familiar with operating a stand-alone edge node.
 
 The Intel® Smart Edge Open Developer Experience Kit v3.0.0 version provides the
 flexibility to configure deployment in different modes using Edge Software
-Provisioner (ESP) or manual configuration. The modes include:
+Provisioner (ESP) or manual configuration. ESP automates the process of
+provisioning bare-metal or virtual machines with an operating system and software
+stack. The modes include:
 
 *  **Lean mode**, which deploys basic minimal services (like Calico cni,
    Grafana*, nfd, dns, kube-system, cert-manager) for developers to deploy
    different kinds of edge applications including reference implementations.
 
 *  **Default mode**, which deploys all services available with the Intel® Smart
-   Edge Open Developer Experience Kit.
+   Edge Open Developer Experience Kit. Security features enabled by default
+   except on MOROCITY platform. 
 
 *  **Custom mode**, which deploys microservices like Intel® Software Guard
    Extensions (Intel® SGX) and PCCS microservices, SR-IOV, harbor, telemetry,
@@ -92,7 +95,7 @@ Installations that enable either platform attestation using Intel® SecL - DC or
    - Ubuntu 20.04 LTS.
 - A Linux* system from which deployment of the controller node is initiated.
 
-#### Target System
+### Target System
 
 Target system where you will install the Intel® Smart Edge Open Developer
 Experience Kit to create an edge cluster.
@@ -122,30 +125,25 @@ tailored for its specific needs.
 
 The Intel® Smart Edge Open Developer Experience Kit is designed to support a variety of edge computing use cases. Below is the architecture of an edge node instantiated with platform attestation and application security features enabled:
 
-The kit consists of two clusters.
+The kit consists of two clusters, as shown in the diagram below.
 
 -	Cluster in the cloud or standalone VM, that hosts Intel® SecL - DC and Intel® SGX control plane services. These control plane services enable platform attestation and secure enclave for Edge applications and services.
 -	Cluster at the edge (typically on-premises) that hosts edge services and applications.
 
-![Smart Edge Open Developer Experience Kit - Deployment Diagram](./images/dek-deploy.PNG)
+![Smart Edge Open Developer Experience Kit - Deployment Diagram](./images/dek-deploy.png)
 
-**ZZZ MARY FIX**
+The following diagram shows the component stack of Intel® Smart Edge Open Developer Experience Kit edge and cloud cluster.
 
-Let us now look at the components stack of DEK edge and cloud cluster.
+![Smart Edge Open Developer Experience Kit - Edge Node Component Diagram](./images/dek-node-component-diagram.png)
 
-![Smart Edge Open Developer Experience Kit - Edge Node Component Diagram](./images/dek-node-component-diagram.PNG)
+The following diagram shows the component stack of Intel® Smart Edge Open Developer Experience Kit in Lean Mode.
 
-Let us now look at the components stack of Lean DEK edge .
+![Smart Edge Open Developer Experience Kit - Lean Edge Node Component Diagram](./images/dek-lean-component.png)
 
-![Smart Edge Open Developer Experience Kit - Lean Edge Node Component Diagram](./images/lean-dek-component-diagram.PNG)
+The integrated security features require that remote attestation services be deployed on an Amazon Web Services (AWS) EC2 instance or standalone VM, as shown in the following diagram.
 
-*Developer Experience Kit edge node with Intel® SecL-DC attestation enabled*
+![Smart Edge Open Developer Experience Kit - IsecL Controller and SGX DCAP Node Component Diagram](./images/verification-node-component-diagram.png)
 
-The integrated security features require that remote attestation services be deployed on an Amazon Web Services (AWS) EC2 instance or standalone VM.
-
-![Smart Edge Open Developer Experience Kit - IsecL Controller and SGX DCAP Node Component Diagram](./images/verification-node-component-diagram.PNG)
-
-*Remote attestation services deployed as a controller node on AWS*
 
 
 ## Building Blocks
@@ -163,15 +161,15 @@ SR-IOV Network Operator | NA | Enabled | Enable/Disable |
 cert-manager | Enabled | Enabled | Enabled |
 Node Feature Discovery (NFD) | Enabled | Enabled | Enabled |
 Harbor | NA | Enabled | Enable/Disable |
-Intel® SecL-DC | NA | Enable/Disable | Enable/Disable |
-Intel® SGX | NA | Enable/Disable | Enable/Disable |
+Intel® SecL-DC | NA | Enabled/Disabled(on MOROCITY platform) | Enable/Disable |
+Intel® SGX | NA | Enabled/Disabled(on MOROCITY platform) | Enable/Disable |
 Telemetry grafana | Enabled | Enabled | Enabled |
 Telemetry prometheus | NA | Enabled | Enable/Disable |
 Telemetry statsd, collectd | NA | Enabled | Enable/Disable |
 Telemetry cadvisor | NA | Enabled | Enable/Disable |
-Hugepages | NA | Disable | Enable/Disable |
-Rook ceph | NA | Disable | Enable/Disable |
-Kube-virt | NA | Disable | Enable/Disable |
+Hugepages | NA | Disabled | Enable/Disable |
+Rook ceph | NA | Disabled | Enable/Disable |
+Kube-virt | NA | Disabled | Enable/Disable |
 
 
 The Configurable Intel® Smart Edge Open Developer Experience Kit includes the following building blocks. For more information on a component, see that component’s documentation.
@@ -215,9 +213,11 @@ to download the Intel® Smart Edge Open Developer Experience Kit and then follo
    properly before continuing further.
 
 2. Confirm the steps below are followed:
-   - Proxy Settings
+   -  Proxy Settings
+
       If you are behind a proxy network, ensure that proxy addresses are configured in the system.
-      ```
+
+      ```Shell.bash
       https_proxy=<proxy-address>:<proxy-port>
       http_proxy=<proxy-address>:<proxy-port>
       HTTP_PROXY=<proxy-address>:<proxy-port>
@@ -242,8 +242,8 @@ to download the Intel® Smart Edge Open Developer Experience Kit and then follo
    set the password as ``smartedge-open`` for the user:
 
     ```Shell.bash
-    - sudo useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
-    - sudo passwd smartedge-open
+    sudo useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
+    sudo passwd smartedge-open
     ```
 
 4. Add sudoers permission to ``smartedge-open`` user:
@@ -256,8 +256,8 @@ to download the Intel® Smart Edge Open Developer Experience Kit and then follo
    configure ssh access:
 
     ```Shell.bash
-    - ssh-keygen
-    - ssh-copy-id smartedge-open@<server IP>
+    ssh-keygen
+    ssh-copy-id smartedge-open@<server IP>
     ```
 
 6. Copy the downloaded zip package to the Target Server user home directory.
@@ -290,15 +290,19 @@ to download the Intel® Smart Edge Open Developer Experience Kit and then follo
 
 11. During the installation, you will be prompted for the ESP Provisioning option. If you are using Provisioning setup to generate a USB bootable image, then select "Yes". If you are using direct deployment in target system, then select "No".
 
-    ![Smart Edge Open Developer Experience Kit - ESP field input Diagram](./images/ESP_lean_mode.PNG)
+    ![Smart Edge Open Developer Experience Kit - ESP field input Diagram](./images/ESP_lean_mode.png)
 
     Figure 1: ESP Lean mode input fields
+ 
+    ![Smart Edge Open Developer Experience Kit - ESP default mode input Diagram](./images/ESP_default_mode.png)
 
-    ![Smart Edge Open Developer Experience Kit - ESP custom.yml file changes](./images/ESP_custom_config.PNG)
+    Figure 2: ESP Default mode input fields
 
-    Figure 2: ESP custom.yml file changes
+    ![Smart Edge Open Developer Experience Kit - ESP custom.yml file changes](./images/ESP_custom_config.png)
 
-      > **NOTE:** If you selected the ESP option as "Yes", the deployment of the Intel® Smart Edge Open Developer Experience Kit will generate a ``custom.yml`` file and add feature flags based on deploy mode selected under the  ``group_vars:groups:all`` section. To prepare ESP bootable image with custom.yml config file, follow the steps here:  [build-and-run-the-provisioning services](https://github.com/smart-edge-open/docs/blob/smart-edge-open-22.03/experience-kits/developer-experience-kit.md#build-and-run-the-provisioning-services)
+    Figure 3: ESP custom.yml file changes
+
+      > **NOTE:** If you selected the ESP option as "Yes", the deployment of the Intel® Smart Edge Open Developer Experience Kit will pulls the latest repo and generate a ``custom.yml`` file and add feature flags based on deploy mode selected under the  ``group_vars:groups:all`` section. To prepare ESP bootable image with custom.yml config file, follow the steps here:  [build-and-run-the-provisioning services](https://github.com/smart-edge-open/docs/blob/smart-edge-open-22.03/experience-kits/developer-experience-kit.md#build-and-run-the-provisioning-services)
 
 12. Provide user inputs for required fields. As mentioned above, you can choose
     either Lean, Default, or Custom mode. The input fields vary depending on
@@ -333,48 +337,49 @@ to download the Intel® Smart Edge Open Developer Experience Kit and then follo
             kubectl exec -n isecl --stdin "$(kubectl get pod -n isecl -l app=cms -o jsonpath="{.items[0].metadata.name}")" -- cms tlscertsha384
             ```
          - isecl_control_plane_ip: ``<Attestation DEK cloud cluster / VM IP>``
+  
 
 13. Enter ``1`` if you wish to deploy in Lean mode as mentioned below.
 
-    ![Smart Edge Open Developer Experience Kit - Lean mode field input Diagram](./images/Lean_mode.PNG)
+    ![Smart Edge Open Developer Experience Kit - Lean mode field input Diagram](./images/Lean_mode.png)
 
-    Figure 3: Lean Mode Input Fields
+    Figure 4: Lean Mode Input Fields
 
     The configuration will be saved and will display on subsequent install as shown below.
 
-    ![Smart Edge Open Developer Experience Kit - Lean mode saved config Diagram](./images/lean_mode_found_previous.PNG)
+    ![Smart Edge Open Developer Experience Kit - Lean mode saved config Diagram](./images/lean_mode_found_previous.png)
 
-    Figure 4: Lean Mode Saved Configuration
+    Figure 5: Lean Mode Saved Configuration
 
 14. Enter ``2`` if you wish to deploy Default mode as mentioned below.
 
-    ![Smart Edge Open Developer Experience Kit - Default mode input Diagram](./images/default_mode.PNG)
+    ![Smart Edge Open Developer Experience Kit - Default mode input Diagram](./images/default_mode.png)
 
-    Figure 5: Default Mode Input Fields
+    Figure 6: Default Mode Input Fields
 
     The configuration will be saved and will display on subsequent install as shown below.
 
-    ![Smart Edge Open Developer Experience Kit - Default mode saved config Diagram](./images/default_mode_found_previous.PNG)
+    ![Smart Edge Open Developer Experience Kit - Default mode saved config Diagram](./images/default_mode_found_previous.png)
 
-    Figure 6: Default Mode Saved Configuration
+    Figure 7: Default Mode Saved Configuration
 
 15. Enter ``3`` if you wish to deploy Custom mode as mentioned below.
 
-    ![Smart Edge Open Developer Experience Kit - Custom mode field inputs Diagram](./images/custom_mode.PNG)
+    ![Smart Edge Open Developer Experience Kit - Custom mode field inputs Diagram](./images/custom_mode.png)
 
-    Figure 7: Custom Mode Input Fields
+    Figure 8: Custom Mode Input Fields
 
     The configuration will be saved and will display on subsequent install as shown below.
 
-    ![Smart Edge Open Developer Experience Kit - Custom mode saved config Diagram](./images/custom_found_previous.PNG)
+    ![Smart Edge Open Developer Experience Kit - Custom mode saved config Diagram](./images/custom_found_previous.png)
 
-    Figure 8: Custom Mode Saved Configuration
+    Figure 9: Custom Mode Saved Configuration
 
 16. When the installation and deployment is complete, you see the message ``Installation of package complete`` and the installation status for each module.
 
-    ![Smart Edge Open Developer Experience Kit - Installed Diagram](./images/dek-installed-diagram.PNG)
+    ![Smart Edge Open Developer Experience Kit - Installed Diagram](./images/dek-installed-diagram.png)
    
-    Figure 9: Installed Successfully
+    Figure 10: Installed Successfully
 
 > **NOTE:** Installation logs are available at the following path:
 ``/var/log/esb-cli/Smart_Edge_Open_Developer_Experience_Kits_<version>/Smart_Edge_Open_Developer_Experience_Kits/install.log``
@@ -386,23 +391,30 @@ to download the Intel® Smart Edge Open Developer Experience Kit and then follo
     ```Shell.bash
     kubectl get pods -A
     ```
-    ![Smart Edge Open Developer Experience Kit - Pods Status Diagram](./images/dek-pods-status-diagram.PNG)
+    ![Smart Edge Open Developer Experience Kit - Pods Status Diagram](./images/dek-pods-status-diagram.png)
     
-    Figure 10: Pods Status
+    Figure 11: Pods Status
 
 ### Uninstall the Intel® Smart Edge Open Developer Experience Kit
 
 To remove the Intel® Smart Edge Open Developer Experience Kit, run the command:
 
-    ```Shell.bash
-    ./edgesoftware uninstall -a
-    ```
+```Shell.bash
+./edgesoftware uninstall -a
+```
 
 You will see output similar to:
 
-    ![Smart Edge Open Developer Experience Kit - dek uninstall Diagram](./images/dek-uninstall-diagram.PNG)
+![Smart Edge Open Developer Experience Kit - dek uninstall Diagram](./images/dek-uninstall-diagram.png)
 
-    Figure 11: Uninstalled Successfully
+Figure 12: Uninstalled Successfully
+
+![Smart Edge Open Developer Experience Kit - dek uninstall fail Diagram](./images/dek-uninstall-failure.png)
+   
+Figure 13: Uninstalled Failed
+
+ 
+> **NOTE:** If you selected ESP option as "NO" (manual deployment), this uninstall/cleanup will FAIL, as the Intel® Smart Edge Open Developer Kit does not support uninstall/cleanup. Have to reflash the server with the Ubuntu 20.04 LTS OS as per the pre-requisites to continue.
 
 
 ### Summary and Next Steps
