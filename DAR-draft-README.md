@@ -77,7 +77,7 @@ implementation installation.
 1. Open a new terminal, go to the downloaded folder and unzip the downloaded RI package.
 
    ```bash
-   driver_action_recognition.zip
+   unzip driver_action_recognition.zip
    ```
 
 2. Go to the `driver_action_recognition/` directory.
