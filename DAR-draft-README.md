@@ -76,19 +76,27 @@ implementation installation.
 
 1. Open a new terminal, go to the downloaded folder and unzip the downloaded RI package.
 
-   `driver_action_recognition.zip`
+   ```bash
+   driver_action_recognition.zip
+   ```
 
 2. Go to the `driver_action_recognition/` directory.
 
-   `cd driver_action_recognition/`
+   ```bash
+   cd driver_action_recognition/
+   ```
 
 3. Change permission of the executable *edgesoftware* file.
 
-   `chmod 755 edgesoftware`
+   ```bash
+   chmod 755 edgesoftware
+   ```
 
 4. Run the command below to install the Reference Implementation.
 
-   `./edgesoftware install`
+   ```bash
+   ./edgesoftware install
+   ```
 
 5. During the installation, you will be prompted for the **Product Key**. The **Product Key** is contained in the email you received from Intel confirming your download.
 
@@ -110,7 +118,9 @@ available at the path:
 
 7. In order to start the application, you need to change the directory using the cd command printed at the end of the installation process:
 
-   `cd <INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase`
+   ```bash
+   cd <INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase
+   ```
 
 ### Step 2: Run the Application
 
@@ -120,11 +130,15 @@ available at the path:
 
 1. Run the application. Copy and run the `make webui` command from the end of the installation:
 
-   `make webui EII_BASE=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase`
+   ```bash
+   make webui EII_BASE=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase
+   ```
 
    For example: 
 
-   `make webui EII_BASE=/home/intel/driver_action_recognition/Driver_Action_Recognition_2022.1/IEdgeInsights REPO_FOLDER=/home/intel/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase`
+   ```bash
+   make webui EII_BASE=/home/intel/driver_action_recognition/Driver_Action_Recognition_2022.1/IEdgeInsights REPO_FOLDER=/home/intel/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase
+   ```
 
 2. Open the Web UI. Go to **127.0.0.1:9099** on your web browser.
 
@@ -219,7 +233,9 @@ To run this task you will need to download and install [Road Sign Detection and 
 
 1. Change directory to **Driver Action Recognition Use Case** path on terminal 1:
 
-   `cd <INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase`
+   ```bash
+   cd <INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase
+   ```
 
    ![A window showing 2 system consoles in side-by-side view.](docs/driver-action-recognition-change-directory.png)
 
@@ -227,7 +243,9 @@ To run this task you will need to download and install [Road Sign Detection and 
 
 2. Change directory to **Road Sign Detection and Classification Use Case** path on terminal 2:
 
-   `cd <INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase`
+   ```bash
+   cd <INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase
+   ```
 
    ![A window showing 2 system consoles. Each console is displaying a different directory.](docs/driver-action-recognition-change-directory2.png)
 
@@ -235,11 +253,15 @@ To run this task you will need to download and install [Road Sign Detection and 
 
 3. Run the following command on terminal 1 to start the webserver application. Copy and run the `make webui` command from the end of the installation:
 
-   `make webui EII_BASE=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase`
+   ```bash
+   make webui EII_BASE=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/driver_action_recognition/EII-DriverActionRecognition-UseCase
+   ```
 
 4. Run the following command on terminal 2 to start the webserver application. Copy and run the `make webui` command from the end of the installation:
 
-   `make webui EII_BASE=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase`
+   ```bash
+   make webui EII_BASE=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase
+   ```
 
    ![A window showing 2 system consoles. Each console is running a different application.](docs/driver-action-recognition-webserver-app.png)
 
@@ -302,19 +324,27 @@ You must stop/force stop existing containers and images.
 
 -  To remove all stopped containers, dangling images, and unused networks:
 
-   `sudo docker system prune --volumes`
+   ```bash
+   sudo docker system prune --volumes
+   ```
 
 -  To stop Docker containers:
 
-   `sudo docker stop $(sudo docker ps -aq)`
+   ```bash
+   sudo docker stop $(sudo docker ps -aq)
+   ```
 
 -  To remove Docker containers:
 
-   `sudo docker rm $(sudo docker ps -aq)`
+   ```bash
+   sudo docker rm $(sudo docker ps -aq)
+   ```
 
 -  To remove all Docker images:
 
-   `sudo docker rmi -f $(sudo docker images -aq)`
+   ```bash
+   sudo docker rmi -f $(sudo docker images -aq)
+   ```
 
 ### Docker Image Build Failure
 
@@ -322,15 +352,21 @@ If Docker image build on corporate network fails, follow the steps below.
 
 1. Get DNS server using the command:
 
-   `nmcli dev show | grep 'IP4.DNS'`
+   ```bash
+   nmcli dev show | grep 'IP4.DNS'
+   ```
 
 2. Configure Docker to use the server. Paste the line below in the `/etc/docker/daemon.json` file:
 
-   `{ "dns": ["<dns-server-from-above-command>"]}`
+   ```bash
+   { "dns": ["<dns-server-from-above-command>"]}
+   ```
 
 3. Restart Docker:
 
-   `sudo systemctl daemon-reload && sudo systemctl restart docker`
+   ```bash
+   sudo systemctl daemon-reload && sudo systemctl restart docker
+   ```
 
 ### Installation Failure Due to Ubuntu Timezone Setting
 
@@ -340,7 +376,9 @@ While building the reference implementation, if you see `/etc/timezone && apt-ge
 
 Run the following command in your terminal:
 
-`sudo timedatectl set-local-rtc 0`
+```bash
+   sudo timedatectl set-local-rtc 0
+```
 
 ### Installation Encoding Issue
 
@@ -348,19 +386,25 @@ While building the reference implementation, if you see `ERROR: 'latin-1' codec 
 
 Run the following command in your terminal:
 
-`export LANG=en_US.UTF-8`
+```bash
+   export LANG=en_US.UTF-8
+```
 
 ### Can't Connect to Docker Daemon
 
 If you can't connect to docker daemon at http+docker://localhost, run the following command in your terminal:
 
-`sudo usermod -aG docker $USER`
+```bash
+   sudo usermod -aG docker $USER
+```
 
 Log out and log back in to Ubuntu.
 
 Check before retrying to install if group Docker is available for you by running the following command in a terminal:
 
-`groups`
+```bash
+   groups
+```
 
 The output should contain “docker”.
 
