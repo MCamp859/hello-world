@@ -11,8 +11,7 @@ Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/dow
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/driver_behavior_analytics)
 
-![Screenshot of running Driver Behavior Analytics.](docs/driver-behavior-ri-landing.png)
-
+<img src="docs/driver-behavior-ri-landing.png" alt="Screenshot of running Driver Behavior Analytics." width="450"/>
 
 -  **Time to Complete:** Approximately 60 minutes
 -  **Programming Language:** C++, Python*
@@ -172,7 +171,7 @@ click on the **Save Credentials** and **Save Token** buttons.
    ```
 
    Open the video sample you will use to run the use case with your preferred
-   video player. Make a screen shot profile picture of the driver's face.
+   video player. Make a screenshot profile picture of the driver's face.
 
    Access the **Driver** tab on the dashboard. In **Settings**, add the profile
    picture and a driver name. Click on the **Add Driver** button.
