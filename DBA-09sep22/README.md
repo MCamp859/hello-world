@@ -11,7 +11,7 @@ Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/dow
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/driver_behavior_analytics)
 
-<img src="docs/driver-behavior-ri-landing.png" alt="Screenshot of running Driver Behavior Analytics." width="450"/>
+![Screenshot of running Driver Behavior Analytics.](docs/driver-behavior-ri-landing.png)
 
 -  **Time to Complete:** Approximately 60 minutes
 -  **Programming Language:** C++, Python*
@@ -444,7 +444,7 @@ Check before retrying to install if group Docker is available for you by running
 groups
 ```
 
-The output should contain “docker”.
+The output should contain "docker".
 
 ### Support Forum
 If you're unable to resolve your issues, contact the [Support Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
