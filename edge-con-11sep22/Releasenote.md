@@ -14,11 +14,9 @@ Select [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download
 [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download/home/edge_conductor)
 
 
-| Table 1 |  |
-| ----------- | ----------- |
-| Time to Complete | Approximately 90 minutes |
-| Programming Language | Go* |
-| Available Software | Intel® Edge Conductor and Edge Conductor Add-on  |
+-  **Time to Complete:** Approximately 90 minutes
+-  **Programming Language:** Go*
+-  **Available Software:** Intel® Edge Conductor and Edge Conductor Add-on
 
 
 ## HW Requirements for Edge Conductor Day-0 Host
@@ -77,7 +75,9 @@ Proxy setup:
 
 ## How It Works
 
-<img src="./EC_Arch2.png"/>
+![The architecture is represented by a complex block diagram.](./edge-conductor-arch-diagram.png)
+
+Figure 1: Architecture Diagram
 
 Edge Conductor can be used to deploy Kubernetes clusters in several different
 ways. All of the deployment methods rely on a "Day-0" host machine, which is a
@@ -106,14 +106,19 @@ on a management console to operate and administer the cluster.
     OpenShift cluster or similar Kubernetes deployment. In this model only
     services are deployed and managed by the Edge Conductor tools. The Day-0 machine
     and management cluster are assumed to already exist.
-	
-<img src="./EC_Architecture.png"/>
 
-Edge Conductor is composed of 3 main layers
+![The framework is represented by a complex block diagram.](./edge-conductor-framework.png)
 
-*	Services Layer -  This layer provides support different orchestrated services like Prometheus, Nginx, Redfish and Portainer.
-*	Orchestration Layer- This Layer provides Kubernetes API and extensions
-*	Platform Software Layer – This layer provides support for different hypervisors, Provisioning mechanism and  OS support
+
+Figure 2: Edge Conductor Framework
+
+Edge Conductor is composed of 3 main layers:
+
+*  Services Layer - This layer provides support different orchestrated services
+   like Prometheus, Nginx, Redfish and Portainer.
+*  Orchestration Layer - This layer provides Kubernetes API and extensions.
+*  Platform Software Layer – This layer provides support for different
+   hypervisors, Provisioning mechanism and OS support.
 
 
 ## Getting Started
