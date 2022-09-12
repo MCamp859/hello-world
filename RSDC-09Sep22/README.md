@@ -19,6 +19,7 @@ Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/dow
 Recipient is solely responsible for compliance with all applicable regulatory standards and safety, privacy, and security related requirements concerning Recipient's use of the Intel hardware and software.\
 Recipient is solely responsible for any and all integration tasks, functions, and performance in connection with use of the Intel hardware or software as part of a larger system. Intel does not have sufficient knowledge of any adjoining, connecting, or component parts used with or possibly impacted by the Intel hardware or software or information about operating conditions or operating environments in which the Intel hardware or software may be used by Recipient.  Intel bears no responsibility, liability, or fault for any integration issues associated with the inclusion of the Intel hardware or software into a system.  It is Recipient’s responsibility to design, manage, and assure safeguards to anticipate, monitor, and control component, system, quality, and or safety failures.
 
+![Screenshot of running Reference Implementation.](docs/road-sign-detection-and-classification-ri-landing.png)
 
 -  **Time to Complete:** Approximately 60 minutes
 -  **Programming Language:** Python*
@@ -120,7 +121,7 @@ section at the end of this document. Installation failure logs will be
 available at the path:
 `/var/log/esb-cli/Road_Sign_Detection_and_Classification_2022.1/output.log`
 
-7. In order to start the application, you need to change the directory using the
+7. To start the application, change the directory using the
    cd command printed at the end of the installation process:
 
    ```bash
