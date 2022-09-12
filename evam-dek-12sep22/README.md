@@ -1,13 +1,8 @@
-```text
-SPDX-License-Identifier: Apache-2.0
-Copyright (c) 2021-2022 Intel Corporation
-```
-
 # Edge Video Analytics Microservice (EVAM) on Intel® Smart Edge Open Developer Experience Kit
 
-## **Overview**
+## Overview
 
-Edge video analytics microservice (EVAM) on Intel® Smart Edge Open Developer
+Edge Video Analytics Microservice (EVAM) on Intel® Smart Edge Open Developer
 Experience Kit provides an ability to user to perform video processing,
 inference, and analytics operations. Further more, the algorithms used for video
 analytics also provides an ability to perform object detection, classification,
@@ -19,7 +14,7 @@ such as video surveillance, healthcare, retail, entertainment and industrial.
 
 To run the reference implementation, you will need to first download and install
 the [Intel® Smart Edge Open Developer Experience
-Kit](<https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits>).
+Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
 
 Once you have installed the Intel® Smart Edge Open Developer Experience Kit,
 select [Configure &
@@ -28,24 +23,25 @@ to download the Edge video analytics microservice and the software listed below.
 
 ![Figure 13](./images/Image13.png)
 
-### **Table**
 
 -  **Time to Complete:** Approximately 60 - 90 minutes
 -  **Programming Language:** Python*
 -  **Software:**
+
    -  Intel® Smart Edge Open version 22.03 or above
    -  Edge Video Analytics Microservice
    -  Intel® DL Streamer Pipeline Server
    -  Intel® Distribution of OpenVINO™ toolkit
 
 
-## **Target System Requirements**
+## Target System Requirements
 
 ### Intel® Smart Edge Open Nodes
 
 - One of the following processors
   - Intel® Xeon® scalable processor
   - Icelake Xeon-D processors
+
 - At least 32 GB RAM
 - At least 64 GB hard drive
 - An Internet connection
@@ -53,7 +49,7 @@ to download the Edge video analytics microservice and the software listed below.
 
 ## How It Works
 
-### **Edge Video Analytics Microservice (EVAM) Architecture**
+### Edge Video Analytics Microservice (EVAM) Architecture
 
 Video Analytics basically refers to transforming video streams into insights
 through video processing, inference, and analytics operations.
@@ -79,7 +75,7 @@ The Intel® Smart Edge Open Developer Experience Kit platform infrastructure is 
 
 ![Figure 1 : Architectural Diagram](./images/Image1.jpg "Architectural Diagram")
 
-> NOTE: The microservice natively provides two modes of operation: Edge Video Analytics (EVA) Mode and Edge Insights for Industrial (EII) Mode. Here we are deploying the microservice in Edge Video Analytics (EVA) Mode only.
+>NOTE: The microservice natively provides two modes of operation: Edge Video Analytics (EVA) Mode and Edge Insights for Industrial (EII) Mode. Here we are deploying the microservice in Edge Video Analytics (EVA) Mode only.
 
 ## Get Started
 
@@ -100,7 +96,10 @@ Smart Edge Open Developer Experience Kit package.
 
 #### Hardware Requirements
 
-It's highly advised that your system satisfies the specifications listed in the **Target System Requirements** section of this document and also ensure that you have a fresh installation of the Intel® Smart Edge Open Developer Experience Kit.
+We recommend that your system satisfies the specifications listed in the
+[Target System Requirements](#target-system-requirements) section of this
+document. Also, be sure that you have a fresh installation of the Intel® Smart
+Edge Open Developer Experience Kit.
 
 #### Ensure that following steps are accomplished in Intel® Smart Edge Open Developer Experience Kit installation
 
@@ -172,7 +171,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
     - For single-device mode, only one machine is needed. (Both controller and edge node will be on the same device.)
 
     - For multi-device mode, make sure you have at least two machines (one for controller and other for Edge Node).
-        > NOTE: Multi-device mode is not supported in the current release.
+        >NOTE: Multi-device mode is not supported in the current release.
 2. Open a new terminal and login to server as a non-root user.
 
     ```shell
@@ -218,7 +217,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
 10. For internal installation, the helm charts are pushed to Intel Harbor Registry, to pull charts provide harbor Username and password during installation process. And, When the installation is complete, you see the message Installation of package complete and the installation status for each module.
 
-    > NOTE: Installation logs are available at: /var/log/esb-cli/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit_```<version>```/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit/install.log, Where ```<version>``` is the package version downloaded.
+    > NOTE: Installation logs are available at: ``/var/log/esb-cli/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit_<version>/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit/install.log``, Where ``<version>`` is the package version downloaded.
 
     ![Figure 3 : Installation Successful](./images/Image3.png "Installation Successful")
 
@@ -355,7 +354,7 @@ REST API definitions are available at RESTful Microservice interface.
 
 #### Pipeline Creation by sending REST request
 
-The following references provide the example json syntax pipeline creation using RESTful API's.
+The following references provide the example json syntax pipeline creation using RESTful APIs.
 
 ```shell
 curl --location -X POST '<http://localhost:30409/pipelines/<pipeline_name>/<model_name>>' \
@@ -379,7 +378,7 @@ curl --location -X POST '<http://localhost:30409/pipelines/<pipeline_name>/<mode
 }'
 ```
 
-To run the Object (Person, Vehicle, Bike) Detection use case with EVAM on Intel® Smart Edge Open Developer Experience Kit, a sample pipeline request is created for reference. A pipeline_create.sh script is created under sample_requests directory, go to sample_requests directory and execute it using ```./pipeline_create.sh```.
+To run the Object (Person, Vehicle, Bike) Detection use case with EVAM on Intel® Smart Edge Open Developer Experience Kit, a sample pipeline request is created for reference. A ``pipeline_create.sh`` script is created under sample_requests directory, go to sample_requests directory and execute it using ``./pipeline_create.sh``.
 
 ![Figure 8 : Running Pipeline](./images/Image8.png "Running Pipeline")
 
@@ -397,7 +396,7 @@ curl --location -X GET 'http://<Node-IP-address>:30409/pipelines/<Pipeline_name>
 
 > NOTE: The pipeline should be in the "RUNNING" state to view the output video. If the pipeline has already ended, then the state will be shown as "COMPLETED". Start it again with the curl command and then view the video output.
 
-#### Output visualization
+#### Output Visualization
 
 The output can be verified through the rtsp stream being published by the Gstreamer pipeline for the specific topic.
 
@@ -466,11 +465,13 @@ curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_2>/<Mo
 
 Here two different pipelines are created simultaneously. Let, say one is object_detection/person_vehicle_bike and other is object_classification/vehicle_attributes. Both are having different video file sources as per their use cases.
 
->Note: Both pipelines are having different path in "frame" section for visualization. One is having path vasserving1 and other is having vasserving2.
+>NOTE: Both pipelines are having different path in "frame" section for visualization. One is having path vasserving1 and other is having vasserving2.
 
 ![Figure 12 : Running Multiple Pipeline Simultaneously](./images/Image12.png "Running Multiple Pipeline Simultaneously")
 
-If there are two parallel pipelines created with their path in ```"frame"``` section are ```vasserving1``` and ```vasserving2``` respectively, their output streaming URLs will be:
+If there are two parallel pipelines created with their path in ``"frame"``
+section are ``vasserving1`` and ``vasserving2`` respectively, their output
+streaming URLs will be:
 
 ```shell
 rtsp://<Node-IP-address>:30410/vasserving1
@@ -481,69 +482,76 @@ rtsp://<Node-IP-address>:30410/vasserving2
 
 <!-- In this section, provide troubleshooting information for any likely issues and a link to support.-->
 
-1. If any issue is faced during installation, ensure that installation
-   prerequisites are configured properly.
+If any issue is faced during installation, ensure that installation
+prerequisites are configured properly.
 
-2. Pods Status Check
+#### Pods Status Check
 
-    Verify that the pods are Ready as well as in Running state using the following command:
+Verify that the pods are Ready as well as in Running state using the following
+command:
 
-    ```shell
-    kubectl get pods -A
-    ```
+```shell
+kubectl get pods -A
+```
 
-3. If pods are in “ImagePullBackOff” state for a long time
+#### Pods are in “ImagePullBackOff” state for a long time
 
-    Describe the pods using
+Describe the pods using the command:
 
-    ```shell
-    kubectl describe pod -n smartedge-apps <pod name>
-    ```
+```shell
+kubectl describe pod -n smartedge-apps <pod name>
+```
 
-    Fetch the image name with the tag and do a manual docker pull using below commands
+Fetch the image name with the tag and do a manual docker pull using the below
+commands:
 
-    ```shell
-    docker login
-    docker pull <image-name:tag>
-    ```
+```shell
+docker login
+docker pull <image-name:tag>
+```
 
-4. Pod status shows “ContainerCreating” for long time
+#### Pod status shows “ContainerCreating” for a long time
 
-    If Pod status shows **ContainerCreating** or **Error** or **CrashLoopBackOff** for 5 minutes or more, run uninstall command and install it again
+If Pod status shows **ContainerCreating** or **Error** or **CrashLoopBackOff**
+for 5 minutes or more, run uninstall command and install it again.
 
-    ```shell
-    ./edgesoftware uninstall -a
-    ./edgesoftware install
-    ```
+```shell
+./edgesoftware uninstall -a
+./edgesoftware install
+```
 
-5. Uninstallation Failure
+#### Uninstallation Failure
 
-    If uninstall command (./edgesoftware uninstall < module id >) fails, manually uninstall EVAM deployment, which are specific to EVAM pod.
+If uninstall command (./edgesoftware uninstall < module id >) fails, manually
+uninstall EVAM deployment, which are specific to EVAM pod.
 
-    ```shell
-    helm -n smartedge-apps uninstall evam
-    sudo rm -rf /var/lib/smartedge/evam/
-    ```
+```shell
+helm -n smartedge-apps uninstall evam
+sudo rm -rf /var/lib/smartedge/evam/
+```
 
-6. Installation and Debug Log Info File Path
+#### Installation and Debug Log Info File Path
 
-    Installation log info of Intel® Smart Edge Open Developer Experience Kit will be available at:
+Installation log info of Intel® Smart Edge Open Developer Experience Kit will be available at:
 
-    ```shell
-    /var/log/esb-cli/Smart_Edge_Open_Developer_Experience_Kits_3.0.0/Smart_Edge_Open_Developer_Experience_Kits/install.log
-    ```
+```shell
+/var/log/esb-cli/Smart_Edge_Open_Developer_Experience_Kits_<version>/Smart_Edge_Open_Developer_Experience_Kits/install.log
+```
 
-    Installation log info of Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience kit module will be available at:
+Installation log info of Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience kit module will be available at:
 
-    ```shell
-    /var/log/esb-cli/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit_1.0.0/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit/install.log, Where <version>is the package version downloaded.
-    ```
+```shell
+/var/log/esb-cli/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit_<version>/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit/install.log
+```
+
+Where ``<version>`` is the package version downloaded.
+
 
 ### Support Forum
 
 If you're unable to resolve your issues, contact the [Support Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
 
-Execute the command below to consolidate a list of the log files in tar.gz compressed format, e.g., **Edge_Video_Analytics_Microservice_on_Developer_Experience_kit.tar.gz.**
+Execute the command below to consolidate a list of the log files in tar.gz compressed format, e.g., ``Edge_Video_Analytics_Microservice_on_Developer_Experience_kit.tar.gz``
 
 ```shell
 tar -czvf Edge_Video_Analytics_Microservice_on_Developer_Experience_kit.tar.gz
