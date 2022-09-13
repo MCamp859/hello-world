@@ -212,7 +212,7 @@ Select [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download
 
     The file structure generated under the `_workspace` folder is:
 
-    ```shell
+    ```bash
     _workspace/
      ├── addon
      ├── bin
