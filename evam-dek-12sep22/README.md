@@ -384,6 +384,7 @@ REST API definitions are available at RESTful Microservice interface.
       "version": "app_dst"
    }
    ]
+   ```
 
 #### Create Pipeline by Sending REST Request
 
@@ -411,7 +412,11 @@ curl --location -X POST '<http://localhost:30409/pipelines/<pipeline_name>/<mode
 }'
 ```
 
-To run the Object (Person, Vehicle, Bike) Detection use case with EVAM on Intel® Smart Edge Open Developer Experience Kit, a sample pipeline request is created for reference. A ``pipeline_create.sh`` script is created under sample_requests directory, go to sample_requests directory and execute it using ``./pipeline_create.sh``.
+To run the Object (Person, Vehicle, Bike) Detection use case with EVAM on Intel®
+Smart Edge Open Developer Experience Kit, a sample pipeline request is created
+for reference. A ``pipeline_create.sh`` script is created under sample_requests
+directory, go to sample_requests directory and execute it using
+``./pipeline_create.sh``.
 
 ![A console window showing system output while running the pipeline create script.](./images/Image8.png)
 
@@ -419,7 +424,8 @@ Figure 8: Running Pipeline Script
 
 #### Check Pipeline Status
 
-After execution of REST request it will return a pipeline instance ID, which can be used to query the state of the pipeline.
+After execution of REST request it will return a pipeline instance ID, which can
+be used to query the state of the pipeline.
 
 The state of pipeline can be checked using following command:
 
@@ -451,7 +457,7 @@ Figure 10: RTSP Stream in VLC player
 
 Figure 11: Streaming Output Visualization
 
-#### Run Multiple Simultaneous Use Cases with EVAM
+### Run Multiple Simultaneous Use Cases with EVAM
 
 Multiple simultaneous pipelines can also created by invoking similar RESTful
 APIs as described above. When output frame passes through mqtt-broker, it is
