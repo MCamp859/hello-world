@@ -214,14 +214,14 @@ Select [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download
 
     ```bash
     _workspace/
-     ├── addon
-     ├── bin
-     ├── config
-     ├── experienceKit
-     ├── services     
-     ├── conductor -> bin/conductor
-     ├── kubectl -> bin/kubectl
-     └── workflow
+     |-- addon
+     |-- bin
+     |-- config
+     |-- experienceKit
+     |-- services     
+     |-- conductor -> bin/conductor
+     |-- kubectl -> bin/kubectl
+     |-- workflow
     ```
 
 Run ``./conductor help`` to see command line usage.
