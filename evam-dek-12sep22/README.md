@@ -2,15 +2,15 @@
 
 ## Overview
 
-Edge Video Analytics Microservice (EVAM) on Intel® Smart Edge Open Developer
-Experience Kit provides an ability to user to perform video processing,
-inference, and analytics operations. Further more, the algorithms used for video
-analytics also provides an ability to perform object detection, classification,
-identification, counting, and tracking on the input video stream. This allows
-user to simply put their own deep learning models and create pipelines. An
-application can use this deep learning models by configuring video analytics
-pipelines as per requirement. It is used in a wide range of business domains
-such as video surveillance, healthcare, retail, entertainment and industrial.
+Perform video processing, inference, and
+analytics operations using Edge Video Analytics Microservice (EVAM) on Intel® Smart Edge Open Developer
+Experience Kit. Furthermore, the algorithms used for video analytics also
+provide an ability to perform object detection, classification, identification,
+counting, and tracking on the input video stream. This allows users to set up
+their own deep learning models and create pipelines. An application can use
+these deep learning models by configuring video analytics pipelines as per
+requirement. It can be used in a wide range of business domains such as video
+surveillance, healthcare, retail, entertainment and industrial.
 
 To run the reference implementation, you will need to first download and install
 the [Intel® Smart Edge Open Developer Experience
@@ -21,7 +21,8 @@ select [Configure &
 Download](https://recipeconfigurator-quiet-toucan.apps1-bg-int.icloud.intel.com/iot/edgesoftwarehub/download/home/ri/edge_video_analytics_microservice_on_developer_experience_kit)
 to download the Edge video analytics microservice and the software listed below.
 
-![Figure 13](./images/Image13.png)
+
+![Edge Video Analytics Icon](./images/Image13.png)
 
 
 -  **Time to Complete:** Approximately 60 - 90 minutes
@@ -38,9 +39,9 @@ to download the Edge video analytics microservice and the software listed below.
 
 ### Intel® Smart Edge Open Nodes
 
-- One of the following processors
-  - Intel® Xeon® scalable processor
-  - Icelake Xeon-D processors
+- One of the following processors:
+  - Intel® Xeon® Scalable processor
+  - Intel® Xeon D processor
 
 - At least 32 GB RAM
 - At least 64 GB hard drive
@@ -71,11 +72,22 @@ the inference results. For REST API definition, refer to the [RESTful
 Microservice
 interface](https://github.com/intel/video-analytics-serving/blob/master/docs/restful_microservice_interfaces.md).
 
-The Intel® Smart Edge Open Developer Experience Kit platform infrastructure is used to deploy this Microservice. When Edge Video Analytics Microservice is deployed default pipelines and their respective models object detection, object classification, object tracking, face detection, emotion recognition, action recognition and ambient audio detection are already provided with it. Purpose of Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience Kit is to showcase that Users can use this Microservice in backend for their applications or Users can develop new pipeline according to their requirement.
+The Intel® Smart Edge Open Developer Experience Kit platform infrastructure is
+used to deploy this Microservice. When Edge Video Analytics Microservice is
+deployed default pipelines and their respective models object detection, object
+classification, object tracking, face detection, emotion recognition, action
+recognition and ambient audio detection are already provided with it. Purpose of
+Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience
+Kit is to showcase that Users can use this Microservice in backend for their
+applications or Users can develop new pipeline according to their requirement.
 
-![Figure 1 : Architectural Diagram](./images/Image1.jpg "Architectural Diagram")
+![The architecture is represented by a complex block diagram.](./images/Image1.jpg)
 
->NOTE: The microservice natively provides two modes of operation: Edge Video Analytics (EVA) Mode and Edge Insights for Industrial (EII) Mode. Here we are deploying the microservice in Edge Video Analytics (EVA) Mode only.
+Figure 1: Architecture Diagram
+
+>NOTE: The microservice natively provides two modes of operation: Edge Video
+>Analytics (EVA) Mode and Edge Insights for Industrial (EII) Mode. Here we are
+>deploying the microservice in Edge Video Analytics (EVA) Mode only.
 
 ## Get Started
 
@@ -86,7 +98,7 @@ The uninstall commands can be used to uninstall the application.
 
 ### Installation Prerequisites
 
-To run the reference implementation, you will need to first download and install
+To run the reference implementation, you need to first download and install
 the [Intel® Smart Edge Open Developer Experience
 Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
 
@@ -101,69 +113,69 @@ We recommend that your system satisfies the specifications listed in the
 document. Also, be sure that you have a fresh installation of the Intel® Smart
 Edge Open Developer Experience Kit.
 
-#### Ensure that following steps are accomplished in Intel® Smart Edge Open Developer Experience Kit installation
+#### Ensure that following steps are completed in Intel® Smart Edge Open Developer Experience Kit Installation
 
-1. **Proxy Settings**
-   If you are behind a proxy network, ensure that proxy addresses are configured in the system.  
+1. Proxy Settings
+   If you are behind a proxy network, ensure that proxy addresses are configured in the system.
 
-  ```shell
-  export http_proxy=<proxy-address>:<proxy-port>
-  export https_proxy=<proxy-address>:<proxy-port>
-  ```
+   ```shell
+   export http_proxy=<proxy-address>:<proxy-port>
+   export https_proxy=<proxy-address>:<proxy-port>
+   ```
 
-2. **Ensure /etc/wgetrc file is configured with required proxy settings as follows**
+2. Ensure the ``/etc/wgetrc`` file is configured with required proxy settings as follows:
   
-  ```shell
-  https_proxy=<proxy-address>:<proxy-port>
-  http_proxy=<proxy-address>:<proxy-port>
-  ftp_proxy =<proxy-address>:<proxy-port>
-  use_proxy = on
-  ```
+   ```shell
+   https_proxy=<proxy-address>:<proxy-port>
+   http_proxy=<proxy-address>:<proxy-port>
+   ftp_proxy =<proxy-address>:<proxy-port>
+   use_proxy = on
+   ```
 
-3. **Date and Time**
+3. Date and Time
 
    Make sure that the date and time are in sync with current local time.
 
-4. **A NON-Root User**
+4. Create Non-Root User
 
-   Make sure that non-root user with name and password smartedge-open and with
+   Make sure that non-root user with name and password ``smartedge-open`` and with
    sudoers permission is created. If not available, follow the instructions
    below.
 
    i. To create a user smartedge-open execute the command:  
 
       ```shell
-      $useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open  
-      $passwd smartedge-open
+      useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open  
+      passwd smartedge-open
       ```
 
    ii. A password for the given user is required:
 
-   ```shell
-   $passwd smartedge-open
-   ```
-
-   iii. As some tasks require root privileges, the non-root user needs to have a
-possibility to become a root:
-
-   ```shell
-   $echo “smartedge-open ALL=(ALL) NOPASSWD:ALL” | sudo tee /etc/sudoers.d/smartedge-open
-   ```
-
-   iv. Exchanging SSH Keys between hosts
-   
-      Exchanging SSH keys between hosts permits a password-less SSH connection from the host running Ansible to the hosts being set up. If password-less SSH is not permitted, follow the instructions below to exchange SSH keys between hosts. Generate and install the public key on your host by logging in as root and executing the below commands:
-
-      In the first command, the Edge Controller host must have a generated SSH key. The SSH key can be generated by executing ssh-keygen and obtaining the key from the output of the command.
-   
-      In the second command, the generated key must be copied to every Edge Node host, using the ssh-copy-id command.
-
       ```shell
-      $ssh-keygen
-      $ssh-copy-id smartedge-open@<host-name>
+      passwd smartedge-open
       ```
 
-### Installing the Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience Kit
+   iii. As some tasks require root privileges, the non-root user needs to have a
+        possibility to become a root:
+
+      ```shell
+      echo “smartedge-open ALL=(ALL) NOPASSWD:ALL” | sudo tee /etc/sudoers.d/smartedge-open
+      ```
+
+5. Exchanging SSH Keys between hosts
+   
+   Exchanging SSH keys between hosts permits a password-less SSH connection from the host running Ansible to the hosts being set up. If password-less SSH is not permitted, follow the instructions below to exchange SSH keys between hosts. Generate and install the public key on your host by logging in as root and executing the below commands:
+
+   In the first command, the Edge Controller host must have a generated SSH key. The SSH key can be generated by executing ssh-keygen and obtaining the key from the output of the command.
+
+   In the second command, the generated key must be copied to every Edge Node host, using the ssh-copy-id command.
+
+   ```shell
+   ssh-keygen
+   ssh-copy-id smartedge-open@<host-name>
+   ```
+
+### Install the Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience Kit
 
 Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-int.icloud.intel.com/iot/edgesoftwarehub/download/home/ri/edge_video_analytics_microservice_on_developer_experience_kit) to download the reference implementation and then follow the steps below to install it.
 
@@ -178,9 +190,9 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
     ssh smartedge-open@<server-ip-address>
     ```
 
-3. Confirm server should be configured with Intel® Smart Edge Open Developer Experience Kit as prerequisite.
+3. Confirm that the server is configured with Intel® Smart Edge Open Developer Experience Kit as prerequisite.
 
-4. Move the downloaded zip package to /home/smartedge-open folder.
+4. Move the downloaded zip package to ``/home/smartedge-open`` folder.
 
     ```shell
     mv <path-of-downloaded-directory>/edge_video_analytics_microservice_on_developer_experience_kit.zip /home/smartedge-open
@@ -201,48 +213,64 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
 7. Change permission of the executable edgesoftware file:
 
-    ```shell
-    chmod 755 edgesoftware
-    ```
+   ```shell
+   chmod 755 edgesoftware
+   ```
 
 8. Run the command below to install the Reference Implementation:
 
-    ```shell
-    ./edgesoftware install
-    ```
+   ```shell
+   ./edgesoftware install
+   ```
 
-9. Installation of the package starts.  
+9. Installation of the package starts.
 
-    ![Figure 2 : Installation Start Screen](./images/Image2.png "Installation Start Screen")
+   ![A console window showing system output during the install process.](./images/Image2.png)
 
-10. For internal installation, the helm charts are pushed to Intel Harbor Registry, to pull charts provide harbor Username and password during installation process. And, When the installation is complete, you see the message Installation of package complete and the installation status for each module.
+   Figure 2: Installation Start Screen
 
-    > NOTE: Installation logs are available at: ``/var/log/esb-cli/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit_<version>/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit/install.log``, Where ``<version>`` is the package version downloaded.
+10. For internal installation, the Helm charts are pushed to Intel Harbor
+    Registry. To pull charts, provide your Harbor Username and password during
+    the installation process. When the installation is complete, you see the
+    message ``Installation of package complete`` and the installation status for
+    each module.
 
-    ![Figure 3 : Installation Successful](./images/Image3.png "Installation Successful")
+    > NOTE: Installation logs are available at: ``/var/log/esb-cli/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit_<version>/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit/install.log``, where ``<version>`` is the package version downloaded.
 
-11. If Intel® Smart Edge Open Developer Experience Kit is installed, running the following command should show output similar to the image below. All the pods should be either in the running or completed stage.
+    ![A console window showing system output during the install process. At the end of the process, the system displays the message “Installation of package complete” and the installation status for each module.](./images/Image3.png)
 
-    ```shell
-    Kubectl get pods -A
-    ```
+   Figure 3: Installation Successful
 
-    ![Figure 4 : Pods Status](./images/Image4.png "Pods Status")
+11. If Intel® Smart Edge Open Developer Experience Kit is installed, running the
+    following command should show output similar to the image below. All the
+    pods should be either in the running or completed stage.
+
+   ```shell
+   kubectl get pods -A
+   ```
+
+   ![A console window showing system output after running the “kubectl get pods” command. The system displays a list of all the pods and the pod status. The expected status is “Running”.](./images/Image4.png)
+
+   Figure 4 : Pods Status
 
 12. If EVAM is installed, running the following command should show output as follows:
 
     ```shell
     smartedge-open@host:/home/smartedge-open/edge_video_analytics_microservice_on_developer_experience_kit$ kubectl get pods -n smartedge-apps
+
     NAME                                                           READY   STATUS    RESTARTS   AGE
     edge-video-analytics-microservice-with-mqtt-8479cb965c-vwq7n   2/2     Running   0          12m
     ```
 
-    ![Figure 5 : EVAM Pod Status](./images/Image5.png "EVAM Pod Status")
+    ![A console window showing system output after running the “kubectl get pods” command. The system displays a list of all the pods and the pod status. The expected status is “Running”.](./images/Image5.png)
+
+   Figure 5: EVAM Pod Status
 
 13. Run the command below to check the Docker* images and their details.
 
     ```shell
     smartedge-open@host:/home/smartedge-open/edge_video_analytics_microservice_on_developer_experience_kit$ docker images
+
     intel/edge_video_analytics_microservice      0.7.2         8919ec246253   8 weeks ago     2.89GB
     eclipse-mosquitto                            1.6           af43c2bdc1a9   4 months ago    11.5MB
     ```
@@ -253,7 +281,9 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
     ./edgesoftware list
     ```
   
-    ![Figure 6 : EVAM Module list](./images/Image6.png "EVAM Module list")
+    ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](./images/Image6.png)
+
+   Figure 6: EVAM Module List
 
 15. Uninstall the reference implementation module using the following command:
 
@@ -261,9 +291,11 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
     ./edgesoftware uninstall <evam-module-id>
     ```
 
-    ![Figure 7 : Uninstallation Successful](./images/Image7.png "Uninstallation Successful")
+    ![A console window showing the output of the "edgesoftware list" and "edgesoftware uninstall" commands. First, the system lists the installed modules. Next, the system displays output during the uninstall process. At the end of the process, the system displays the message “Uninstall finished” and the uninstallation status for each module.](./images/Image7.png)
 
-### Running Application with EVAM
+   Figure 7: Uninstallation Successful
+
+### Run Application with EVAM
 
 To run an application using EVAM its respective deep learning models and pipelines are required.
 
@@ -272,87 +304,88 @@ EVAM provides the RESTful APIs as Video Analytics Serving to discover, start, st
 EVAM also include MQTT and Kafka message brokers for publishing the inference results.
 REST API definitions are available at RESTful Microservice interface.
 
-#### Get the list of models and pipelines available using REST request
+#### Get the List of Available Models and Pipelines Using REST Request
 
-- Run the following command to get the list of models available in the EVAM:
+1. Run the following command to get the list of models available in the EVAM:
 
-    ```shell
-    curl --location -X GET 'http://<Node-IP-address>:30409/models'
-    ```
+   ```shell
+   curl --location -X GET 'http://<Node-IP-address>:30409/models'
+   ```
 
-    Example Output:
+   Example Output:
 
-    ```shell
-    [
-    {
-        "description": "object_classification",
-        "name": "object_classification",
-        "networks": {
-            "labels": null,
-            "model-proc": "/home/pipeline-server/models/object_classification/vehicle_attributes/vehicle-attributes-recognition-barrier-0039.json",
-            "networks": {
-                "FP16": "/home/pipeline-server/models/object_classification/vehicle_attributes/FP16/vehicle-attributes-recognition-barrier-0039.xml",
-                "FP32": "/home/pipeline-server/models/object_classification/vehicle_attributes/FP32/vehicle-attributes-recognition-barrier-0039.xml"
-            }
-        },
-        "type": "IntelDLDT",
-        "version": "vehicle_attributes"
-    }
-    ]
-    ```
+   ```shell
+   [
+   {
+      "description": "object_classification",
+      "name": "object_classification",
+      "networks": {
+         "labels": null,
+         "model-proc": "/home/pipeline-server/models/object_classification/vehicle_attributes/vehicle-attributes-recognition-barrier-0039.json",
+         "networks": {
+               "FP16": "/home/pipeline-server/models/object_classification/vehicle_attributes/FP16/vehicle-attributes-recognition-barrier-0039.xml",
+               "FP32": "/home/pipeline-server/models/object_classification/vehicle_attributes/FP32/vehicle-attributes-recognition-barrier-0039.xml"
+         }
+      },
+      "type": "IntelDLDT",
+      "version": "vehicle_attributes"
+   }
+   ]
+   ```
 
-- Run the following command to get the list of pipelines available in the microservice:
+2. Run the following command to get the list of pipelines available in the
+   microservice:
 
-    ```shell
-    curl --location -X GET 'http://<Node-IP-address:30409/pipelines'
-    ```
+   ```shell
+   curl --location -X GET 'http://<Node-IP-address:30409/pipelines'
+   ```
 
-    Example Output:
+   Example Output:
 
-    ```shell
-    [
-    {
-        "description": "Person Vehicle Bike Detection based on person-vehicle-bike-detection-crossroad-0078",
-        "name": "object_detection",
-        "parameters": {
-            "properties": {
-                "detection-device": {
-                "element": {
-                    "name": "detection",
-                    "property": "device"
-                    },
-                    "type": "string"
-                },
-                "detection-model-instance-id": {
-                    "element": {
-                    "name": "detection",
-                    "property": "model-instance-id"
-                    },
-                    "type": "string"
-                },
-                "inference-interval": {
-                    "element": "detection",
-                    "type": "integer"
-                },
-                "threshold": {
-                    "element": "detection",
-                    "type": "number"
-                }
-            },
-            "type": "object"
-        },
-        "type": "GStreamer",
-        "version": "person_vehicle_bike"
-    },
-    {
-        "description": "Decode Pipeline",
-        "name": "video_decode",
-        "type": "GStreamer",
-        "version": "app_dst"
-    }
-    ]
+   ```shell
+   [
+   {
+      "description": "Person Vehicle Bike Detection based on person-vehicle-bike-detection-crossroad-0078",
+      "name": "object_detection",
+      "parameters": {
+         "properties": {
+               "detection-device": {
+               "element": {
+                  "name": "detection",
+                  "property": "device"
+                  },
+                  "type": "string"
+               },
+               "detection-model-instance-id": {
+                  "element": {
+                  "name": "detection",
+                  "property": "model-instance-id"
+                  },
+                  "type": "string"
+               },
+               "inference-interval": {
+                  "element": "detection",
+                  "type": "integer"
+               },
+               "threshold": {
+                  "element": "detection",
+                  "type": "number"
+               }
+         },
+         "type": "object"
+      },
+      "type": "GStreamer",
+      "version": "person_vehicle_bike"
+   },
+   {
+      "description": "Decode Pipeline",
+      "name": "video_decode",
+      "type": "GStreamer",
+      "version": "app_dst"
+   }
+   ]
 
-#### Pipeline Creation by sending REST request
+#### Create Pipeline by Sending REST Request
 
 The following references provide the example json syntax pipeline creation using RESTful APIs.
 
@@ -380,23 +413,27 @@ curl --location -X POST '<http://localhost:30409/pipelines/<pipeline_name>/<mode
 
 To run the Object (Person, Vehicle, Bike) Detection use case with EVAM on Intel® Smart Edge Open Developer Experience Kit, a sample pipeline request is created for reference. A ``pipeline_create.sh`` script is created under sample_requests directory, go to sample_requests directory and execute it using ``./pipeline_create.sh``.
 
-![Figure 8 : Running Pipeline](./images/Image8.png "Running Pipeline")
+![A console window showing system output while running the pipeline create script.](./images/Image8.png)
 
-#### Checking status of pipeline
+Figure 8: Running Pipeline Script
+
+#### Check Pipeline Status
 
 After execution of REST request it will return a pipeline instance ID, which can be used to query the state of the pipeline.
 
-state of pipeline can be checked using following command:
+The state of pipeline can be checked using following command:
 
 ```shell
 curl --location -X GET 'http://<Node-IP-address>:30409/pipelines/<Pipeline_name>/<Model_name>/<Instance_ID>/status'
 ```
 
-![Figure 9 : Pipeline Status](./images/Image9.png "Pipeline Status")
+![A console window showing system output while checking the pipeline status. The expected state is Running.](./images/Image9.png)
+
+Figure 9: Pipeline Status
 
 > NOTE: The pipeline should be in the "RUNNING" state to view the output video. If the pipeline has already ended, then the state will be shown as "COMPLETED". Start it again with the curl command and then view the video output.
 
-#### Output Visualization
+#### Visualize Output
 
 The output can be verified through the rtsp stream being published by the Gstreamer pipeline for the specific topic.
 
@@ -406,16 +443,23 @@ To visualize the output after the pipeline is started using the curl/Json comman
 
 ```Start "VLC Media player" → Select "Media" → Select "Open Network Stream" → Enter the URL details in "Network Protocol" as shown below rtsp://<Node IP>:30410/vasserving1 and click on play to run.```
 
-![Figure 10 : RTSP Stream in VLC player](./images/Image10.png "RTSP Stream in VLC player")
+![A browser window showing the VLC Media Player.](./images/Image10.png)
 
-![Figure 11 : Streaming Output Visualization](./images/Image11.png "Streaming Output Visualization")
+Figure 10: RTSP Stream in VLC player
 
-#### Multiple simultaneous use case with EVAM
+![A web app showing output from the visualizer.](./images/Image11.png)
 
-Multiple simultaneous pipelines can also created by invoking similar RESTful APIs as described above.
-When output frame passes through mqtt-broker, it is available for visualization at a mentioned path in "frame" section. While invoking multiple pipelines parallelly make sure each pipeline request has different path for visualization.
+Figure 11: Streaming Output Visualization
 
-#### Pipeline 1 Creation: (Object Detection usecase)
+#### Run Multiple Simultaneous Use Cases with EVAM
+
+Multiple simultaneous pipelines can also created by invoking similar RESTful
+APIs as described above. When output frame passes through mqtt-broker, it is
+available for visualization at a mentioned path in "frame" section. While
+invoking multiple pipelines in parallel make sure each pipeline request has
+different path for visualization.
+
+#### Create Pipeline 1: Object Detection Use Case
 
 ```shell
 curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_1>/<Model_name_1>>' \
@@ -439,7 +483,7 @@ curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_1>/<Mo
 }'
 ```
 
-#### Pipeline 2 Creation: (Object Classification usecase)
+#### Create Pipeline 2: Object Classification Use Case
 
 ```shell
 curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_2>/<Model_name_2>>' \
@@ -463,11 +507,18 @@ curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_2>/<Mo
 }'
 ```
 
-Here two different pipelines are created simultaneously. Let, say one is object_detection/person_vehicle_bike and other is object_classification/vehicle_attributes. Both are having different video file sources as per their use cases.
+Here two different pipelines are created simultaneously. Let, say one is
+object_detection/person_vehicle_bike and other is
+object_classification/vehicle_attributes. Both pipelines use different video
+file sources as per their use cases.
 
->NOTE: Both pipelines are having different path in "frame" section for visualization. One is having path vasserving1 and other is having vasserving2.
+>NOTE: Both pipelines have different paths in the "frame" section for
+>visualization. One pipeline uses ``vasserving1`` path and the other pipeline
+>uses ``vasserving2`` path.
 
-![Figure 12 : Running Multiple Pipeline Simultaneously](./images/Image12.png "Running Multiple Pipeline Simultaneously")
+![A console window showing the output of the create pipeline script for 2 pipelines.](./images/Image12.png)
+
+Figure 12: Running Multiple Pipeline Simultaneously
 
 If there are two parallel pipelines created with their path in ``"frame"``
 section are ``vasserving1`` and ``vasserving2`` respectively, their output
@@ -477,6 +528,20 @@ streaming URLs will be:
 rtsp://<Node-IP-address>:30410/vasserving1
 rtsp://<Node-IP-address>:30410/vasserving2
 ```
+
+### Summary and Next Steps
+
+*EXAMPLE TEXT HERE: The PCB demo sample application when deployed on the Intel®
+Smart Edge Open Developer Experience Kit creates an impactful edge computing use
+case that utilizes the capability of Intel® Smart Edge Open Developer Experience
+Kit and Open Edge Insights (OEI).*
+
+### Learn More
+
+*EXAMPLE TEXT HERE: To continue learning, see the following guide:*
+
+- [Intel® Smart Edge Open Developer Experience Kit  Architecture](https://github.com/smart-edge-open/docs/blob/main/experience-kits/developer-experience-kit.md)
+
 
 ### Troubleshooting
 
@@ -545,7 +610,6 @@ Installation log info of Edge Video Analytics Microservice on Intel® Smart Edge
 ```
 
 Where ``<version>`` is the package version downloaded.
-
 
 ### Support Forum
 
