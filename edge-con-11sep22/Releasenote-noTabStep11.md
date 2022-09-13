@@ -212,16 +212,16 @@ Select [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download
 
     The file structure generated under the `_workspace` folder is:
 
-    ```bash
+    ```shell
     _workspace/
-     |-- addon
-     |-- bin
-     |-- config
-     |-- experienceKit
-     |-- services     
-     |-- conductor -> bin/conductor
-     |-- kubectl -> bin/kubectl
-     |-- workflow
+     |- addon
+     |- bin
+     |- config
+     |- experienceKit
+     |- services
+     |- conductor -> bin/conductor
+     |- kubectl -> bin/kubectl
+     |- workflow
     ```
 
 Run ``./conductor help`` to see command line usage.
