@@ -3,9 +3,9 @@
 
 Intel®  Edge Conductor provides complete end-to-end manageability and infrastructure orchestration for all edges across various IoT verticals such as retail, health care, manufacturing, Banking, and entertainment. 
 
-Edge Conductor is designed and built from the ground up using modular microservices-based software stack focusing on heterogeneous needs of IoT verticals. The two main functional components are manageability and infrastructure orchestration. It also provides additional value-add such as policy engine, security, AI/ML capabilities, telemetry, automation and can interoperate with any Kubernetes distribution.  
+Edge Conductor is designed and built from the ground up using modular microservices-based software stack focusing on heterogeneous needs of IoT verticals. The two main functional components are manageability and infrastructure orchestration. It also provides additional value-add such as policy engine, security, AI/ML capabilities, telemetry, automation and can interoperate with any Kubernetes* distribution.  
 
-Edge Conductor offers Tight integration of Intel platform capabilities with the ability to easily deploy and manage both the platforms (manageability) and the workloads (orchestration) based on customer and solution requirements. These capabilities are critical where data collection and data processing must take place at the edge often due to latency requirements, or cost and time of sending raw data to the cloud and waiting for the processed results to be delivered back to the edge where the activity takes place.  
+Edge Conductor offers tight integration of Intel platform capabilities with the ability to easily deploy and manage both the platforms (manageability) and the workloads (orchestration) based on customer and solution requirements. These capabilities are critical where data collection and data processing must take place at the edge often due to latency requirements, or cost and time of sending raw data to the cloud and waiting for the processed results to be delivered back to the edge where the activity takes place.  
 
 
 
@@ -44,12 +44,12 @@ Node Requirements:
 
 ## OS and System Requirements for Edge Conductor Day-0 Host
 
-- Ubuntu 18.04+
+- Ubuntu* 18.04+
 - make 4.1+
 - unzip 2.11+
-- DockerCE
-    * 20.10.3+ (for DockerCE v20)
-    * After you install DockerCE, configure a user group so you can use Docker
+- Docker* CE
+    * 20.10.3+ (for Docker CE v20)
+    * After you install Docker CE, configure a user group so you can use Docker
       without the `sudo` command.
       For details, follow [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/).
 - git 2.33.0+
@@ -79,7 +79,7 @@ Proxy setup:
 
 Figure 1: Architecture Diagram
 
-Edge Conductor can be used to deploy Kubernetes clusters in several different
+Edge Conductor can be used to deploy Kubernetes* clusters in several different
 ways. All of the deployment methods rely on a "Day-0" host machine, which is a
 dedicated system that runs the Edge Conductor tools that download, build and
 provision the required software. (*Day-0* is a lifecycle term used in network
@@ -94,7 +94,7 @@ on a management console to operate and administer the cluster.
   * Virtual cluster: All nodes in the cluster are virtualized as container
     images and Kubernetes is deployed on the user’s local machine. The Day-0
     host and management console are also the user's local machine. This
-    deployment model is implemented using "KIND" as described below.
+    deployment model is implemented using "kind" as described below.
 
   * On-premise cluster: All nodes in the cluster are actual physical (or
     virtual) machines.  The Day-0  and management console functions are
@@ -123,7 +123,7 @@ Edge Conductor is composed of 3 main layers:
 
 ## Getting Started
 
-### Step 1: Install Edge Conductor
+### Install Edge Conductor
 
 Select [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download/home/edge_conductor) to download the software package and then follow the steps below to download Edge Conductor source code.
 
@@ -133,115 +133,114 @@ Select [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download
 1.  Make sure that the HW , OS and System requirements for Day-0 Host are met properly before proceeding further.
 2.  If you are behind a proxy network, please ensure that proxy addresses are configured in the system:
   
-```shell
-   export http_proxy=proxy-address:proxy-port
-   export https_proxy=proxy-address:proxy-port
-```
+	```shell
+	export http_proxy=proxy-address:proxy-port
+	export https_proxy=proxy-address:proxy-port
+	```
    
 3. Open a new terminal, go to the downloaded folder and unzip the downloaded Edge Conductor Package: 
 
-```shell
-   unzip intel_edge_conductor.zip
-```
+	```shell
+	unzip intel_edge_conductor.zip
+	```
 4. Go to the intel_edge_conductor directory:
 
-```shell
-   cd intel_edge_conductor
-```
+	```shell
+	cd intel_edge_conductor
+	```
 
 5. Change permission of the executable edgesoftware file:
 
-```shell
-   chmod 755 edgesoftware 
-```
+	```shell
+	chmod 755 edgesoftware 
+	```
 6. Run the command below to download Edge Conductor source code:
 
-```shell
-   ./edgesoftware install
-```
+	```shell
+	./edgesoftware install
+	```
 
 7. Once the command finishes successfully, goto the source code folder:
 
-```shell
-   cd Intel_Edge_Conductor_0.4.0/CodeBase
-```
+	```shell
+	cd Intel_Edge_Conductor_0.4.0/CodeBase
+	```
 8. The folder structure of `CodeBase` is:   
 
-```shell
-    CodeBase
-     |- edge-conductor
-     |- addon
-```
+	```shell
+	CodeBase
+	 |- edge-conductor
+	 |- addon
+	```
 9. Go to the edge-conductor directory and build Edge Conductor code: 
 
-```shell
-   cd edge-conductor
-   make
-   cd .. 
-```
-   You will see output similar to:
+	```shell
+	cd edge-conductor
+	make
+	cd .. 
+	```
+	You will see output similar to:
 
-```shell
-   make -C api/schemas
-   make -C api/proto build
-   go mod tidy
-   go run build/plugingenerator.go
-   go vet ./pkg/... ./cmd/...
-   Going to format and build code.
-   ...
-   go build -v -o _workspace/bin/conductor cmd/conductor/main.go
-   ...
-```
+	```shell
+	make -C api/schemas
+	make -C api/proto build
+	go mod tidy
+	go run build/plugingenerator.go
+	go vet ./pkg/... ./cmd/...
+	Going to format and build code.
+	...
+	go build -v -o _workspace/bin/conductor cmd/conductor/main.go
+	...
+	```
 
-    If `make` is successful, no ERROR messages are displayed on the console.
-
-    The `make` command, generates binary files under the `_workspace`. Folder
-    and configuration files are also copied to `_workspace`.
+	If `make` is successful, no ERROR messages are displayed on the console. The `make` command, generates binary files under the `_workspace`. Folder and configuration files are also copied to `_workspace`.
     
 10. Build Edge Conductor Addon and copy the build result to the Edge Conductor tool _workspace:
 
-```shell
-     cd addon
-     make
-     cp -rf _workspace/ ../edge-conductor/_workspace/addon
-     cp -rf _workspace/services/* ../edge-conductor/_workspace/services/
-     cd ..
-```
+	```shell
+	cd addon
+	make
+	cp -rf _workspace/ ../edge-conductor/_workspace/addon
+	cp -rf _workspace/services/* ../edge-conductor/_workspace/services/
+	cd ..
+	```
 11. Change to the workspace folder.:
 
-```shell
-    cd edge-conductor/_workspace
-```
+	```shell
+	cd edge-conductor/_workspace
+	```
 
-    The file structure generated under the `_workspace` folder is:
+	The file structure generated under the `_workspace` folder is:
 
-```shell
-    _workspace/
-    ├── bin
-    ├── config
-    ├── experienceKit
-    ├── conductor -> bin/conductor
-    ├── kubectl -> bin/kubectl
-    └── workflow
-```
+	```shell
+	_workspace/
+	 ├── addon
+	 ├── bin
+	 ├── config
+	 ├── experienceKit
+	 ├── services	 
+	 ├── conductor -> bin/conductor
+	 ├── kubectl -> bin/kubectl
+	 └── workflow
+	```
 
 Run ``./conductor help`` to see command line usage.
 
 
-### Deploying a KIND Cluster Using Edge Conductor
+### Deploying a kind Cluster Using Edge Conductor
 
-KIND is a tool for testing Kubernetes, it runs a local Kubernetes cluster using Docker itself. Follow these steps below to deploy a Kubernetes in Docker (KIND) deployment with Edge Conductor tool.
+Kind is a tool for testing Kubernetes, it runs a local Kubernetes cluster using Docker itself. Follow these steps below to deploy a Kubernetes in Docker (kind) deployment with Edge Conductor tool.
 
-**Pre-requisites**
+**Prerequisites**
 - Make sure that Edge Conductor code is built successfully and you can see the binary files generated under `_workspace` folder.
 - Follow HW and System requirements to prepare the Day-0 host hardware and software.
 
-> *NOTE:*  For each KIND node, 2 CPU cores and 2 gigabytes (GB) memory are
+> *NOTE:*  For each kind node, 2 CPU cores and 2 gigabytes (GB) memory are
 > additionally needed.
 
-**Experience Kit (EK) for KIND**
+**Experience Kit (EK) for Kind**
 
-An example of Experience Kit for KIND is under:
+An example of Experience Kit for kind is under:
 
 ```shell
 experienceKit/
@@ -249,7 +248,7 @@ experienceKit/
     └── kind.yml
 ```
 
-We will use [this Experience Kit](../experienceKit/DEK/kind.yml) to deploy the KIND cluster in this document.
+We will use [this Experience Kit](https://github.com/intel/edge-conductor/blob/edge_conductor_v0.4.0/experienceKit/DEK/kind.yml) to deploy the KIND cluster in this document.
 
 **Custom Config**
 
@@ -264,7 +263,7 @@ Parameters:
 ```
 
 > *Note:* The password must be surrounded by double quotes (`"`). We recommend that it contains at least 8 characters with 1 lowercase letter, 1 uppercase letter and 1 numeric character.
-Check more details of the [Experience Kit configuration here](../docs/guides/ec-configurations.md).
+Check more details of the [Experience Kit configuration here](https://github.com/intel/edge-conductor/blob/edge_conductor_v0.4.0/docs/guides/ec-configurations.md).
 
 
 **Init Edge Conductor Environment**
@@ -287,9 +286,9 @@ INFO[0005] ==
 INFO[0005] Done
 ```
 
-**Build and Deploy a KIND Cluster**
+**Build and Deploy a Kind Cluster**
 
-Run the following command to build a KIND Cluster:
+Run the following command to build a kind Cluster:
 
 ```bash
 ./conductor cluster build
@@ -308,7 +307,7 @@ INFO[0008] ==
 INFO[0008] Done
 ```
 
-Run the following command to deploy the KIND Cluster:
+Run the following command to deploy the kind Cluster:
 
 ```bash
 ./conductor cluster deploy
@@ -340,9 +339,9 @@ The kubeconfig will be copied to the default path `~/.kube/config`.
 > *NOTE:*  If you export KUBECONFIG, you need to unset the KUBECONFIG or copy
 `~/.kube/config` to your KUBECONFIG directory.
 
-**Build and Deploy services on KIND Cluster**
+**Build and Deploy services on Kind Cluster**
 
-To build sevices on KIND cluster:
+To build sevices on kind cluster:
 
 ```bash
 ./conductor service build
@@ -350,7 +349,7 @@ To build sevices on KIND cluster:
 
 You will see output similar to:
 
-```
+```bash
 INFO[0000] Edge Conductor - Build Services
 INFO[0000] ==
 INFO[0000] Current workflow: service-build
@@ -363,7 +362,7 @@ INFO[0009] ==
 INFO[0009] Done
 ```
 
-Deploy the services into KIND cluster:
+Deploy the services into kind cluster:
 
 ```bash
 ./conductor service deploy
@@ -371,7 +370,7 @@ Deploy the services into KIND cluster:
 
 You will see output similar to:
 
-```
+```bash
 INFO[0000] Edge Conductor - Deploy Services
 INFO[0000] ==
 INFO[0000] Current workflow: service-deploy
@@ -444,7 +443,7 @@ Make sure that the status for all pods is `Running`.
 
 ## Summary and Next Steps
 
-Congratulations! You have deployed a KIND cluster with Edge Conductor tool!.
+Congratulations! You have deployed a kind cluster with Edge Conductor tool!.
 
 As a next step, try to deploy some simple applications on the Kubernetes cluster you built with Edge Conductor.
 
@@ -452,7 +451,7 @@ As a next step, try to deploy some simple applications on the Kubernetes cluster
 -   [Example: Hello Cluster! Helm Version](https://github.com/intel/edge-conductor/blob/main/docs/tutorials/samples/hello-cluster-helm.md)
 -   [Example: Web Indexing Sample Application](https://github.com/intel/edge-conductor/blob/main/docs/tutorials/samples/web-indexing.md)
 
-If you need to remove the KIND cluster, you can do it by
+If you need to remove the kind cluster, you can do it by
 
 ```bash
 ./conductor cluster remove
@@ -467,7 +466,7 @@ If you need to remove the KIND cluster, you can do it by
 To continue your learning, see the following guides and software resources:
 
 -   [How to Deploy RKE cluster using Edge Conductor](https://github.com/intel/edge-conductor/blob/main/docs/guides/cluster-deploy-RKE.md)
--   [How to Deploy a cluster using Cluster API](https://github.com/intel/edge-conductor/blob/main/docs/guides/cluster-deploy-RKE.md)
+-   [How to Deploy a cluster using Cluster API](https://github.com/intel/edge-conductor/blob/main/docs/guides/cluster-deploy-ClusterAPI.md)
 
 `docs/guides` folder in Edge conductor addon package contains resources for enabling additional addon features like
 
