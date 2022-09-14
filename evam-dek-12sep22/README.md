@@ -120,20 +120,20 @@ Edge Open Developer Experience Kit.
    If you are behind a proxy network, ensure that proxy addresses are configured
    in the system.
 
-      ```shell
-      export http_proxy=<proxy-address>:<proxy-port>
-      export https_proxy=<proxy-address>:<proxy-port>
-      ```
+    ```bash
+    export http_proxy=<proxy-address>:<proxy-port>
+    export https_proxy=<proxy-address>:<proxy-port>
+    ```
 
 2. Ensure the ``/etc/wgetrc`` file is configured with required proxy settings as
    follows:
 
-      ```bash
-      https_proxy=<proxy-address>:<proxy-port>
-      http_proxy=<proxy-address>:<proxy-port>
-      ftp_proxy =<proxy-address>:<proxy-port>
-      use_proxy = on
-      ```
+       ```bash
+       https_proxy=<proxy-address>:<proxy-port>
+       http_proxy=<proxy-address>:<proxy-port>
+       ftp_proxy =<proxy-address>:<proxy-port>
+       use_proxy = on
+       ```
 
 3. Date and Time
 
@@ -147,10 +147,10 @@ Edge Open Developer Experience Kit.
 
    i. To create a user smartedge-open execute the command:
 
-      ```bash
-      useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
-      passwd smartedge-open
-      ```
+       ```bash
+       useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
+       passwd smartedge-open
+       ```
 
    ii. A password for the given user is required:
 
@@ -302,7 +302,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
     Figure 7: Uninstallation Successful
 
-### Node Feature Discovery (NFD)
+## Node Feature Discovery (NFD)
 
 Edge Video Analytics Microservice (EVAM) uses the Intel® Distribution of
 OpenVINO™ toolkit, which is optimized for Intel® processors that support special
@@ -347,7 +347,7 @@ Node-Selectors:           feature.node.kubernetes.io/cpu-cpuid.AVX512VNNI=true
        Events:
 ```
 
-### Run Application with EVAM
+## Run Application with EVAM
 
 To run an application using EVAM its respective deep learning models and pipelines are required.
 
@@ -356,7 +356,7 @@ EVAM provides the RESTful APIs as Video Analytics Serving to discover, start, st
 EVAM also include MQTT and Kafka message brokers for publishing the inference results.
 REST API definitions are available at RESTful Microservice interface.
 
-#### Get the List of Available Models and Pipelines Using REST Request
+### Get the List of Available Models and Pipelines Using REST Request
 
 1. Run the following command to get the list of models available in the EVAM:
 
@@ -438,7 +438,7 @@ REST API definitions are available at RESTful Microservice interface.
    ]
    ```
 
-#### Create Pipeline by Sending REST Request
+### Create Pipeline by Sending REST Request
 
 The following references provide the example json syntax pipeline creation using RESTful APIs.
 
@@ -474,7 +474,7 @@ directory, go to sample_requests directory and execute it using
 
 Figure 8: Run Pipeline Script
 
-#### Check Pipeline Status
+### Check Pipeline Status
 
 After execution of REST request it will return a pipeline instance ID, which can
 be used to query the state of the pipeline.
@@ -491,7 +491,7 @@ Figure 9: Pipeline Status
 
 > NOTE: The pipeline should be in the "RUNNING" state to view the output video. If the pipeline has already ended, then the state will be shown as "COMPLETED". Start it again with the curl command and then view the video output.
 
-#### Visualize Output
+### Visualize Output
 
 The output can be verified through the rtsp stream being published by the Gstreamer pipeline for the specific topic.
 
@@ -509,7 +509,7 @@ Figure 10: RTSP Stream in VLC player
 
 Figure 11: Streaming Output Visualization
 
-### Run Multiple Simultaneous Use Cases with EVAM
+## Run Multiple Simultaneous Use Cases with EVAM
 
 Multiple simultaneous pipelines can also created by invoking similar RESTful
 APIs as described above. When output frame passes through mqtt-broker, it is
@@ -517,7 +517,7 @@ available for visualization at a mentioned path in "frame" section. While
 invoking multiple pipelines in parallel make sure each pipeline request has
 different path for visualization.
 
-#### Create Pipeline 1: Object Detection Use Case
+### Create Pipeline 1: Object Detection Use Case
 
 ```shell
 curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_1>/<Model_name_1>>' \
@@ -541,7 +541,7 @@ curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_1>/<Mo
 }'
 ```
 
-#### Create Pipeline 2: Object Classification Use Case
+### Create Pipeline 2: Object Classification Use Case
 
 ```shell
 curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_2>/<Model_name_2>>' \
@@ -587,7 +587,7 @@ rtsp://<Node-IP-address>:30410/vasserving1
 rtsp://<Node-IP-address>:30410/vasserving2
 ```
 
-### Summary and Next Steps
+## Summary and Next Steps
 
 Edge Video Analytics Microservice (EVAM), when deployed on Intel® Smart Edge
 Open Developer Experience Kit created an impactful edge computing use-case that
@@ -596,7 +596,7 @@ analytics operations by utilizing the capabilities of Intel® Smart Edge Open
 Developer Experience Kit.
 
 
-### Learn More
+## Learn More
 
 To continue learning, see the following guides:
 
@@ -606,14 +606,14 @@ To continue learning, see the following guides:
 -  Defining Media Analytics Pipelines [https://github.com/dlstreamer/pipeline-server/blob/main/docs/defining_pipelines.md]
 
 
-### Troubleshooting
+## Troubleshooting
 
 <!-- In this section, provide troubleshooting information for any likely issues and a link to support.-->
 
 If any issue is faced during installation, ensure that installation
 prerequisites are configured properly.
 
-#### Pods Status Check
+### Pods Status Check
 
 Verify that the pods are Ready as well as in Running state using the following
 command:
@@ -622,7 +622,7 @@ command:
 kubectl get pods -A
 ```
 
-#### Pods are in “ImagePullBackOff” state for a long time
+### Pods are in “ImagePullBackOff” state for a long time
 
 Describe the pods using the command:
 
@@ -638,7 +638,7 @@ docker login
 docker pull <image-name:tag>
 ```
 
-#### Pod status shows “ContainerCreating” for a long time
+### Pod status shows “ContainerCreating” for a long time
 
 If Pod status shows **ContainerCreating** or **Error** or **CrashLoopBackOff**
 for 5 minutes or more, run uninstall command and install it again.
@@ -648,7 +648,7 @@ for 5 minutes or more, run uninstall command and install it again.
 ./edgesoftware install
 ```
 
-#### Pod Status shows "pending" for a long time
+### Pod Status shows "pending" for a long time
 
 If EVAM pod status is pending for 5 minutes or more, run the following command:
 
@@ -667,7 +667,7 @@ Warning FailedScheduling 43s (x9 over 7m58s) default-scheduler 0/1 nodes are ava
 ```
 
 
-#### Uninstallation Failure
+### Uninstallation Failure
 
 If uninstall command (./edgesoftware uninstall < module id >) fails, manually
 uninstall EVAM deployment, which are specific to EVAM pod.
@@ -677,7 +677,7 @@ helm -n smartedge-apps uninstall evam
 sudo rm -rf /var/lib/smartedge/evam/
 ```
 
-#### Installation and Debug Log Info File Path
+### Installation and Debug Log Info File Path
 
 Installation log info of Intel® Smart Edge Open Developer Experience Kit will be available at:
 
@@ -693,7 +693,7 @@ Installation log info of Edge Video Analytics Microservice on Intel® Smart Edge
 
 Where ``<version>`` is the package version downloaded.
 
-### Support Forum
+## Support Forum
 
 If you're unable to resolve your issues, contact the [Support Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
 
