@@ -173,10 +173,10 @@ Edge Open Developer Experience Kit.
 
    In the second command, the generated key must be copied to every Edge Node host, using the ssh-copy-id command.
 
-       ```bash
-       ssh-keygen
-       ssh-copy-id smartedge-open@<host-name>
-       ```
+    ```bash
+    ssh-keygen
+    ssh-copy-id smartedge-open@<host-name>
+    ```
 
 ### Install the Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience Kit
 
