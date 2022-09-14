@@ -147,10 +147,10 @@ Edge Open Developer Experience Kit.
 
    i. To create a user smartedge-open execute the command:
 
-      ```bash
-      useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
-      passwd smartedge-open
-      ```
+       ```bash
+       useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
+       passwd smartedge-open
+       ```
 
    ii. A password for the given user is required:
 
@@ -173,10 +173,10 @@ Edge Open Developer Experience Kit.
 
    In the second command, the generated key must be copied to every Edge Node host, using the ssh-copy-id command.
 
-      ```bash
-      ssh-keygen
-      ssh-copy-id smartedge-open@<host-name>
-      ```
+       ```bash
+       ssh-keygen
+       ssh-copy-id smartedge-open@<host-name>
+       ```
 
 ### Install the Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience Kit
 
@@ -328,7 +328,7 @@ Scalable server.
 ```bash
 $ kubectl get pods -A | grep smartedge-apps
 
-smartedge-apps       edge-video-analytics-microservice-with-mqtt-8479cb965c-vwq7n                   2/2     Running   0              54m
+smartedge-apps     edge-video-analytics-microservice-with-mqtt-8479cb965c-vwq7n     2/2     Running   0         54m
 ```
 
 The following output shows a description of one EVAM pod, which shows that it is
