@@ -154,14 +154,14 @@ Edge Open Developer Experience Kit.
 
    ii. A password for the given user is required:
 
-      ```shell
+      ```bash
       passwd smartedge-open
       ```
 
    iii. As some tasks require root privileges, the non-root user needs to have a
         possibility to become a root:
 
-      ```shell
+      ```bash
       echo “smartedge-open ALL=(ALL) NOPASSWD:ALL” | sudo tee /etc/sudoers.d/smartedge-open
       ```
 
@@ -193,7 +193,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
 2. Open a new terminal and login to server as a non-root user.
 
-    ```shell
+    ```bash
     ssh smartedge-open@<server-ip-address>
     ```
 
@@ -201,32 +201,32 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
 4. Move the downloaded zip package to ``/home/smartedge-open`` folder.
 
-    ```shell
+    ```bash
     mv <path-of-downloaded-directory>/edge_video_analytics_microservice_on_developer_experience_kit.zip /home/smartedge-open
     ```
 
 5. Go to the ``/root`` directory of the non-root user using the following command and unzip the RI package:
 
-    ```shell
+    ```bash
     cd /home/smartedge-open
     unzip edge_video_analytics_microservice_on_developer_experience_kit.zip
     ```
 
 6. Go to ``edge_video_analytics_microservice_on_developer_experience_kit/`` directory:
 
-    ```shell
+    ```bash
     cd edge_video_analytics_microservice_on_developer_experience_kit
     ```
 
 7. Change permission of the executable edgesoftware file:
 
-    ```shell
+    ```bash
     chmod 755 edgesoftware
     ```
 
 8. Run the command below to install the Reference Implementation:
 
-    ```shell
+    ```bash
     ./edgesoftware install
     ```
 
@@ -252,7 +252,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
     following command should show output similar to the image below. All the
     pods should be either in the running or completed stage.
 
-    ```shell
+    ```bash
     kubectl get pods -A
     ```
 
@@ -262,7 +262,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
 12. If EVAM is installed, running the following command should show output as follows:
 
-    ```shell
+    ```bash
     smartedge-open@host:/home/smartedge-open/edge_video_analytics_microservice_on_developer_experience_kit$ kubectl get pods -n smartedge-apps
 
     NAME                                                           READY   STATUS    RESTARTS   AGE
@@ -275,7 +275,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
 13. Run the command below to check the Docker* images and their details.
 
-    ```shell
+    ```bash
     smartedge-open@host:/home/smartedge-open/edge_video_analytics_microservice_on_developer_experience_kit$ docker images
 
     intel/edge_video_analytics_microservice      0.7.2         8919ec246253   8 weeks ago     2.89GB
@@ -284,7 +284,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
 14. List the reference implementation deployed module using the following command:
 
-    ```shell
+    ```bash
     ./edgesoftware list
     ```
 
@@ -294,7 +294,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
 15. Uninstall the reference implementation module using the following command:
 
-    ```shell
+    ```bash
     ./edgesoftware uninstall <evam-module-id>
     ```
 
@@ -362,13 +362,13 @@ REST API definitions are available at RESTful Microservice interface.
 
 1. Run the following command to get the list of models available in the EVAM:
 
-   ```shell
+   ```bash
    curl --location -X GET 'http://<Node-IP-address>:30409/models'
    ```
 
    Example Output:
 
-   ```shell
+   ```bash
    [
    {
       "description": "object_classification",
@@ -390,13 +390,13 @@ REST API definitions are available at RESTful Microservice interface.
 2. Run the following command to get the list of pipelines available in the
    microservice:
 
-   ```shell
+   ```bash
    curl --location -X GET 'http://<Node-IP-address:30409/pipelines'
    ```
 
    Example Output:
 
-   ```shell
+   ```bash
    [
    {
       "description": "Person Vehicle Bike Detection based on person-vehicle-bike-detection-crossroad-0078",
@@ -444,7 +444,7 @@ REST API definitions are available at RESTful Microservice interface.
 
 The following references provide the example json syntax pipeline creation using RESTful APIs.
 
-```shell
+```bash
 curl --location -X POST '<http://localhost:30409/pipelines/<pipeline_name>/<model_name>>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -483,7 +483,7 @@ be used to query the state of the pipeline.
 
 The state of pipeline can be checked using following command:
 
-```shell
+```bash
 curl --location -X GET 'http://<Node-IP-address>:30409/pipelines/<Pipeline_name>/<Model_name>/<Instance_ID>/status'
 ```
 
@@ -495,9 +495,9 @@ Figure 9: Pipeline Status
 
 ### Visualize Output
 
-The output can be verified through the rtsp stream being published by the Gstreamer pipeline for the specific topic.
+The output can be verified through the rtsp stream being published by the GStreamer pipeline for the specific topic.
 
-The Output can be verified with GUI and the VLC media player can be used for live streaming of the processed Video.
+The output can be verified with GUI and the VLC media player can be used for live streaming of the processed video.
 
 To visualize the output after the pipeline is started using the curl/Json command.
 
@@ -505,7 +505,7 @@ To visualize the output after the pipeline is started using the curl/Json comman
 
 ![A browser window showing the VLC Media Player.](./images/edge-video-analytics-developer-kit-vlc-player.png)
 
-Figure 10: RTSP Stream in VLC player
+Figure 10: RTSP Stream in VLC Player
 
 ![A web app showing output from the visualizer.](./images/edge-video-analytics-developer-kit-visualizer-output.png)
 
@@ -521,7 +521,7 @@ different path for visualization.
 
 ### Create Pipeline 1: Object Detection Use Case
 
-```shell
+```bash
 curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_1>/<Model_name_1>>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -545,7 +545,7 @@ curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_1>/<Mo
 
 ### Create Pipeline 2: Object Classification Use Case
 
-```shell
+```bash
 curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_2>/<Model_name_2>>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -584,7 +584,7 @@ If there are two parallel pipelines created with their path in ``"frame"``
 section are ``vasserving1`` and ``vasserving2`` respectively, their output
 streaming URLs will be:
 
-```shell
+```bash
 rtsp://<Node-IP-address>:30410/vasserving1
 rtsp://<Node-IP-address>:30410/vasserving2
 ```
@@ -620,7 +620,7 @@ prerequisites are configured properly.
 Verify that the pods are Ready as well as in Running state using the following
 command:
 
-```shell
+```bash
 kubectl get pods -A
 ```
 
@@ -628,14 +628,14 @@ kubectl get pods -A
 
 Describe the pods using the command:
 
-```shell
+```bash
 kubectl describe pod -n smartedge-apps <pod name>
 ```
 
 Fetch the image name with the tag and do a manual docker pull using the below
 commands:
 
-```shell
+```bash
 docker login
 docker pull <image-name:tag>
 ```
@@ -645,7 +645,7 @@ docker pull <image-name:tag>
 If Pod status shows **ContainerCreating** or **Error** or **CrashLoopBackOff**
 for 5 minutes or more, run uninstall command and install it again.
 
-```shell
+```bash
 ./edgesoftware uninstall -a
 ./edgesoftware install
 ```
@@ -654,14 +654,14 @@ for 5 minutes or more, run uninstall command and install it again.
 
 If EVAM pod status is pending for 5 minutes or more, run the following command:
 
-```shell
+```bash
 kubectl describe pods -n smartedge-apps
 ```
 In EVAM pod, if you see the following event due to FailedScheduling, it may be
 possible that AVX-512VNNI instruction set is not available in system CPU as
 mentioned in the [Node Feature Discovery](#node-feature-discovery-nfd) section.
 
-```shell
+```bash
 Events:
 Type Reason Age From Message
 ---- ------ ---- ---- -------
@@ -674,7 +674,7 @@ Warning FailedScheduling 43s (x9 over 7m58s) default-scheduler 0/1 nodes are ava
 If uninstall command (./edgesoftware uninstall < module id >) fails, manually
 uninstall EVAM deployment, which are specific to EVAM pod.
 
-```shell
+```bash
 helm -n smartedge-apps uninstall evam
 sudo rm -rf /var/lib/smartedge/evam/
 ```
@@ -683,13 +683,13 @@ sudo rm -rf /var/lib/smartedge/evam/
 
 Installation log info of Intel® Smart Edge Open Developer Experience Kit will be available at:
 
-```shell
+```bash
 /var/log/esb-cli/Smart_Edge_Open_Developer_Experience_Kits_<version>/Smart_Edge_Open_Developer_Experience_Kits/install.log
 ```
 
 Installation log info of Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience kit module will be available at:
 
-```shell
+```bash
 /var/log/esb-cli/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit_<version>/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit/install.log
 ```
 
@@ -701,7 +701,7 @@ If you're unable to resolve your issues, contact the [Support Forum](https://sof
 
 Execute the command below to consolidate a list of the log files in tar.gz compressed format, e.g., ``Edge_Video_Analytics_Microservice_on_Developer_Experience_kit.tar.gz``
 
-```shell
+```bash
 tar -czvf Edge_Video_Analytics_Microservice_on_Developer_Experience_kit.tar.gz
 /var/log/esb-cli/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit_1.0.0/Edge_Video_Analytics_Microservice_on_Developer_Experience_kit/
 /var/log/esb-cli/Smart_Edge_Open_Developer_Experience_Kits_3.0.0/Smart_Edge_Open_Developer_Experience_Kits/
