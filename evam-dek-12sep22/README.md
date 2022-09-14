@@ -258,7 +258,7 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
     ![A console window showing system output after running the “kubectl get pods” command. The system displays a list of all the pods and the pod status. The expected status is “Running”.](./images/edge-video-analytics-developer-kit-pods-status.png)
 
-    Figure 4 : Pods Status
+    Figure 4: Pods Status
 
 12. If EVAM is installed, running the following command should show output as follows:
 
@@ -647,6 +647,25 @@ for 5 minutes or more, run uninstall command and install it again.
 ./edgesoftware uninstall -a
 ./edgesoftware install
 ```
+
+#### Pod Status shows "pending" for a long time
+
+If EVAM pod status is pending for 5 minutes or more, run the following command:
+
+```shell
+kubectl describe pods -n smartedge-apps
+```
+In EVAM pod, if you see the following event due to FailedScheduling, it may be
+possible that AVX-512VNNI instruction set is not available in system CPU as
+mentioned in the [Node Feature Discovery](#node-feature-discovery-nfd) section.
+
+```shell
+Events:
+Type Reason Age From Message
+---- ------ ---- ---- -------
+Warning FailedScheduling 43s (x9 over 7m58s) default-scheduler 0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector.
+```
+
 
 #### Uninstallation Failure
 
