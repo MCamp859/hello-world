@@ -128,12 +128,12 @@ Edge Open Developer Experience Kit.
 2. Ensure the ``/etc/wgetrc`` file is configured with required proxy settings as
    follows:
 
-       ```bash
-       https_proxy=<proxy-address>:<proxy-port>
-       http_proxy=<proxy-address>:<proxy-port>
-       ftp_proxy =<proxy-address>:<proxy-port>
-       use_proxy = on
-       ```
+    ```bash
+    https_proxy=<proxy-address>:<proxy-port>
+    http_proxy=<proxy-address>:<proxy-port>
+    ftp_proxy =<proxy-address>:<proxy-port>
+    use_proxy = on
+    ```
 
 3. Date and Time
 
@@ -147,10 +147,10 @@ Edge Open Developer Experience Kit.
 
    i. To create a user smartedge-open execute the command:
 
-       ```bash
-       useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
-       passwd smartedge-open
-       ```
+      ```bash
+      useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
+      passwd smartedge-open
+      ```
 
    ii. A password for the given user is required:
 
@@ -340,11 +340,13 @@ $ kubectl describe pod edge-video-analytics-microservice-with-mqtt-8479cb965c-vw
 ...
 ...
 
-Node-Selectors:           feature.node.kubernetes.io/cpu-cpuid.AVX512VNNI=true
-   feature.node.kubernetes.io/system-os_release.ID=ubuntu
-       Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
-  node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
-       Events:
+Node-Selectors:         feature.node.kubernetes.io/cpu-cpuid.AVX512VNNI=true
+                        feature.node.kubernetes.io/system-os_release.ID=ubuntu
+
+Tolerations:      node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                  node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+Events:
 ```
 
 ## Run Application with EVAM
