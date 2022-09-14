@@ -120,20 +120,20 @@ Edge Open Developer Experience Kit.
    If you are behind a proxy network, ensure that proxy addresses are configured
    in the system.
 
-    ```bash
-    export http_proxy=<proxy-address>:<proxy-port>
-    export https_proxy=<proxy-address>:<proxy-port>
-    ```
+   ```bash
+   export http_proxy=<proxy-address>:<proxy-port>
+   export https_proxy=<proxy-address>:<proxy-port>
+   ```
 
 2. Ensure the ``/etc/wgetrc`` file is configured with required proxy settings as
    follows:
 
-    ```bash
-    https_proxy=<proxy-address>:<proxy-port>
-    http_proxy=<proxy-address>:<proxy-port>
-    ftp_proxy =<proxy-address>:<proxy-port>
-    use_proxy = on
-    ```
+   ```bash
+   https_proxy=<proxy-address>:<proxy-port>
+   http_proxy=<proxy-address>:<proxy-port>
+   ftp_proxy =<proxy-address>:<proxy-port>
+   use_proxy = on
+   ```
 
 3. Date and Time
 
@@ -145,25 +145,25 @@ Edge Open Developer Experience Kit.
    sudoers permission is created. If not available, follow the instructions
    below.
 
-   i. To create a user smartedge-open execute the command:
+   i.   To create a user smartedge-open execute the command:
 
-       ```bash
-       useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
-       passwd smartedge-open
-       ```
+        ```bash
+        useradd -s /bin/bash -d /home/smartedge-open/ -m -G sudo smartedge-open
+        passwd smartedge-open
+        ```
 
-   ii. A password for the given user is required:
+   ii.  A password for the given user is required:
 
-      ```bash
-      passwd smartedge-open
-      ```
+        ```bash
+        passwd smartedge-open
+        ```
 
    iii. As some tasks require root privileges, the non-root user needs to have a
         possibility to become a root:
 
-      ```bash
-      echo “smartedge-open ALL=(ALL) NOPASSWD:ALL” | sudo tee /etc/sudoers.d/smartedge-open
-      ```
+        ```bash
+        echo “smartedge-open ALL=(ALL) NOPASSWD:ALL” | sudo tee /etc/sudoers.d/smartedge-open
+        ```
 
 5. Exchange SSH Keys between hosts
 
@@ -173,10 +173,10 @@ Edge Open Developer Experience Kit.
 
    In the second command, the generated key must be copied to every Edge Node host, using the ssh-copy-id command.
 
-    ```bash
-    ssh-keygen
-    ssh-copy-id smartedge-open@<host-name>
-    ```
+   ```bash
+   ssh-keygen
+   ssh-copy-id smartedge-open@<host-name>
+   ```
 
 ### Install the Edge Video Analytics Microservice on Intel® Smart Edge Open Developer Experience Kit
 
@@ -481,7 +481,7 @@ Figure 8: Run Pipeline Script
 After execution of REST request it will return a pipeline instance ID, which can
 be used to query the state of the pipeline.
 
-The state of pipeline can be checked using following command:
+The state of the pipeline can be checked using the following command:
 
 ```bash
 curl --location -X GET 'http://<Node-IP-address>:30409/pipelines/<Pipeline_name>/<Model_name>/<Instance_ID>/status'
@@ -602,10 +602,10 @@ Developer Experience Kit.
 
 To continue learning, see the following guides:
 
--  Intel® Smart Edge Open Developer Experience Kit Architecture [https://smart-edge-open.github.io/ido-specs/doc/architecture/]
--  Edge Video Analytics Microservice [https://www.intel.com/content/www/us/en/developer/articles/technical/video-analytics-service.html]
--  Customizing Video Analytics Pipeline Requests [https://github.com/dlstreamer/pipeline-server/blob/main/docs/customizing_pipeline_requests.md]
--  Defining Media Analytics Pipelines [https://github.com/dlstreamer/pipeline-server/blob/main/docs/defining_pipelines.md]
+-  [Intel® Smart Edge Open Developer Experience Kit Architecture](https://smart-edge-open.github.io/ido-specs/doc/architecture/)
+-  [Edge Video Analytics Microservice](https://www.intel.com/content/www/us/en/developer/articles/technical/video-analytics-service.html)
+-  [Customizing Video Analytics Pipeline Requests](https://github.com/dlstreamer/pipeline-server/blob/main/docs/customizing_pipeline_requests.md)
+-  [Defining Media Analytics Pipelines](https://github.com/dlstreamer/pipeline-server/blob/main/docs/defining_pipelines.md)
 
 
 ## Troubleshooting
