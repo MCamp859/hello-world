@@ -29,24 +29,24 @@ to download the Edge video analytics microservice and the software listed below.
 -  **Programming Language:** Python*
 -  **Software:**
 
-   -  Intel® Smart Edge Open version 22.03 or above
-   -  Edge Video Analytics Microservice
-   -  Intel® DL Streamer Pipeline Server
-   -  Intel® Distribution of OpenVINO™ toolkit
+    -  Intel® Smart Edge Open version 22.03 or above
+    -  Edge Video Analytics Microservice
+    -  Intel® DL Streamer Pipeline Server
+    -  Intel® Distribution of OpenVINO™ toolkit
 
 
 ## Target System Requirements
 
 ### Intel® Smart Edge Open Nodes
 
-- One of the following processors:
-  - Intel® Xeon® Scalable processor
-  - Intel® Xeon D processor
+-  One of the following processors:
+    - Intel® Xeon® Scalable processor
+    - Intel® Xeon® D processor
 
-- At least 32 GB RAM
-- At least 64 GB hard drive
-- An Internet connection
-- Ubuntu* 20.04 LTS
+-  At least 32 GB RAM
+-  At least 64 GB hard drive
+-  An Internet connection
+-  Ubuntu* 20.04 LTS
 
 ## How It Works
 
@@ -116,21 +116,24 @@ Edge Open Developer Experience Kit.
 #### Ensure that following steps are completed in Intel® Smart Edge Open Developer Experience Kit Installation
 
 1. Proxy Settings
-   If you are behind a proxy network, ensure that proxy addresses are configured in the system.
 
-   ```shell
-   export http_proxy=<proxy-address>:<proxy-port>
-   export https_proxy=<proxy-address>:<proxy-port>
-   ```
+   If you are behind a proxy network, ensure that proxy addresses are configured
+   in the system.
 
-2. Ensure the ``/etc/wgetrc`` file is configured with required proxy settings as follows:
-  
-   ```shell
-   https_proxy=<proxy-address>:<proxy-port>
-   http_proxy=<proxy-address>:<proxy-port>
-   ftp_proxy =<proxy-address>:<proxy-port>
-   use_proxy = on
-   ```
+      ```shell
+      export http_proxy=<proxy-address>:<proxy-port>
+      export https_proxy=<proxy-address>:<proxy-port>
+      ```
+
+2. Ensure the ``/etc/wgetrc`` file is configured with required proxy settings as
+   follows:
+
+      ```shell
+      https_proxy=<proxy-address>:<proxy-port>
+      http_proxy=<proxy-address>:<proxy-port>
+      ftp_proxy =<proxy-address>:<proxy-port>
+      use_proxy = on
+      ```
 
 3. Date and Time
 
@@ -179,11 +182,15 @@ Edge Open Developer Experience Kit.
 
 Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-int.icloud.intel.com/iot/edgesoftwarehub/download/home/ri/edge_video_analytics_microservice_on_developer_experience_kit) to download the reference implementation and then follow the steps below to install it.
 
-1. Make sure that the Target System Requirements are met properly before proceeding further.
+1. Make sure that the [Target System Requirements](#target-system-requirements)
+   are met properly before proceeding further.
+
     - For single-device mode, only one machine is needed. (Both controller and edge node will be on the same device.)
 
     - For multi-device mode, make sure you have at least two machines (one for controller and other for Edge Node).
+
         >NOTE: Multi-device mode is not supported in the current release.
+
 2. Open a new terminal and login to server as a non-root user.
 
     ```shell
@@ -213,21 +220,21 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
 7. Change permission of the executable edgesoftware file:
 
-   ```shell
-   chmod 755 edgesoftware
-   ```
+    ```shell
+    chmod 755 edgesoftware
+    ```
 
 8. Run the command below to install the Reference Implementation:
 
-   ```shell
-   ./edgesoftware install
-   ```
+    ```shell
+    ./edgesoftware install
+    ```
 
 9. Installation of the package starts.
 
-   ![A console window showing system output during the install process.](./images/Image2.png)
+    ![A console window showing system output during the install process.](./images/Image2.png)
 
-   Figure 2: Installation Start Screen
+    Figure 2: Installation Start Screen
 
 10. For internal installation, the Helm charts are pushed to Intel Harbor
     Registry. To pull charts, provide your Harbor Username and password during
@@ -245,13 +252,13 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
     following command should show output similar to the image below. All the
     pods should be either in the running or completed stage.
 
-   ```shell
-   kubectl get pods -A
-   ```
+    ```shell
+    kubectl get pods -A
+    ```
 
-   ![A console window showing system output after running the “kubectl get pods” command. The system displays a list of all the pods and the pod status. The expected status is “Running”.](./images/Image4.png)
+    ![A console window showing system output after running the “kubectl get pods” command. The system displays a list of all the pods and the pod status. The expected status is “Running”.](./images/Image4.png)
 
-   Figure 4 : Pods Status
+    Figure 4 : Pods Status
 
 12. If EVAM is installed, running the following command should show output as follows:
 
@@ -280,10 +287,10 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
     ```shell
     ./edgesoftware list
     ```
-  
+
     ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](./images/Image6.png)
 
-   Figure 6: EVAM Module List
+    Figure 6: EVAM Module List
 
 15. Uninstall the reference implementation module using the following command:
 
@@ -293,7 +300,52 @@ Select [Configure & Download](https://recipeconfigurator-quiet-toucan.apps1-bg-i
 
     ![A console window showing the output of the "edgesoftware list" and "edgesoftware uninstall" commands. First, the system lists the installed modules. Next, the system displays output during the uninstall process. At the end of the process, the system displays the message “Uninstall finished” and the uninstallation status for each module.](./images/Image7.png)
 
-   Figure 7: Uninstallation Successful
+    Figure 7: Uninstallation Successful
+
+### Node Feature Discovery (NFD)
+
+Edge Video Analytics Microservice (EVAM) uses the Intel® Distribution of
+OpenVINO™ toolkit, which is optimized for Intel® processors that support special
+instructions like AVX512VNNI for optimized performance. The deployment of this
+application will require the node with this feature supported on the node along
+with Ubuntu 20.04 OS. This NFD feature ensures to deploy the application on the
+node supported with these features.
+
+NFD is installed by Intel® Smart Edge Open Developer Experience Kit and running
+as two pods on Intel® Smart Edge Open, as shown below.
+
+```bash
+$ kubectl get pods -A | grep smartedge-system
+
+smartedge-system       nfd-release-node-feature-discovery-master-7b94765ccf-9ghjg   1/1     Running   5 (83d ago)    85d
+smartedge-system       nfd-release-node-feature-discovery-worker-dq4x6              1/1     Running   5 (83d ago)    85d
+```
+
+Edge Video Analytics Microservice (EVAM) pod scheduled and running successfully
+on Intel® Smart Edge Open node based on hardware capabilities of Intel® Xeon®
+Scalable server.
+
+```bash
+$ kubectl get pods -A | grep smartedge-apps
+
+smartedge-apps       edge-video-analytics-microservice-with-mqtt-8479cb965c-vwq7n                   2/2     Running   0              54m
+```
+
+The following output shows a description of one EVAM pod, which shows that it is
+running successfully with the NFD feature.
+
+```bash
+$ kubectl describe pod edge-video-analytics-microservice-with-mqtt-8479cb965c-vwq7n -n smartedge-apps
+...
+...
+...
+
+Node-Selectors:           feature.node.kubernetes.io/cpu-cpuid.AVX512VNNI=true
+   feature.node.kubernetes.io/system-os_release.ID=ubuntu
+       Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+  node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+       Events:
+```
 
 ### Run Application with EVAM
 
@@ -507,7 +559,7 @@ curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_2>/<Mo
       },
     "frame": {
       "type": "rtsp",
-      "path": "vasserving1"
+      "path": "vasserving2"
     }
   }
 }'
@@ -537,16 +589,21 @@ rtsp://<Node-IP-address>:30410/vasserving2
 
 ### Summary and Next Steps
 
-*EXAMPLE TEXT HERE: The PCB demo sample application when deployed on the Intel®
-Smart Edge Open Developer Experience Kit creates an impactful edge computing use
-case that utilizes the capability of Intel® Smart Edge Open Developer Experience
-Kit and Open Edge Insights (OEI).*
+Edge Video Analytics Microservice (EVAM), when deployed on Intel® Smart Edge
+Open Developer Experience Kit created an impactful edge computing use-case that
+provides an ability to user to perform video processing, inference, and
+analytics operations by utilizing the capabilities of Intel® Smart Edge Open
+Developer Experience Kit.
+
 
 ### Learn More
 
-*EXAMPLE TEXT HERE: To continue learning, see the following guide:*
+To continue learning, see the following guides:
 
-- [Intel® Smart Edge Open Developer Experience Kit  Architecture](https://github.com/smart-edge-open/docs/blob/main/experience-kits/developer-experience-kit.md)
+-  Intel® Smart Edge Open Developer Experience Kit Architecture [https://smart-edge-open.github.io/ido-specs/doc/architecture/]
+-  Edge Video Analytics Microservice [https://www.intel.com/content/www/us/en/developer/articles/technical/video-analytics-service.html]
+-  Customizing Video Analytics Pipeline Requests [https://github.com/dlstreamer/pipeline-server/blob/main/docs/customizing_pipeline_requests.md]
+-  Defining Media Analytics Pipelines [https://github.com/dlstreamer/pipeline-server/blob/main/docs/defining_pipelines.md]
 
 
 ### Troubleshooting
