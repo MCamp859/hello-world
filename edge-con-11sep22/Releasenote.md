@@ -119,10 +119,10 @@ on a management console to operate and administer the cluster.
     implemented using either Rancher RKE or the Cluster API as described below.
 
   * Existing cluster: All nodes in the cluster have already been provisioned and
-    are running Kubernetes, for example as in a StarlingX, VMWare Tanzu or
-    OpenShift cluster or similar Kubernetes deployment. In this model only
-    services are deployed and managed by the Intel® Edge Conductor tools. The
-    Day-0 machine and management cluster are assumed to already exist.
+    are running Kubernetes, for example as in a StarlingX*, VMWare* Tanzu* or
+    Red Hat* OpenShift cluster or similar Kubernetes deployment. In this model
+    only services are deployed and managed by the Intel® Edge Conductor tools.
+    The Day-0 machine and management cluster are assumed to already exist.
 
 ![The framework is represented by a complex block diagram.](./edge-conductor-framework.png)
 
@@ -132,7 +132,7 @@ Figure 2: Intel® Edge Conductor Framework
 Intel® Edge Conductor is composed of 3 main layers:
 
 *  Services Layer - This layer provides support different orchestrated services
-   like Prometheus, Nginx, Redfish and Portainer.
+   like Prometheus*, Nginx*, Redfish* and Portainer*.
 *  Orchestration Layer - This layer provides Kubernetes API and extensions.
 *  Platform Software Layer – This layer provides support for different
    hypervisors, Provisioning mechanism and OS support.
