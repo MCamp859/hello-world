@@ -26,8 +26,6 @@ Select [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download
 
 [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download/home/edge_conductor)
 
-![Icon for Intel® Edge Conductor.](./edge-to-edge-cloud-bridge.png)
-
 
 -  **Time to Complete:** Approximately 90 minutes
 -  **Programming Language:** Go*
@@ -176,6 +174,9 @@ Select [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download
 	```shell
 	./edgesoftware install
 	```
+   When the installation is complete, you can see the message “Installation of package complete”.
+   
+   ![edge-conductor-install](./edge-conductor-install.png)
 
 7. Once the command finishes successfully, go to the source code folder:
 
