@@ -19,7 +19,6 @@ Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/dow
 Recipient is solely responsible for compliance with all applicable regulatory standards and safety, privacy, and security related requirements concerning Recipient's use of the Intel hardware and software.\
 Recipient is solely responsible for any and all integration tasks, functions, and performance in connection with use of the Intel hardware or software as part of a larger system. Intel does not have sufficient knowledge of any adjoining, connecting, or component parts used with or possibly impacted by the Intel hardware or software or information about operating conditions or operating environments in which the Intel hardware or software may be used by Recipient.  Intel bears no responsibility, liability, or fault for any integration issues associated with the inclusion of the Intel hardware or software into a system.  It is Recipient’s responsibility to design, manage, and assure safeguards to anticipate, monitor, and control component, system, quality, and or safety failures.
 
-![Screenshot of running Reference Implementation.](docs/road-sign-detection-and-classification-ri-landing.png)
 
 -  **Time to Complete:** Approximately 60 minutes
 -  **Programming Language:** Python*
@@ -236,15 +235,15 @@ pictures taken by the application on the video stream.
    Figure 11: Reference Implementation Storage Tab
 
 
-## Run in Parallel with Driver Action Recognition Reference Implementation
+## Run in Parallel with Distracted Driving Recognition Reference Implementation
 
-To run this task you will need to download and install [Driver Action Recognition](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/road-sign-detection-and-classification.html) Reference Implementation.
+To run this task you will need to download and install [Distracted Driving Recognition](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/road-sign-detection-and-classification.html) Reference Implementation.
 
 ### Prerequisites
 
 -   Two terminals
 
--   Follow the steps to install [Driver Action Recognition](https://www.intel.com/content/www/us/en/develop/articles/driver-action-recognition.html#install) after installing [Road Sign Detection and Classification](#step-1-install-the-reference-implementation)
+-   Follow the steps to install [Distracted Driving Recognition](https://www.intel.com/content/www/us/en/develop/articles/distracted-driving-recognition.html#install) after installing [Road Sign Detection and Classification](#step-1-install-the-reference-implementation)
 
 ### Steps to Run the Application
 
@@ -254,17 +253,17 @@ To run this task you will need to download and install [Driver Action Recognitio
    cd <INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase
    ```
 
-   ![A window showing 2 system consoles in side-by-side view.](docs/driver-action-recognition-change-directory.png)
+   ![A window showing 2 system consoles in side-by-side view.](docs/distracted-driving-recognition-change-directory.png)
 
    Figure 12: Set Up System Console Windows
 
-2. Change directory to **Driver Action Recognition Use Case** path on terminal 2:
+2. Change directory to **Distracted Driving Recognition Use Case** path on terminal 2:
 
    ```bash
-   cd <INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/Driver_Action_Recognition/EII-DriverActionRecognition-UseCase
+   cd <INSTALL_PATH>/distracted_driving_recognition/Distracted_Driving_Recognition_2022.1/Distracted_Driving_Recognition/EII-DriverActionRecognition-UseCase
    ```
 
-   ![A window showing 2 system consoles. Each console is displaying a different directory.](docs/driver-action-recognition-change-directory2.png)
+   ![A window showing 2 system consoles. Each console is displaying a different directory.](docs/distracted-driving-recognition-change-directory2.png)
 
    Figure 13: System Console Windows Displaying Different Directories
 
@@ -279,10 +278,10 @@ To run this task you will need to download and install [Driver Action Recognitio
    Copy and run the `make webui` command from the end of the installation:
 
    ```bash
-   make webui EII_BASE=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/driver_action_recognition/Driver_Action_Recognition_2022.1/Driver_Action_Recognition/EII-DriverActionRecognition-UseCase
+   make webui EII_BASE=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/driver_action_recognition/Distracted_Driving_Recognition_2022.1/Distracted_Driving_Recognition/EII-DriverActionRecognition-UseCase
    ```
 
-   ![A window showing 2 system consoles. Each console is running a different application.](docs/driver-action-recognition-webserver-app.png)
+   ![A window showing 2 system consoles. Each console is running a different application.](docs/distracted-driving-recognition-webserver-app.png)
 
    Figure 14: System Console Windows Running Different Applications
 
@@ -293,20 +292,20 @@ To run this task you will need to download and install [Driver Action Recognitio
 
 7. Wait for the Visualizer to get up and running.
 
-8. Open the Driver Action Recognition page by going to address **127.0.0.1:9099**.
+8. Open the Distracted Driving Recognition page by going to address **127.0.0.1:9099**.
 
 9. Configure the camera with the desired video and set the target for each one (**CPU** or **GPU**) and click **Run Use Case**.
 
    >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-   ![A browser window showing 2 application dashboards in a side-by-side view.](docs/driver-action-recognition-configure-rsdc.png)
+   ![A browser window showing 2 application dashboards in a side-by-side view.](docs/distracted-driving-recognition-configure-rsdc.png)
 
    Figure 15: Set Up Reference Implementation Dashboards
 
 At this point, Road Sign Detection and Classification will close and after that both use cases will start.
 >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-![A browser window showing output of 2 visualizers in a side-by-side view.](docs/driver-action-recognition-two-use-cases.png)
+![A browser window showing output of 2 visualizers in a side-by-side view.](docs/distracted-driving-recognition-two-use-cases.png)
 
 Figure 16: Visualizer Output for 2 Reference Implementations
 
