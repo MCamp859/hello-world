@@ -509,15 +509,32 @@ The output can be verified with GUI and the VLC media player can be used for liv
 
 To visualize the output after the pipeline is started using the curl/Json command.
 
-```Start "VLC Media player" → Select "Media" → Select "Open Network Stream" → Enter the URL details in "Network Protocol" as shown below rtsp://<Node IP>:30410/vasserving1 and click on play to run.```
+1. Start the VLC Media Player as shown below.
 
-![A browser window showing the VLC Media Player.](./images/edge-video-analytics-developer-kit-vlc-player.png)
+   ![A browser window showing the VLC Media Player.](./images/edge-video-analytics-developer-kit-vlc-player.png)
 
-Figure 10: RTSP Stream in VLC Player
+   Figure 10: VLC Media Player
 
-![A web app showing output from the visualizer.](./images/edge-video-analytics-developer-kit-visualizer-output.png)
+2. Select **Media > Open Network Stream** from the menu bar as shown below.
 
-Figure 11: Streaming Output Visualization
+   ![Media Player window showing Media Menu options.](./images/edge-video-analytics-developer-kit-open-network-stream.png)
+
+   Figure 11: VLC Media Player Menu
+
+3. In the **Network Protocol** field, enter this URL: ``rtsp://<Node
+IP>:30410/vasserving1``
+
+   Click **Play** to run.
+
+   ![Media Player window showing the Network Protocol dialog.](./images/edge-video-analytics-developer-kit-url-details.png)
+
+   Figure 12: RTSP Stream in VLC Media Player
+
+4. You will see output similar to the following image.
+
+   ![A web app showing output from the visualizer.](./images/edge-video-analytics-developer-kit-visualizer-output.png)
+
+   Figure 13: Streaming Output Visualization
 
 ## Run Multiple Simultaneous Use Cases with EVAM
 
@@ -575,8 +592,8 @@ curl --location -X POST '<http://localhost:30409/pipelines/<Pipeline_name_2>/<Mo
 }'
 ```
 
-Here two different pipelines are created simultaneously. Let, say one is
-object_detection/person_vehicle_bike and other is
+Here two different pipelines are created simultaneously. Let's say that one pipleline is
+object_detection/person_vehicle_bike and the other is
 object_classification/vehicle_attributes. Both pipelines use different video
 file sources as per their use cases.
 
@@ -586,7 +603,7 @@ file sources as per their use cases.
 
 ![A console window showing the output of the create pipeline script for 2 pipelines.](./images/edge-video-analytics-developer-kit-multiple-pipelines.png)
 
-Figure 12: Run Multiple Pipelines Simultaneously
+Figure 14: Run Multiple Pipelines Simultaneously
 
 If there are two parallel pipelines created with their path in ``"frame"``
 section are ``vasserving1`` and ``vasserving2`` respectively, their output
