@@ -237,7 +237,7 @@ pictures taken by the application on the video stream.
 
 ## Run in Parallel with Distracted Driving Recognition Reference Implementation
 
-To run this task you will need to download and install [Distracted Driving Recognition](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/road-sign-detection-and-classification.html) Reference Implementation.
+To run this task you will need to download and install [Distracted Driving Recognition](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/distracted-driving-recognition.html) Reference Implementation.
 
 ### Prerequisites
 
@@ -253,7 +253,7 @@ To run this task you will need to download and install [Distracted Driving Recog
    cd <INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase
    ```
 
-   ![A window showing 2 system consoles in side-by-side view.](docs/distracted-driving-recognition-change-directory.png)
+   ![A window showing 2 system consoles in side-by-side view.](docs/road-sign-detection-and-classification-ri-change-directory.png)
 
    Figure 12: Set Up System Console Windows
 
@@ -263,7 +263,7 @@ To run this task you will need to download and install [Distracted Driving Recog
    cd <INSTALL_PATH>/distracted_driving_recognition/Distracted_Driving_Recognition_2022.1/Distracted_Driving_Recognition/EII-DriverActionRecognition-UseCase
    ```
 
-   ![A window showing 2 system consoles. Each console is displaying a different directory.](docs/distracted-driving-recognition-change-directory2.png)
+   ![A window showing 2 system consoles. Each console is displaying a different directory.](docs/road-sign-detection-and-classification-ri-change-directory2.png)
 
    Figure 13: System Console Windows Displaying Different Directories
 
@@ -278,10 +278,10 @@ To run this task you will need to download and install [Distracted Driving Recog
    Copy and run the `make webui` command from the end of the installation:
 
    ```bash
-   make webui EII_BASE=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/driver_action_recognition/Distracted_Driving_Recognition_2022.1/Distracted_Driving_Recognition/EII-DriverActionRecognition-UseCase
+   make webui EII_BASE=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/distracted_driving_recognition/Distracted_Driving_Recognition_2022.1/Distracted_Driving_Recognition/EII-DriverActionRecognition-UseCase
    ```
 
-   ![A window showing 2 system consoles. Each console is running a different application.](docs/distracted-driving-recognition-webserver-app.png)
+   ![A window showing 2 system consoles. Each console is running a different application.](docs/road-sign-detection-and-classification-ri-webserver-app.png)
 
    Figure 14: System Console Windows Running Different Applications
 
@@ -298,14 +298,14 @@ To run this task you will need to download and install [Distracted Driving Recog
 
    >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-   ![A browser window showing 2 application dashboards in a side-by-side view.](docs/distracted-driving-recognition-configure-rsdc.png)
+   ![A browser window showing 2 application dashboards in a side-by-side view.](docs/road-sign-detection-and-classification-ri-configure-rsdc.png)
 
    Figure 15: Set Up Reference Implementation Dashboards
 
 At this point, Road Sign Detection and Classification will close and after that both use cases will start.
 >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-![A browser window showing output of 2 visualizers in a side-by-side view.](docs/distracted-driving-recognition-two-use-cases.png)
+![A browser window showing output of 2 visualizers in a side-by-side view.](docs/road-sign-detection-and-classification-ri-two-use-cases.png)
 
 Figure 16: Visualizer Output for 2 Reference Implementations
 
