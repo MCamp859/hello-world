@@ -339,7 +339,7 @@ and the algorithm can be optimized for better performance.
 To continue your learning, see the following guides and software resources:
 
 -  Visit [Edge Insights for Fleet](https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/edge-solutions/fleet-recipes.html?s=Newest) for additional reference implementations.
--  [Intel® Distribution of OpenVINO™ toolkit documentation](http://docs.openvinotoolkit.org/2019_R3/index.html)
+-  [Intel® Distribution of OpenVINO™ toolkit documentation](https://docs.openvino.ai/2021.4/index.html)
 
 ## Known Issues
 
