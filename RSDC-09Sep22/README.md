@@ -10,6 +10,14 @@ for this Use Case, allowing the vehicle to recognize different traffic signs
 placed on the road, such as speed limits, no entry, turn left or right ahead,
 road work, pedestrians, children crossing, no passing of heavy vehicles, etc.
 
+>**Disclaimer**\
+This proof of concept demonstration shows how to use Edge Insights for Fleet middleware.
+This model is provided for demonstration purposes only. We strongly recommend developers use an
+appropriate model validated for their context of use.
+In this example, one model detects Road Signs visible to a vehicles’ front-facing camera,
+and another classifies/recognizes those Signs.
+The proof of concept demonstration also uploads JPEG snapshots of video frames containing
+signs to AWS cloud servers, to validate that detection events have been triggered accurately.
 
 Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/road_sign_detection_and_classification) to download the reference implementation and the software listed below.
 
@@ -19,6 +27,7 @@ Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/dow
 Recipient is solely responsible for compliance with all applicable regulatory standards and safety, privacy, and security related requirements concerning Recipient's use of the Intel hardware and software.\
 Recipient is solely responsible for any and all integration tasks, functions, and performance in connection with use of the Intel hardware or software as part of a larger system. Intel does not have sufficient knowledge of any adjoining, connecting, or component parts used with or possibly impacted by the Intel hardware or software or information about operating conditions or operating environments in which the Intel hardware or software may be used by Recipient.  Intel bears no responsibility, liability, or fault for any integration issues associated with the inclusion of the Intel hardware or software into a system.  It is Recipient’s responsibility to design, manage, and assure safeguards to anticipate, monitor, and control component, system, quality, and or safety failures.
 
+![Screenshot of running Reference Implementation.](docs/road-sign-detection-and-classification-ri-landing.png)
 
 -  **Time to Complete:** Approximately 60 minutes
 -  **Programming Language:** Python*
@@ -28,7 +37,9 @@ Recipient is solely responsible for any and all integration tasks, functions, an
 
 ### Recommended Hardware
 
-The below hardware is recommended for use with this reference implementation. See the [Recommended Hardware](https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/edge-solutions/hardware.html?s=Newest) page for other suggestions. 
+The below hardware is recommended for use with this reference implementation.
+For other suggestions, see [Recommended
+Hardware](https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/edge-solutions/hardware.html?s=Newest).
 
 -   [ADLINK MXE-5500 Series](https://www.adlinktech.com/Products/Industrial_PCs_Fanless_Embedded_PCs/IntegratedFanlessEmbeddedComputers/MXE-5500_Series?lang=en)
 
@@ -164,7 +175,7 @@ to enable all dashboard features, including the cloud storage.
 
    Figure 5: Configuration Tab Contents
 
-   > **NOTE:** If you don't have an AWS account you will not be able to access Storage Cloud. You can still enable the Thingsboard Cloud Data if you configured it locally or on another machine.
+   > **NOTE:** If you don't have an AWS account, you will not be able to access Storage Cloud. You can still enable the ThingsBoard Cloud Data if you configured it locally or on another machine.
 
 4. Access the Road Sign Detection and Classification Dashboard with the following steps.
 
@@ -218,9 +229,10 @@ to enable all dashboard features, including the cloud storage.
 
       Figure 9: Visualizer Output
 
-5. After the visualizer starts, you can go to the ThingsBoard link and check the alerts sent by the
-reference implementation. If you configured the AWS credentials, you will also have access to
-pictures taken by the application on the video stream.
+5. After the visualizer starts, you can go to the ThingsBoard link and check the
+   alerts sent by the reference implementation. If you configured the AWS
+   credentials, you will also have access to pictures taken by the application on
+   the video stream.
 
    ![A browser window showing the ThingsBoard link with the Intel Fleet Manager dashboard in the main view. Several components are displayed, including Alerts, Temperature, and a map showing the vehicle location.](docs/road-sign-detection-and-classification-ri-tb-dashboard-with-data.png)
 
@@ -235,15 +247,15 @@ pictures taken by the application on the video stream.
    Figure 11: Reference Implementation Storage Tab
 
 
-## Run in Parallel with Distracted Driving Recognition Reference Implementation
+## Run in Parallel with Driver Behavior Analytics Reference Implementation
 
-To run this task you will need to download and install [Distracted Driving Recognition](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/distracted-driving-recognition.html) Reference Implementation.
+To run this task you will need to download and install [Driver Behavior Analytics](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/driver-behavior-analytics.html) Reference Implementation.
 
 ### Prerequisites
 
 -   Two terminals
 
--   Follow the steps to install [Distracted Driving Recognition](https://www.intel.com/content/www/us/en/develop/articles/distracted-driving-recognition.html#install) after installing [Road Sign Detection and Classification](#step-1-install-the-reference-implementation)
+-   Follow the steps to install [Driver Behavior Analytics](https://www.intel.com/content/www/us/en/develop/articles/driver-behavior-analytics.html#install) after installing [Road Sign Detection and Classification](#step-1-install-the-reference-implementation)
 
 ### Steps to Run the Application
 
@@ -257,10 +269,10 @@ To run this task you will need to download and install [Distracted Driving Recog
 
    Figure 12: Set Up System Console Windows
 
-2. Change directory to **Distracted Driving Recognition Use Case** path on terminal 2:
+2. Change directory to **Driver Behavior Analytics Use Case** path on terminal 2:
 
    ```bash
-   cd <INSTALL_PATH>/distracted_driving_recognition/Distracted_Driving_Recognition_2022.1/Distracted_Driving_Recognition/EII-DriverActionRecognition-UseCase
+   cd <INSTALL_PATH>/driver_behavior_analytics/Driver_Behavior_Analytics_2022.2/Driver_Behavior_Analytics/EII-DriverBehavior-UseCase
    ```
 
    ![A window showing 2 system consoles. Each console is displaying a different directory.](docs/road-sign-detection-and-classification-ri-change-directory2.png)
@@ -278,7 +290,7 @@ To run this task you will need to download and install [Distracted Driving Recog
    Copy and run the `make webui` command from the end of the installation:
 
    ```bash
-   make webui EII_BASE=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/distracted_driving_recognition/Distracted_Driving_Recognition_2022.1/Distracted_Driving_Recognition/EII-DriverActionRecognition-UseCase
+   make webui EII_BASE=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/driver_behavior_analytics/Driver_Behavior_Analytics_2022.2/Driver_Behavior_Analytics/EII-DriverBehavior-UseCase
    ```
 
    ![A window showing 2 system consoles. Each console is running a different application.](docs/road-sign-detection-and-classification-ri-webserver-app.png)
@@ -292,7 +304,7 @@ To run this task you will need to download and install [Distracted Driving Recog
 
 7. Wait for the Visualizer to get up and running.
 
-8. Open the Distracted Driving Recognition page by going to address **127.0.0.1:9099**.
+8. Open the Driver Behavior Analytics page by going to address **127.0.0.1:9092**.
 
 9. Configure the camera with the desired video and set the target for each one (**CPU** or **GPU**) and click **Run Use Case**.
 
