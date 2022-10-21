@@ -8,10 +8,14 @@ Intel® software including the OpenVINO™ toolkit. The workflow is deployed
 through Helm* by using microservices and Docker* images, which are built or
 taken from Microsoft Azure* Marketplace.†
 
+Select **Configure & Download** to download the workflow.
+
+[Configure & Download - link TBD](xxx)
+
 
 ## How It Works
 
-![The workflow is represented by a complex block diagram.](docs/quantization-aware-training-usecase-flow.png)
+![The workflow is represented by a complex block diagram.](quantization-aware-training-usecase-flow.png)
 
 Figure 1: Flow Diagram
 
@@ -56,15 +60,13 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 
 -  Any flavor of Kubernetes variations.
 
-   This project uses [Rancher* k3s* installation](https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for-installation-with-script).
+   This project uses [Rancher* K3S* installation](https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for-installation-with-script).
 
    ```bash
    curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
    export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
    ```
 -  Helm installation on master node.
-
-   **OPEN: "master node" is not inclusive language, OK to rename "main node"?** 
 
    Simple commands are listed below. For details, see [Helm installation instructions](https://helm.sh/docs/intro/install/).
 
@@ -75,21 +77,26 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
    ```
 -  This project uses the
    `bert-large-uncased-whole-word-masking-finetuned-squad` model for `Question
-   Answering` usecase through quantization aware training and inference. Training and inference scripts are included in the respective folders.
+   Answering` use case through quantization aware training and inference. Training and inference scripts are included in the respective folders.
 
 ## Step 1: Install and Run the Workflow
 
 ### Download Source Code
 
-Run the command:
+Choose one of the following options:
 
-**OPEN: THIS INNERSOURCE LINK WILL NOT WORK FOR EXTERNAL USERS**
+*  Select **Configure & Download** to download the workflow.
 
-```bash
-git clone  https://github.com/intel-innersource/frameworks.ai.edgecsp.quantization-training-inference.git
+   [Configure & Download - link TBD](xxx)
 
-cd frameworks.ai.edgecsp.quantization-training-inference
-```
+
+*  Run the command:
+
+   ```bash
+   git clone https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat
+
+   cd frameworks.ai.edgecsp.quantization-training-inference
+   ```
 ### Build Docker Images
 You can build Docker images to store in a local image registry or pull images from Azure
 Marketplace. Follow either Option 1 or Option 2 below.
@@ -165,30 +172,31 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
    Pick any of the available nodes for training and inference with the nodename
    of this command.
 
-**OPEN: CHECK FORMATTING OF THIS CODE SNIPPET**
-
    ```bash
      kubectl get nodes --show-labels
-    nodeselector:
+   ```
+
+   ``values.yml``
+   ```bash
+   nodeselector:
       trainingnode: <train_node>
       inferencenode: <inference_node>
    ```
+
 
 *  Edit `helmchart/qat/values.yaml` file with higher values of `MAX_TRAIN_SAMPLES`
    and `MAX_EVAL_SAMPLES` parameters for better finetuning of data. Default value
    is 50 samples.
 
-*  More details on all the parameters in [here](https://github.com/intel-innersource/frameworks.ai.edgecsp.quantization-training-inference/blob/master/docs/params_table.md)
-
-**OPEN: THIS INNERSOURCE LINK WILL NOT WORK FOR EXTERNAL USERS. Do we need to add the table to this guide?**
+*  Find details on all the parameters in the [Parameters Table](https://github.com/intel/nlp-training-and-inference-openvino/blob/main/question-answering-bert-qat/docs/params_table.md).
 
 
-## Run Helm Charts
+## Step 2: Run Helm Charts
 
 This section contains step-by-step details to install specific Helm charts with both training and inference. [Learn more about Helm commands.](https://helm.sh/docs/helm/helm_install/)
 
 
-### Usecase 1: QAT with Inference using OpenVINO™ Integration with Optimum
+### Use Case 1: QAT with Inference using OpenVINO™ Integration with Optimum
 
 The Training pod is deployed through `pre_install_job.yaml`.
 The Inference pod is deployed through `deployment_optimum.yaml`.
@@ -198,12 +206,11 @@ The Inference pod is deployed through `deployment_optimum.yaml`.
 cd helmchart
 helm install qatchart qat  --timeout <time>
 ```
-`<time>` value. For the above hardware configuration and with
-MAX_TRAINING_SAMPLES=50, it would ideally be 480**s**. You can increase the value
+The `<time>` value has the format ``nnns``, where **s** indicates seconds. For the above hardware configuration and with
+MAX_TRAINING_SAMPLES=50, we recommend you set the `<time>` value as ``480s``. You can increase the value
 for reduced hardware configuration. Refer to [Troubleshooting](#Troubleshooting)
 in case of timeout errors.
 
-**OPEN: Why is 's' bold above? OK to spell out as seconds to avoid confusion?**
 
 Confirm if the training has been deployed.
 
@@ -236,7 +243,7 @@ takes in model generated from training pod as input.
    ```
 
 
-### Usecase 2: QAT with Inference using OpenVINO™ Model Server
+### Use Case 2: QAT with Inference using OpenVINO™ Model Server
 
 The Training pod is deployed through `pre_install_job.yaml`.
 The OpenVINO™ Model Server pod is deployed through `deployment_ovms.yaml`.
@@ -245,44 +252,8 @@ Copy `deployment_ovms.yaml` from `helmchart/deployment_yaml` folder into
 `helmchart/qat/templates`. Make sure there is only one `deployment_*.yaml` file
 in the templates folder for single deployment.
 
-Follow same instructions as [Usecase1](#usecase-1)
+Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-using-openvino™-integration-with-optimum).
 
-**OPEN: It's a better user experience to repeat the instructions here, especially since they are not too complicated. I copied the steps here, please confirm it is all OK.**
-
-**COPIED STEPS START**
-
-```bash
-cd helmchart
-helm install qatchart qat  --timeout <time>
-```
-`<time>` value. For the above hardware configuration and with
-MAX_TRAINING_SAMPLES=50, it would ideally be 480**s**. You can increase the value
-for reduced hardware configuration. Refer to [Troubleshooting](#Troubleshooting)
-in case of timeout errors.
-
-**OPEN: Why is 's' bold above? OK to spell out as seconds to avoid confusion?**
-
-Confirm if the training has been deployed.
-
-```bash
-kubectl get pods
-```
-
-If the training pod is in "Running" state then the pod has been deployed.
-Otherwise, check for any errors by running the command:
-
-```bash
-kubectl describe pod <pod_name>
-```
-
-The training pod will be in "Completed" state after it finishes training. Refer
-to the [Training Output section](#training-output) for details.
-
-Once the training is completed, the inference pod gets deployed automatically.
-The inference pod uses OpenVINO™ Runtime as a backend to Hugging Face APIs and
-takes in model generated from training pod as input.
-
-**COPIED STEPS END**
 
 #### OpenVINO™ Model Server Inference Output
 1. OpenVINO™ Model Server deploys optimized model from training container. View
@@ -300,13 +271,13 @@ API](https://docs.openvino.ai/latest/omz_model_api_ovms_adapter.html).
    Find the ip address of the system where the OpenVINO™ Model Server has been
    deployed.
 
-3. Change the `'registry'` tag and `'hostname'` in the command below before
+3. Change the `<registry>` tag and `<hostname>` in the command below before
    running.
 
-   'hostname': hostname of the node where the OpenVINO™ Model Server has been deployed.
-   'registry': It should be local or private registry address. If using local registry, edit it to "localhost:5000".
+   ``<hostname>`` hostname of the node where the OpenVINO™ Model Server has been deployed.
 
-   **OPEN: CHECK FORMATTING OF THIS CODE SNIPPET**
+   ``<registry>`` It should be local or private registry address. If using local registry, edit it to "localhost:5000".
+
 
    ```bash
    kubectl get nodes
@@ -323,7 +294,7 @@ API](https://docs.openvino.ai/latest/omz_model_api_ovms_adapter.html).
    docker run -it --entrypoint /bin/bash --env MODEL_NAME=bert-large-uncased-whole-word-masking-finetuned-squad --env MODEL_PATH=<hostname>:9000/models/bert --env MODEL_TYPE=ov  --env ADAPTER=ovms --env ITERATIONS=100 --env INFERENCE_SCRIPT=/home/inference/inference_scripts/bert_qa.py -v  $(pwd):/home/inference/ <registry>/openvino_optimum -c "/home/inference/run_openvino_optimum_inference.sh"
    ```
 
-### Usecase 3: QAT with Inference using OpenVINO™ Execution Provider
+### Use Case 3: QAT with Inference using OpenVINO™ Execution Provider
 
 The Training pod is deployed through `pre_install_job.yaml`.
 
@@ -332,40 +303,7 @@ OpenVINO™ Execution Provider pod is deployed through `deployment_onnx.yaml`.
 
 Copy `deployment_onnx.yaml` from `helmchart/deployment_yaml` folder into `helmchart/qat/templates`. Make sure there is only one deployment_*.yaml file in the templates folder.
 
-**COPIED STEPS START**
-
-```bash
-cd helmchart
-helm install qatchart qat  --timeout <time>
-```
-`<time>` value. For the above hardware configuration and with
-MAX_TRAINING_SAMPLES=50, it would ideally be 480**s**. You can increase the value
-for reduced hardware configuration. Refer to [Troubleshooting](#Troubleshooting)
-in case of timeout errors.
-
-**OPEN: Why is 's' bold above? OK to spell out as seconds to avoid confusion?**
-
-Confirm if the training has been deployed.
-
-```bash
-kubectl get pods
-```
-
-If the training pod is in "Running" state then the pod has been deployed.
-Otherwise, check for any errors by running the command:
-
-```bash
-kubectl describe pod <pod_name>
-```
-
-The training pod will be in "Completed" state after it finishes training. Refer
-to the [Training Output section](#training-output) for details.
-
-Once the training is completed, the inference pod gets deployed automatically.
-The inference pod uses OpenVINO™ Runtime as a backend to Hugging Face APIs and
-takes in model generated from training pod as input.
-
-**COPIED STEPS END**
+Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-using-openvino™-integration-with-optimum).
 
 #### Onnxruntime Inference Output
 1. Output of the onnxruntime inference pod will be stored in the
@@ -376,7 +314,7 @@ takes in model generated from training pod as input.
    kubectl logs <pod_name>
    ```
 
-### Usecase 4: Inference Only
+### Use Case 4: Inference Only
 
 To run only Inference, make sure you have access to the model file and also edit
 the model path in the `helmchart/qat/values.yaml` file. If you want to deploy
@@ -387,9 +325,8 @@ cd helmchart
 helm install qatchart qat --no-hooks
 ```
 
-#### Clean Up
+### Clean Up
 
-**OPEN: Is Clean Up for all usecases? If yes, I will uplevel this heading.**
 
 To clean or uninstall Helm chart, run:
 
@@ -416,7 +353,7 @@ task.
 
 1. Output of the training container will be an optimized INT8 model generated in
    the `quantization_aware_training/model` folder.
-2. Verify if all the model files are generated in the <output> folder.
+2. Verify if all the model files are generated in the `<output>` folder.
 3. A `logs.txt` file is generated to store the logs of the training container
    which will have accuracy details.
 
@@ -453,7 +390,7 @@ just one inference application.
    Model format acceptable is pytorch or IR.xml
 
 *  For OpenVINO™ model server, use `deployment-ovms.yaml`. Model format
-   acceptabe is IR.xml
+   acceptable is IR.xml
 
 ```bash
 helm install qatchart qat --no-hooks
@@ -515,7 +452,7 @@ storage across all the nodes.
 
 1. Clone the git_repo in /mnt/MyAzureFileShare and make it as your working
    directory.
-2. Edit <current_working_directory> in `./helmchart/qat/values.yaml` file to
+2. Edit `<current_working_directory>` in `./helmchart/qat/values.yaml` file to
    reflect the same.
 3. All other instructions will be same as in above steps to install the Helm
    chart and trigger the pipeline.
@@ -527,13 +464,13 @@ storage across all the nodes.
 To continue your learning, see the following guides and software resources:
 
 * [OpenVINO™ Integration with Hugging Face Optimum](https://github.com/openvinotoolkit/openvino_contrib/tree/master/modules/optimum)
-* [NNCF](https://github.com/openvinotoolkit/nncf)
-* [Huggingface Transformers training pipelines](https://github.com/huggingface/transformers/tree/main/examples/pytorch)
+* [Neural Network Compression Framework (NNCF)](https://github.com/openvinotoolkit/nncf)
+* [Hugging Face Transformers training pipelines](https://github.com/huggingface/transformers/tree/main/examples/pytorch)
 * [OpenVINO™ Execution Provider](https://onnxruntime.ai/docs/execution-providers/OpenVINO-ExecutionProvider.html)
 
 ## Troubleshooting
 
-### Connection refused
+### Connection Refused
 If you encounter a connection refused message as shown below:
 
 ```bash
@@ -570,15 +507,18 @@ Based on the system performance, add `--timeout <seconds>` to the helm command:
 ```bash
    helm install qatchart qat --timeout <time>
 ```
-`time` value. For the above hardware configuration and with MAX_TRAINING_SAMPLES as 50 it would ideally be 480s. Increase the timeout if you need to finetune on the whole dataset.
+The `<time>` value has the format ``nnns``, where **s** indicates seconds. For
+the above hardware configuration and with MAX_TRAINING_SAMPLES=50, we recommend
+you set the `<time>` value as ``480s``. Increase the timeout if you need to
+finetune on the whole dataset.
 
 #### Workaround 2
 
-**OPEN: Please check these steps, the code snippets are mixed up with text.**
 
-1. Even if the helm issues error the training pod will get schedule and will keep running and finish its job. Please verify
-kubectl logs <training_pod>
-   Once, the pod is completed .
+1. Even if Helm issues an error, the training pod will get schedule and will
+   keep running and finish its job. Verify ``kubectl logs <training_pod>``
+   when the pod is completed.
+
 2. Run the command:
    ```bash
    helm uninstall qatchart
@@ -590,19 +530,17 @@ kubectl logs <training_pod>
 
 ### Useful Commands
 
-Uninstalling helm: (If required)
+Uninstalling Helm: (If required)
 ```bash
 sudo rm -rf /usr/local/bin/helm
 ```
 
-Uninstalling k3s: (If required)
+Uninstalling K3S: (If required)
 ```bash
 /usr/local/bin/k3s-uninstall.sh
 ```
-Refer to [Steps to uninstall Rancher k3s](https://rancher.com/docs/k3s/latest/en/installation/uninstall/#:~:text=If%20you%20installed%20K3s%20using,installation%20script%20with%20different%20flags).
+Refer to [Steps to uninstall Rancher K3S](https://rancher.com/docs/k3s/latest/en/installation/uninstall/#:~:text=If%20you%20installed%20K3s%20using,installation%20script%20with%20different%20flags).
 
-
-**OPEN: Other ESH articles have this line at the end. OK to add? Is the Support Forum Link OK?**
 
 ### Support Forum
 
@@ -610,7 +548,7 @@ If you're unable to resolve your issues, contact the [Support
 Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
 
 
-† You are responsible for payment of all third-party charges, including payment
+†  You are responsible for payment of all third-party charges, including payment
 for use of Microsoft Azure services.
 
 For the most up-to-date information on Microsoft® Azure products, see the
