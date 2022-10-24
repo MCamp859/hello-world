@@ -11,6 +11,8 @@ Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/dow
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/driver_behavior_analytics)
 
+>**NOTE:** This software package will not work on the People's Republic of China (PRC) network.
+
 ![Screenshot of running Driver Behavior Analytics.](docs/driver-behavior-ri-landing.png)
 
 -  **Time to Complete:** Approximately 60 minutes
