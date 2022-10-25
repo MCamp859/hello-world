@@ -28,9 +28,9 @@ The workflow executes as follows:
 2. Once the model is generated, then inference applications can be deployed with
    one of the following APIs:
 
-   *  Inference using Hugging Face API
-   *  Inference using ONNX Runtime API
-   *  Deploy the model using OpenVINO™ Model Server and send in grpc requests
+    *  Inference using Hugging Face API
+    *  Inference using ONNX Runtime API
+    *  Deploy the model using OpenVINO™ Model Server and send in grpc requests
 
 
 ## Get Started
@@ -43,8 +43,8 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 
 -  One of the following processors:
 
-   -  Intel® Xeon® Platinum 8370C Processor @ 2.80GHz (16 vCPUs).
-   -  Intel® Xeon® Processor with NVIDIA* GPU.
+    -  Intel® Xeon® Platinum 8370C Processor @ 2.80GHz (16 vCPUs).
+    -  Intel® Xeon® Processor with NVIDIA* GPU.
 
 -  At least 64 GB RAM.
 
