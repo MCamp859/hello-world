@@ -62,13 +62,14 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 
    This project uses [Rancher* K3S* installation](https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for-installation-with-script).
 
-   TESTING DIFF INDENTS - bullet para
+   TESTING DIFF INDENTS - bullet para, backspace then add return, return btw
 
    ```bash
       curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+
       export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
    ```
-TESTING DIFF INDENTS - no bullet
+TESTING DIFF INDENTS - no bullet, backspace then add return
 
 ```bash
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
@@ -95,17 +96,19 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 Choose one of the following options:
 
-*  Select **Configure & Download** to download the workflow.
+*TESTING 4 space indents these bullets+code*
 
-   [Configure & Download - link TBD](xxx)
+*   Select **Configure & Download** to download the workflow.
+
+    [Configure & Download - link TBD](xxx)
 
 
-*  Run the command:
+*   Run the command:
 
-   ```bash
-   git clone https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat
-   cd frameworks.ai.edgecsp.quantization-training-inference
-   ```
+    ```bash
+    git clone https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat
+    cd frameworks.ai.edgecsp.quantization-training-inference
+    ```
 
 ### Build Docker Images
 You can build Docker images to store in a local image registry or pull images from Azure
@@ -113,61 +116,64 @@ Marketplace. Follow either Option 1 or Option 2 below.
 
 Option 1: Build images locally
 
-   1. Start a local registry. You can use any string for `<registry_name>` such as `qat_docker_registry`.
+1. Start a local registry. You can use any string for `<registry_name>` such as
+   `qat_docker_registry`.
 
-      TESTING DIFF INDENTS - numbered step, extra space b4 code
+   *TESTING 4 space indents code only*
 
-      ```bash
-       docker run -d -p 5000:5000 --restart=always --name <registry_name>  registry:2
-      ```
+    ```bash
+    docker run -d -p 5000:5000 --restart=always --name <registry_name>  registry:2
+    ```
 
-   2. Build Docker image. Edit the `docker-compose.yaml` file for
-      `<registry>` tag with the local or private registry address. If using
-      local registry, edit it to `"localhost:5000"`.
+2. Build Docker image. Edit the `docker-compose.yaml` file for `<registry>` tag
+   with the local or private registry address. If using local registry, edit it
+   to `"localhost:5000"`.
 
-      TESTING DIFF INDENTS - numbered step, extra indent + space b4 code
+   *TESTING 4 space indents code only*
 
-         ```bash
-          cd dockerfiles
-          docker compose build
-         ```
+    ```bash
+    cd dockerfiles
+    docker compose build
+    ```
 
-   3. Push the image to the local image registry.
+3. Push the image to the local image registry.
 
-      TESTING DIFF INDENTS - numbered step, extra space b4 each line
+   *TESTING 4 space indents code only*
 
-       ```bash
-       docker compose push openvino_optimum
-       cd ..
-       ```
+    ```bash
+    docker compose push openvino_optimum
+    cd ..
+    ```
 
 Option 2. Pull Images from Azure Marketplace
 
-   1. Subscribe to the images mentioned below.
+1. Subscribe to the images mentioned below.
 
-      **OPEN: Azure image names/screenshots TBD**
+   **OPEN: Azure image names/screenshots TBD**
 
-      *To be updated with screenshots once we know the name and place of the images.*
+   *To be updated with screenshots once we know the name and place of the images.*
 
-      Subscribed images from Azure Marketplace will be stored onto your private
-      registry.
+   Subscribed images from Azure Marketplace will be stored onto your private
+   registry.
 
-   2. Create a kubectl secret for the private registry where the images are
-      stored.
+2. Create a kubectl secret for the private registry where the images are
+   stored.
 
-      ```bash
-      kubectl create secret docker-registry <secret_name>
-         --docker-server <registry_name>.azurecr.io
-         --docker-email <your_email>
-         --docker-username=<service_principal_id>
-         --docker-password <your_password>
-      ```
+   *TESTING 4 space indents code only*
 
-   3. Edit the `helmchart/qat/values.yaml` with the secret name for the
-      imagePullSecrets field with the `<secret_name>` as above.
+    ```bash
+    kubectl create secret docker-registry <secret_name>
+       --docker-server <registry_name>.azurecr.io
+       --docker-email <your_email>
+       --docker-username=<service_principal_id>
+       --docker-password <your_password>
+    ```
 
-   4. Edit the `helmchart/qat/values.yaml` with the `<registry_name>` for the
-      `repo_name` field.
+3. Edit the `helmchart/qat/values.yaml` with the secret name for the
+   imagePullSecrets field with the `<secret_name>` as above.
+
+4. Edit the `helmchart/qat/values.yaml` with the `<registry_name>` for the
+   `repo_name` field.
 
 
 ### Modify Helm Chart Values
