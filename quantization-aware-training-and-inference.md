@@ -62,19 +62,29 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 
    This project uses [Rancher* K3S* installation](https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for-installation-with-script).
 
+   TESTING DIFF INDENTS - bullet para
+
    ```bash
-   curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
-   export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+      curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+      export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
    ```
+TESTING DIFF INDENTS - no bullet
+
+```bash
+curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+```
+
 -  Helm installation on master node.
 
    Simple commands are listed below. For details, see [Helm installation instructions](https://helm.sh/docs/intro/install/).
 
    ```bash
-   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-   chmod 700 get_helm.sh
-   ./get_helm.sh
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    chmod 700 get_helm.sh
+    ./get_helm.sh
    ```
+
 -  This project uses the
    `bert-large-uncased-whole-word-masking-finetuned-squad` model for `Question
    Answering` use case through quantization aware training and inference. Training and inference scripts are included in the respective folders.
@@ -94,9 +104,9 @@ Choose one of the following options:
 
    ```bash
    git clone https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat
-
    cd frameworks.ai.edgecsp.quantization-training-inference
    ```
+
 ### Build Docker Images
 You can build Docker images to store in a local image registry or pull images from Azure
 Marketplace. Follow either Option 1 or Option 2 below.
@@ -105,25 +115,31 @@ Option 1: Build images locally
 
    1. Start a local registry. You can use any string for `<registry_name>` such as `qat_docker_registry`.
 
+      TESTING DIFF INDENTS - numbered step, extra space b4 code
+
       ```bash
-      docker run -d -p 5000:5000 --restart=always --name <registry_name>  registry:2
+       docker run -d -p 5000:5000 --restart=always --name <registry_name>  registry:2
       ```
 
    2. Build Docker image. Edit the `docker-compose.yaml` file for
       `<registry>` tag with the local or private registry address. If using
       local registry, edit it to `"localhost:5000"`.
 
-      ```bash
-      cd dockerfiles
-      docker compose build
-      ```
+      TESTING DIFF INDENTS - numbered step, extra indent + space b4 code
+
+         ```bash
+          cd dockerfiles
+          docker compose build
+         ```
 
    3. Push the image to the local image registry.
 
-      ```bash
-      docker compose push openvino_optimum
-      cd ..
-      ```
+      TESTING DIFF INDENTS - numbered step, extra space b4 each line
+
+       ```bash
+       docker compose push openvino_optimum
+       cd ..
+       ```
 
 Option 2. Pull Images from Azure Marketplace
 
@@ -177,6 +193,7 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
    ```
 
    ``values.yml``
+
    ```bash
    nodeselector:
       trainingnode: <train_node>
@@ -291,6 +308,7 @@ API](https://docs.openvino.ai/latest/omz_model_api_ovms_adapter.html).
 
    ```bash
    cd <gitrepofolder>/openvino_optimum_inference
+
    docker run -it --entrypoint /bin/bash --env MODEL_NAME=bert-large-uncased-whole-word-masking-finetuned-squad --env MODEL_PATH=<hostname>:9000/models/bert --env MODEL_TYPE=ov  --env ADAPTER=ovms --env ITERATIONS=100 --env INFERENCE_SCRIPT=/home/inference/inference_scripts/bert_qa.py -v  $(pwd):/home/inference/ <registry>/openvino_optimum -c "/home/inference/run_openvino_optimum_inference.sh"
    ```
 
@@ -310,6 +328,7 @@ Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-usin
    onnxruntime_inference/logs.txt file.
 
 2. View the logs using:
+
    ```bash
    kubectl logs <pod_name>
    ```
