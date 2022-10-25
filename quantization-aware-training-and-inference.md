@@ -170,7 +170,7 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
 *  Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the current
    working repo directory.
 
-   >**Note:** Relative paths do not work with Helm.
+      >**Note:** Relative paths do not work with Helm.
 
 *  Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and
    `<inference_node>` values under `'nodeselector'` key.
@@ -182,7 +182,7 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
       kubectl get nodes --show-labels
     ```
 
-   `values.yml`
+   `values.yaml`
 
     ```bash
     nodeselector:
@@ -429,6 +429,7 @@ storage across all the nodes.
     ```bash
     az group create --name myResourceGroup --location eastus
     ```
+
 3. Create Storage Account:
 
     ```bash
@@ -439,25 +440,33 @@ storage across all the nodes.
      --sku Standard_LRS \
      --query "name" | tr -d '"')
     ```
+
 4. Create Storage Key:
+
     ```bash
     STORAGEKEY=$(az storage account keys list \
        --resource-group "myResourceGroup" \
        --account-name $STORAGEACCT \
        --query "[0].value" | tr -d '"')
     ```
+
 5. Create a file share:
+
     ```bash
     az storage share create --name myshare \
        --quota 10 \
        --account-name $STORAGEACCT \
        --account-key $STORAGEKEY
     ```
+
 6. Create a mount point:
+
     ```bash
     mkdir -p /mnt/MyAzureFileShare
     ```
+
 7. Mount the share:
+
     ```bash
     sudo mount -t cifs //$STORAGEACCT.file.core.windows.net/myshare /mnt/MyAzureFileShare -o vers=3.0,username=$STORAGEACCT,password=$STORAGEKEY,serverino
     ```
@@ -558,8 +567,8 @@ Refer to [Steps to uninstall Rancher K3S](https://rancher.com/docs/k3s/latest/en
 
 ### Support Forum
 
-If you're unable to resolve your issues, contact the [Support
-Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
+If you're unable to resolve your issues, contact the 
+[Support Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
 
 
 †  You are responsible for payment of all third-party charges, including payment
