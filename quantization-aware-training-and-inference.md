@@ -62,29 +62,21 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 
    This project uses [Rancher* K3S* installation](https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for-installation-with-script).
 
-   TESTING DIFF INDENTS - bullet para, backspace then add return, return btw
 
-   ```bash
-      curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
-
-      export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-   ```
-TESTING DIFF INDENTS - no bullet, backspace then add return
-
-```bash
-curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
-export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-```
+    ```bash
+       curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+       export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+    ```
 
 -  Helm installation on master node.
 
    Simple commands are listed below. For details, see [Helm installation instructions](https://helm.sh/docs/intro/install/).
 
-   ```bash
+    ```bash
     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
     chmod 700 get_helm.sh
     ./get_helm.sh
-   ```
+    ```
 
 -  This project uses the
    `bert-large-uncased-whole-word-masking-finetuned-squad` model for `Question
@@ -96,14 +88,13 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 Choose one of the following options:
 
-*TESTING 4 space indents these bullets+code*
 
 *   Select **Configure & Download** to download the workflow.
 
     [Configure & Download - link TBD](xxx)
 
 
-*   Run the command:
+*   Or, run the command:
 
     ```bash
     git clone https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat
@@ -119,7 +110,6 @@ Option 1: Build images locally
 1. Start a local registry. You can use any string for `<registry_name>` such as
    `qat_docker_registry`.
 
-   *TESTING 4 space indents code only*
 
     ```bash
     docker run -d -p 5000:5000 --restart=always --name <registry_name>  registry:2
@@ -129,16 +119,12 @@ Option 1: Build images locally
    with the local or private registry address. If using local registry, edit it
    to `"localhost:5000"`.
 
-   *TESTING 4 space indents code only*
-
     ```bash
     cd dockerfiles
     docker compose build
     ```
 
 3. Push the image to the local image registry.
-
-   *TESTING 4 space indents code only*
 
     ```bash
     docker compose push openvino_optimum
@@ -158,8 +144,6 @@ Option 2. Pull Images from Azure Marketplace
 
 2. Create a kubectl secret for the private registry where the images are
    stored.
-
-   *TESTING 4 space indents code only*
 
     ```bash
     kubectl create secret docker-registry <secret_name>
@@ -194,17 +178,17 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
    Pick any of the available nodes for training and inference with the nodename
    of this command.
 
-   ```bash
-     kubectl get nodes --show-labels
-   ```
+    ```bash
+      kubectl get nodes --show-labels
+    ```
 
-   ``values.yml``
+   `values.yml`
 
-   ```bash
-   nodeselector:
-      trainingnode: <train_node>
-      inferencenode: <inference_node>
-   ```
+    ```bash
+    nodeselector:
+       trainingnode: <train_node>
+       inferencenode: <inference_node>
+    ```
 
 
 *  Edit `helmchart/qat/values.yaml` file with higher values of `MAX_TRAIN_SAMPLES`
@@ -261,9 +245,10 @@ takes in model generated from training pod as input.
    stored in the `openvino_optimum_inference/logs.txt` file.
 
 2. View the logs using:
-   ```bash
-   kubectl logs <pod_name>
-   ```
+
+    ```bash
+    kubectl logs <pod_name>
+    ```
 
 
 ### Use Case 2: QAT with Inference using OpenVINO™ Model Server
@@ -282,9 +267,10 @@ Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-usin
 1. OpenVINO™ Model Server deploys optimized model from training container. View
    the logs using the command:
 
-   ```bash
-   kubectl logs <pod_name>
-   ```
+    ```bash
+    kubectl logs <pod_name>
+    ```
+
 2. The client can send in grpc request to server through Hugging Face API user
    application using the openvino_optimum image.
 
@@ -302,21 +288,21 @@ API](https://docs.openvino.ai/latest/omz_model_api_ovms_adapter.html).
    ``<registry>`` It should be local or private registry address. If using local registry, edit it to "localhost:5000".
 
 
-   ```bash
-   kubectl get nodes
+    ```bash
+    kubectl get nodes
 
-   azureuser@SRDev:~/frameworks.ai.edgecsp.quantization-training-inference-master/openvino_optimum_inference$ kubectl get nodes
-   NAME    STATUS   ROLES                  AGE   VERSION
-   srdev   Ready    control-plane,master   16d   v1.24.6+k3s1
-   ```
+    azureuser@SRDev:~/frameworks.ai.edgecsp.quantization-training-inference-master/openvino_optimum_inference$ kubectl get nodes
+    NAME    STATUS   ROLES                  AGE   VERSION
+    srdev   Ready    control-plane,master   16d   v1.24.6+k3s1
+    ```
 
    In this case, hostname should be `srdev`.
 
-   ```bash
-   cd <gitrepofolder>/openvino_optimum_inference
+    ```bash
+    cd <gitrepofolder>/openvino_optimum_inference
 
-   docker run -it --entrypoint /bin/bash --env MODEL_NAME=bert-large-uncased-whole-word-masking-finetuned-squad --env MODEL_PATH=<hostname>:9000/models/bert --env MODEL_TYPE=ov  --env ADAPTER=ovms --env ITERATIONS=100 --env INFERENCE_SCRIPT=/home/inference/inference_scripts/bert_qa.py -v  $(pwd):/home/inference/ <registry>/openvino_optimum -c "/home/inference/run_openvino_optimum_inference.sh"
-   ```
+    docker run -it --entrypoint /bin/bash --env MODEL_NAME=bert-large-uncased-whole-word-masking-finetuned-squad --env MODEL_PATH=<hostname>:9000/models/bert --env MODEL_TYPE=ov  --env ADAPTER=ovms --env ITERATIONS=100 --env INFERENCE_SCRIPT=/home/inference/inference_scripts/bert_qa.py -v  $(pwd):/home/inference/ <registry>/openvino_optimum -c "/home/inference/run_openvino_optimum_inference.sh"
+    ```
 
 ### Use Case 3: QAT with Inference using OpenVINO™ Execution Provider
 
@@ -335,9 +321,9 @@ Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-usin
 
 2. View the logs using:
 
-   ```bash
-   kubectl logs <pod_name>
-   ```
+    ```bash
+    kubectl logs <pod_name>
+    ```
 
 ### Use Case 4: Inference Only
 
@@ -439,40 +425,43 @@ storage across all the nodes.
 
 1. Open Azure CLI terminal on Azure Portal.
 2. Create a resource group:
-   ```bash
-   az group create --name myResourceGroup --location eastus
-   ```
+
+    ```bash
+    az group create --name myResourceGroup --location eastus
+    ```
 3. Create Storage Account:
-   ```bash
-   STORAGEACCT=$(az storage account create \
-    --resource-group "myResourceGroup" \
-    --name "mystorageacct$RANDOM" \
-    --location eastus \
-    --sku Standard_LRS \
-    --query "name" | tr -d '"')
-   ```
+
+    ```bash
+    STORAGEACCT=$(az storage account create \
+     --resource-group "myResourceGroup" \
+     --name "mystorageacct$RANDOM" \
+     --location eastus \
+     --sku Standard_LRS \
+     --query "name" | tr -d '"')
+    ```
 4. Create Storage Key:
-   ```bash
-   STORAGEKEY=$(az storage account keys list \
-      --resource-group "myResourceGroup" \
-      --account-name $STORAGEACCT \
-      --query "[0].value" | tr -d '"')
-   ```
+    ```bash
+    STORAGEKEY=$(az storage account keys list \
+       --resource-group "myResourceGroup" \
+       --account-name $STORAGEACCT \
+       --query "[0].value" | tr -d '"')
+    ```
 5. Create a file share:
-   ```bash
-   az storage share create --name myshare \
-      --quota 10 \
-      --account-name $STORAGEACCT \
-      --account-key $STORAGEKEY
-   ```
+    ```bash
+    az storage share create --name myshare \
+       --quota 10 \
+       --account-name $STORAGEACCT \
+       --account-key $STORAGEKEY
+    ```
 6. Create a mount point:
-   ```bash
-   mkdir -p /mnt/MyAzureFileShare
-   ```
+    ```bash
+    mkdir -p /mnt/MyAzureFileShare
+    ```
 7. Mount the share:
-   ```bash
-   sudo mount -t cifs //$STORAGEACCT.file.core.windows.net/myshare /mnt/MyAzureFileShare -o vers=3.0,username=$STORAGEACCT,password=$STORAGEKEY,serverino
-   ```
+    ```bash
+    sudo mount -t cifs //$STORAGEACCT.file.core.windows.net/myshare /mnt/MyAzureFileShare -o vers=3.0,username=$STORAGEACCT,password=$STORAGEKEY,serverino
+    ```
+
 ### Use Azure Storage in Helm Chart
 
 1. Clone the git_repo in /mnt/MyAzureFileShare and make it as your working
@@ -530,7 +519,7 @@ Error: INSTALLATION FAILED: failed pre-install: timed out waiting for the condit
 #### Workaround 1
 Based on the system performance, add `--timeout <seconds>` to the helm command:
 ```bash
-   helm install qatchart qat --timeout <time>
+helm install qatchart qat --timeout <time>
 ```
 The `<time>` value has the format ``nnns``, where **s** indicates seconds. For
 the above hardware configuration and with MAX_TRAINING_SAMPLES=50, we recommend
@@ -545,13 +534,13 @@ finetune on the whole dataset.
    when the pod is completed.
 
 2. Run the command:
-   ```bash
-   helm uninstall qatchart
-   ```
+    ```bash
+    helm uninstall qatchart
+    ```
 3. Install the qatchart with just inference as training has completed:
-   ```bash
-   helm install qatchart qat --no-hooks
-   ```
+    ```bash
+    helm install qatchart qat --no-hooks
+    ```
 
 ### Useful Commands
 
