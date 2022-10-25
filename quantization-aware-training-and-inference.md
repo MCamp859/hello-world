@@ -89,12 +89,12 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 Choose one of the following options:
 
 
-*   Select **Configure & Download** to download the workflow.
+*  Select **Configure & Download** to download the workflow.
 
     [Configure & Download - link TBD](xxx)
 
 
-*   Or, run the command:
+*  Or, run the command:
 
     ```bash
     git clone https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat
@@ -403,9 +403,9 @@ just one inference application.
 *  For OpenVINO™ model server, use `deployment-ovms.yaml`. Model format
    acceptable is IR.xml
 
-```bash
-helm install qatchart qat --no-hooks
-```
+    ```bash
+    helm install qatchart qat --no-hooks
+    ```
 
 Cleanup resources:
 
