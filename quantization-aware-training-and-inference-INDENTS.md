@@ -62,19 +62,27 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 
    This project uses [Rancher* K3S* installation](https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for-installation-with-script).
 
+   TESTING DIFF INDENTS - bullet para, backspace then add return
+
    ```bash
-   curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
-   export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+      curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+      export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
    ```
+TESTING DIFF INDENTS - no bullet, backspace then add return
+
+```bash
+curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+```
 
 -  Helm installation on master node.
 
    Simple commands are listed below. For details, see [Helm installation instructions](https://helm.sh/docs/intro/install/).
 
    ```bash
-   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-   chmod 700 get_helm.sh
-   ./get_helm.sh
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    chmod 700 get_helm.sh
+    ./get_helm.sh
    ```
 
 -  This project uses the
@@ -115,6 +123,8 @@ Option 1: Build images locally
       `<registry>` tag with the local or private registry address. If using
       local registry, edit it to `"localhost:5000"`.
 
+      TESTING DIFF INDENTS - numbered step, backspace then add return
+
       ```bash
       cd dockerfiles
       docker compose build
@@ -122,10 +132,12 @@ Option 1: Build images locally
 
    3. Push the image to the local image registry.
 
-      ```bash
-      docker compose push openvino_optimum
-      cd ..
-      ```
+      TESTING DIFF INDENTS - numbered step, extra space b4 each line, backspace
+
+       ```bash
+       docker compose push openvino_optimum
+       cd ..
+       ```
 
 Option 2. Pull Images from Azure Marketplace
 
