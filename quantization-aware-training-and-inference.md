@@ -1,4 +1,4 @@
-# Quantization Aware Training and Inference using OpenVINO™ Toolkit
+# Quantization-Aware Training and Inference using OpenVINO™ Toolkit
 
 ## Overview
 
@@ -22,7 +22,7 @@ Figure 1: Flow Diagram
 
 The workflow executes as follows:
 
-1. The Pipeline triggers Quantization Aware Training of a Natural Language
+1. The Pipeline triggers Quantization-Aware Training of a Natural Language
    Processing (NLP) model from Hugging Face. The output of this container is the
    INT8 optimized model stored on a local/cloud storage.
 2. Once the model is generated, then inference applications can be deployed with
@@ -64,8 +64,8 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 
 
     ```bash
-       curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
-       export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+    curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+    export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
     ```
 
 -  Helm installation on master node.
@@ -80,7 +80,7 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 
 -  This project uses the
    `bert-large-uncased-whole-word-masking-finetuned-squad` model for `Question
-   Answering` use case through quantization aware training and inference. Training and inference scripts are included in the respective folders.
+   Answering` use case through quantization-aware training and inference. Training and inference scripts are included in the respective folders.
 
 ## Step 1: Install and Run the Workflow
 
