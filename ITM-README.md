@@ -538,19 +538,21 @@ In the next steps, the tag `<REPOSITORY_PATH>` indicates the path to the reposit
 In the Change examples, replace the line indicated by **-** with the line indicated by **+**
 
 1. `<REPOSITORY_PATH>/src/build_images.sh` - update the tag and version for the image.
-   ```bash
-   Change example:
-   -    TAG="5.0"
-   +    TAG="5.1"
-   ```
+    ```bash
+    Change example:
+    -    TAG="5.0"
+    +    TAG="5.1"
+    ```
 2. `<REPOSITORY_PATH>/deploy/services/values.yaml` - update image deployment harbor.
-   ```bash
-   Change example:
-   - images:
-   -   registry: ""
-   + images:
-   +   registry: <local harbor host>:<local_harbor_port>/library/
-   ```
+
+    ```bash
+    Change example:
+    - images:
+    -   registry: ""
+    + images:
+    +   registry: <local harbor host>:<local_harbor_port>/library/
+    ```
+
 3. `<REPOSITORY_PATH>/deploy/services/values.yaml` - update version.
    ```bash
    Change example:
