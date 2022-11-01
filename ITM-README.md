@@ -139,13 +139,13 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     - Configure the Docker service by adding the following to the
     ``/etc/docker/daemon.json`` file:
 
-       ```bash
-          {
-              "exec-opts": [
-                  "native.cgroupdriver=systemd"
-              ]
-          }
-       ```
+        ```bash
+           {
+               "exec-opts": [
+                   "native.cgroupdriver=systemd"
+               ]
+           }
+        ```
 
 
 2. Install Helm. Run the following commands on both targets:
@@ -160,26 +160,26 @@ In order to run the latest version of Intelligent Traffic Management, you will n
 3. Install and configure the Kubernetes cluster. Run the following commands on both targets:
 
     - Get Google key:
-       ```bash
-       curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
-       ```
+        ```bash
+        curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+        ```
 
     - Add kube apt repo:
-       ```bash
-       echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" >> ~/kubernetes.list
-       sudo mv ~/kubernetes.list /etc/apt/sources.list.d
-       ```
+        ```bash
+        echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" >> ~/kubernetes.list
+        sudo mv ~/kubernetes.list /etc/apt/sources.list.d
+        ```
 
     - Disable swap on your machine. (Kubernetes cluster doesn't work while using swap memory.)
-       ```bash
-       sudo swapoff -a
-       ```
+        ```bash
+        sudo swapoff -a
+        ```
 
 
     - Install Kubernetes binaries
-       ```bash
-       sudo apt-get update && sudo apt-get install -yq kubelet=1.23.4-00 kubeadm=1.23.4-00 kubectl=1.23.4-00 kubernetes-cni
-       ```
+        ```bash
+        sudo apt-get update && sudo apt-get install -yq kubelet=1.23.4-00 kubeadm=1.23.4-00 kubectl=1.23.4-00 kubernetes-cni
+        ```
 
 
 4. Initialize the Kubernetes cluster on the Control Plane machine:
@@ -192,24 +192,25 @@ In order to run the latest version of Intelligent Traffic Management, you will n
 
 5. Configure access to Kubernetes cluster:
     - Current user configuration:
-       ```bash
-       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-       sudo chown $(id -u):$(id -g) $HOME/.kube/config
-       ```
+
+        ```bash
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config
+        ```
 
     - Root user configuration:
-       ```bash
-       sudo su -
-       mkdir .kube
-       cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-       exit
-       ```
+        ```bash
+        sudo su -
+        mkdir .kube
+        cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        exit
+        ```
 
     - Enable kubelet service:
-       ```bash
-       sudo chmod -R 755 /etc/cni/
-       sudo systemctl restart kubelet.service
-       ```
+        ```bash
+        sudo chmod -R 755 /etc/cni/
+        sudo systemctl restart kubelet.service
+        ```
 
     - Check kubelet service status using ``sudo systemctl status kubelet.service`` (status should be active).
 
@@ -235,40 +236,41 @@ In order to run the latest version of Intelligent Traffic Management, you will n
 8. Join Kubernetes worker node:
     - If you didn't save the join command in step 4, run the following command on the control plane to generate another token. (If you have the join command, skip this step.)
 
-       ```bash
-       kubeadm token create --print-join-command
-       ```
+        ```bash
+        kubeadm token create --print-join-command
+        ```
 
     - Run the kubeadm join command on the worker node, for example:
 
-       ```bash
-       kubeadm join <Controller_IP>:6443 --token token12456.token12456 \
-          --discovery-token-ca-cert-hash sha256:<sha_of_the_kubernetes_certificate>
-       ```
+        ```bash
+        kubeadm join <Controller_IP>:6443 --token token12456.token12456 \
+           --discovery-token-ca-cert-hash sha256:<sha_of_the_kubernetes_certificate>
+        ```
+
     - If join failed, proceed with the following step and give kubelet access to network policy:
 
-       ```bash
-       sudo chmod -R 755 /etc/cni/
-       ```
+        ```bash
+        sudo chmod -R 755 /etc/cni/
+        ```
 
 9. Configure Kubernetes on worker side:
     - Create .kube config folder on worker side:
 
-       ```bash
-       mkdir $HOME/.kube
-       ```
+        ```bash
+        mkdir $HOME/.kube
+        ```
 
     - Copy the configuration file from controller to worker node:
 
-       ```bash
-       scp /home/controller_user/.kube/config worker_user@worker_ip:/home/worker_user/.kube/
-       ```
+        ```bash
+        scp /home/controller_user/.kube/config worker_user@worker_ip:/home/worker_user/.kube/
+        ```
 
     - Restart kubelet service:
 
-       ```bash
-       sudo systemctl restart kubelet.service
-       ```
+        ```bash
+        sudo systemctl restart kubelet.service
+        ```
 
 10. Check Kubernetes nodes from both machines to be ready with the command:
 
