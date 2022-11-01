@@ -72,7 +72,7 @@ The application uses the inference engine and the Intel® Deep Learning Streamer
 included in the Intel® Distribution of OpenVINO™ toolkit. The solution is
 designed to detect and track vehicles and pedestrians and upload cloud data to an AWS S3 storage.
 
-<img src="docs/itm_1_how_it_works.png" />
+![How it works is represented by a block diagram. The leftmost block is labeled Monitoring Area with a video camera icon. The raw video input stream in the leftmost block flows into the middle section labeled Edge Applications. The Edge Applications are Intelligent Traffic Management application, InfluxDB database, and Grafana. After the raw video input stream is processed by the Edge Applications, it flows to the rightmost block labeled User Interface.](docs/intelligent-traffic-mgmt-ri-1_how_it_works.png)
 
 Figure 1: How It Works
 
@@ -100,8 +100,8 @@ New in this release are Rule Engine and Cloud Connector pods.
 *   Cloud Connector uses [Amazon Web Services* Cloud Storage](#set-up-amazon-web-services-cloud-storage) to save the
     video captures.
 
-<img src="docs/itm_2_arch_diagram.png" />
 
+![The architecture is represented by a complex block diagram.](docs/intelligent-traffic-mgmt-ri-2_arch_diagram.png)
 
 Figure 2: Architecture Diagram
 
@@ -140,11 +140,11 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     ``/etc/docker/daemon.json`` file:
 
         ```bash
-           {
-               "exec-opts": [
-                   "native.cgroupdriver=systemd"
-               ]
-           }
+        {
+            "exec-opts": [
+                "native.cgroupdriver=systemd"
+            ]
+        }
         ```
 
 
@@ -373,7 +373,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
     >
     > ``/var/log/esb-cli/Intelligent_Traffic_Management_<version>/<Component_Name>/install.log``
 
-    <img src="docs/itm_3_product_key.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-3_product_key.png" />
 
     Figure 3: Product Key
 
@@ -381,7 +381,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
 8.  When the installation is complete, you see the message “Installation
     of package complete” and the installation status for each module.
 
-    <img src="docs/itm_4_install_success.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-4_install_success.png" />
 
     Figure 4: Successful Installation
 
@@ -396,7 +396,7 @@ kubectl get pod -A
 
 You will see output similar to:
 
-<img src="docs/itm_6_status_of_itm_pods.png" />
+<img src="docs/intelligent-traffic-mgmt-ri-6_status_of_itm_pods.png" />
 
 Figure 6: Status of Intelligent Traffic Management pods
 
@@ -411,18 +411,18 @@ available.
 1.  Navigate to https://Controller_IP:30300/dashboard on your browser
     to check Intelligent Traffic Management dashboard.
 
-    <img src="docs/itm_7_login_itm_dashboard.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-7_login_itm_dashboard.png" />
 
     Figure 7: Login Intelligent Traffic Management Dashboard
 
 2.  Navigate to https://Controller_IP:30303/camera/0 on your browser
     to check the camera.
 
-    <img src="docs/itm_7_1_camera_itm.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-7_1_camera_itm.png" />
 
     Figure 8: Intelligent Traffic Management Camera 0
 
-    <img src="docs/itm_8_itm_dashboard.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-8_itm_dashboard.png" />
 
     Figure 9: Intelligent Traffic Management Dashboard
 
@@ -439,17 +439,17 @@ available.
 
 5.  Click **Home** and Select the **ITM** to open the main dashboard.
 
-    <img src="docs/itm_9_grafana_home_screen.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-9_grafana_home_screen.png" />
 
     Figure 10: Grafana Home Screen
 
-    <img src="docs/itm_10_grafana_dashboard_list.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-10_grafana_dashboard_list.png" />
 
     Figure 11: Grafana Dashboard List
 
     An example of the Intelligent Traffic Management dashboard:
 
-    <img src="docs/itm_11_grafana_main_dashboard.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-11_grafana_main_dashboard.png" />
 
     Figure 12: Grafana Main Dashboard – Intelligent Traffic Management
 
@@ -462,7 +462,7 @@ The blue drop pins on the Map are the geographic coordinates of camera.
 By clicking on these pins, a small window of the camera feed can be
 visible with the detection results, as shown in the figure below.
 
-<img src="docs/itm_12_detection_results_map_ui.png" />
+<img src="docs/intelligent-traffic-mgmt-ri-12_detection_results_map_ui.png" />
 
 Figure 13: Detection Results on MapUI
 
@@ -473,7 +473,7 @@ window, as shown in the figure below.
 >**NOTE:** To close the small window with camera feed, click the close button
 (X) on the top left corner of the window.
 
-<img src="docs/itm_13_grafana_dashboard_individual_camera_feed.png" />
+<img src="docs/intelligent-traffic-mgmt-ri-13_grafana_dashboard_individual_camera_feed.png" />
 
 Figure 14: Grafana Dashboard of an Individual Camera Feed
 
@@ -482,7 +482,7 @@ on **View All Streams** from the top right corner on the MapUI from the main
 Grafana Dashboard i.e. ITM. Refer to Figure 11: Grafana Main Dashboard –
 Intelligent Traffic Management.
 
-<img src="docs/itm_14_get_all_stream_detection.png" />
+<img src="docs/intelligent-traffic-mgmt-ri-14_get_all_stream_detection.png" />
 
 Figure 15: Detection Results of all the Configured Camera Feeds
 
@@ -492,9 +492,11 @@ If the AWS credentials were provided during the installation steps, then you ena
 
 Navigate to the configured AWS storage to find the uploaded video captures.
 
-<img src="docs/bucket_1.png"/>
-<img src="docs/bucket_2.png"/>
-<img src="docs/bucket_3.png"/>
+<img src="docs/intelligent-traffic-mgmt-ri-bucket_1.png"/>
+
+<img src="docs/intelligent-traffic-mgmt-ri-bucket_2.png"/>
+
+<img src="docs/intelligent-traffic-mgmt-ri-bucket_3.png"/>
 
 ### Step 4: Uninstall the Application
 
@@ -506,7 +508,7 @@ Navigate to the configured AWS storage to find the uploaded video captures.
 
     All installed modules will show as seen in the screen below:
 
-    <img src="docs/itm_15_installed_modules_list.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-15_installed_modules_list.png" />
 
     Figure 16: Installed Modules List
 
@@ -518,7 +520,7 @@ Navigate to the configured AWS storage to find the uploaded video captures.
 
     `./edgesoftware uninstall <itm-id get from step 1>`
 
-    <img src="docs/itm_16_uninstall_modules.png" />
+    <img src="docs/intelligent-traffic-mgmt-ri-16_uninstall_modules.png" />
 
     Figure 17: Uninstalled Modules
 
@@ -745,18 +747,18 @@ Cloud Connector - Configuration.
 
 
 1. From your AWS management console, search for IAM and open the IAM Dashboard.
-   <img src="docs/aws_1.png" />
+   <img src="docs/intelligent-traffic-mgmt-ri-aws_1.png" />
 
 2. On the left menu of the dashboard, go to **Access management** and
    click on **Users** to open the IAM Users tab.
-   <img src="docs/aws_2.png" />
+   <img src="docs/intelligent-traffic-mgmt-ri-aws_2.png" />
 
 3. From the IAM users tab, click on **Add User** to access the AWS add
    user setup.
 
 4. On the first tab, provide the username and select the AWS credentials
    type to be **Access key**.
-   <img src="docs/aws_3.png" />
+   <img src="docs/intelligent-traffic-mgmt-ri-aws_3.png" />
 
 5. On the second tab, create a group to attach policies for the new IAM
    user.
@@ -765,7 +767,7 @@ Cloud Connector - Configuration.
 
    b. Click on **Create group**.
 
-      <img src="docs/aws_4.png"/>
+      <img src="docs/intelligent-traffic-mgmt-ri-aws_4.png"/>
 
 6. Select the group you have created and click on **Next: Tags**.
 
@@ -788,7 +790,7 @@ Cloud Connector - Configuration.
    b. If you forget to save the AWS Secret Key, you can delete the old
       one and create another key.
 
-      <img src="docs/aws_5.png"/>
+      <img src="docs/intelligent-traffic-mgmt-ri-aws_5.png"/>
 
 
 10. After you have saved the keys, close the tab. You are returned to the
@@ -817,7 +819,7 @@ applications.
 1. Open the Amazon Management Console and search for Amazon S3.
 
 2. Click on **S3** to open the AWS S3 Bucket dashboard.
-   <img src="docs/aws_6.png"/>
+   <img src="docs/intelligent-traffic-mgmt-ri-aws_6.png"/>
 
 3. On the left side menu, click on **Buckets**.
 
@@ -825,7 +827,7 @@ applications.
    dashboard.
 
 5. Enter a name for your bucket and select your preferred region.
-   <img src="docs/aws_7.png"/>
+   <img src="docs/intelligent-traffic-mgmt-ri-aws_7.png"/>
 
 6. Scroll down and click on **Create Bucket**.
 
@@ -835,7 +837,7 @@ applications.
 8. Scroll to **Bucket Policy** and click on **Edit** to add a new
    statement in statements tab that is already created to deny all the
    uploads.
-   <img src="docs/aws_8.png"/>
+   <img src="docs/intelligent-traffic-mgmt-ri-aws_8.png"/>
 
 9. You must add a comma before adding the following information.
     ```bash
