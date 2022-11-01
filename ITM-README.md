@@ -113,39 +113,39 @@ In order to run the latest version of Intelligent Traffic Management, you will n
 
 1. Install docker-ce and docker-compose. Run the following commands on both targets:
 
-   - Install the latest Docker CLI and Docker daemon by following the Docker
-   instructions to [Install using the
-   repository](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
-   and [Install Docker
-   Engine](https://docs.docker.com/engine/install/ubuntu/#install-docker-engine).
+    - Install the latest Docker CLI and Docker daemon by following the Docker
+    instructions to [Install using the
+    repository](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+    and [Install Docker
+    Engine](https://docs.docker.com/engine/install/ubuntu/#install-docker-engine).
 
-   - Run Docker without sudo following the [Manage Docker as a non-root
-   user](https://docs.docker.com/engine/install/linux-postinstall/)
-   instructions.
+    - Run Docker without sudo following the [Manage Docker as a non-root
+    user](https://docs.docker.com/engine/install/linux-postinstall/)
+    instructions.
 
-   - If your hosts are running behind a HTTP/S proxy server, perform these
-   steps. If not, you can skip this step.
+    - If your hosts are running behind a HTTP/S proxy server, perform these
+    steps. If not, you can skip this step.
 
-       - Configure proxy settings for the Docker\* client to connect to
-          internet and for containers to access the internet by following
-          [Configure Docker to use a proxy server](https://docs.docker.com/network/proxy/).
+        - Configure proxy settings for the Docker\* client to connect to
+           internet and for containers to access the internet by following
+           [Configure Docker to use a proxy server](https://docs.docker.com/network/proxy/).
     
-       - Configure proxy settings for the Docker\* daemon by following
-          [HTTP/HTTPS proxy](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy).
+        - Configure proxy settings for the Docker\* daemon by following
+           [HTTP/HTTPS proxy](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy).
  
-   - Install the docker-compose tool by following [Install Compose](
-   https://docs.docker.com/compose/install/#install-compose).
+    - Install the docker-compose tool by following [Install Compose](
+    https://docs.docker.com/compose/install/#install-compose).
  
-   - Configure the Docker service by adding the following to the
-	``/etc/docker/daemon.json`` file:
+    - Configure the Docker service by adding the following to the
+    ``/etc/docker/daemon.json`` file:
 
-      ```bash
-         {
-             "exec-opts": [
-                 "native.cgroupdriver=systemd"
-             ]
-         }
-      ```
+       ```bash
+          {
+              "exec-opts": [
+                  "native.cgroupdriver=systemd"
+              ]
+          }
+       ```
 
 
 2. Install Helm. Run the following commands on both targets:
@@ -159,116 +159,125 @@ In order to run the latest version of Intelligent Traffic Management, you will n
 
 3. Install and configure the Kubernetes cluster. Run the following commands on both targets:
 
-	- Get Google key:
-      ```bash
-      curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
-      ```
+    - Get Google key:
+       ```bash
+       curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+       ```
 
-	- Add kube apt repo:
-      ```bash
-      echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" >> ~/kubernetes.list
-      sudo mv ~/kubernetes.list /etc/apt/sources.list.d
-      ```
+    - Add kube apt repo:
+       ```bash
+       echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" >> ~/kubernetes.list
+       sudo mv ~/kubernetes.list /etc/apt/sources.list.d
+       ```
 
-	- Disable swap on your machine. (Kubernetes cluster doesn't work while using swap memory.)
-      ```bash
-      sudo swapoff -a
-      ```
+    - Disable swap on your machine. (Kubernetes cluster doesn't work while using swap memory.)
+       ```bash
+       sudo swapoff -a
+       ```
 
 
-	- Install Kubernetes binaries
-      ```bash
-      sudo apt-get update && sudo apt-get install -yq kubelet=1.23.4-00 kubeadm=1.23.4-00 kubectl=1.23.4-00 kubernetes-cni
-      ```
+    - Install Kubernetes binaries
+       ```bash
+       sudo apt-get update && sudo apt-get install -yq kubelet=1.23.4-00 kubeadm=1.23.4-00 kubectl=1.23.4-00 kubernetes-cni
+       ```
 
 
 4. Initialize the Kubernetes cluster on the Control Plane machine:
     ```bash
-	sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+    sudo kubeadm init --pod-network-cidr=10.244.0.0/16
     ```
 
     >**NOTE:** Save the kube join command prompted at the end of the cluster creation.
 
 
 5. Configure access to Kubernetes cluster:
-	- Current user configuration:
-      ```bash
-      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-      sudo chown $(id -u):$(id -g) $HOME/.kube/config
-      ```
-	- Root user configuration:
-      ```bash
-      sudo su -
-      mkdir .kube
-      cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-      exit
-      ```
+    - Current user configuration:
+       ```bash
+       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+       sudo chown $(id -u):$(id -g) $HOME/.kube/config
+       ```
 
-	- Enable kubelet service:
-      ```bash
-      sudo chmod -R 755 /etc/cni/
-      sudo systemctl restart kubelet.service
-      ```
+    - Root user configuration:
+       ```bash
+       sudo su -
+       mkdir .kube
+       cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+       exit
+       ```
 
-	- Check kubelet service status using ``sudo systemctl status kubelet.service`` (status should be active).
+    - Enable kubelet service:
+       ```bash
+       sudo chmod -R 755 /etc/cni/
+       sudo systemctl restart kubelet.service
+       ```
+
+    - Check kubelet service status using ``sudo systemctl status kubelet.service`` (status should be active).
 
 6. Add network plugin to your Kubernetes cluster:
-   ```bash
+    ```bash
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
-   ```
+    ```
 
 7. Check that the current node is ready by using the following command:
+
     ```bash
     kubectl get nodes -A
     ```
 
-	Output should look like:
+   Output should look like:
+
     ```bash
-    NAME                STATUS   ROLES                  AGE     VERSION
+    NAME              STATUS   ROLES                  AGE     VERSION
     Machine1          Ready    control-plane,master   1m     v1.23.4
     ```
 
 8. Join Kubernetes worker node:
-	- If you didn't save the join command in step 4, run the following command on the control plane to generate another token. (If you have the join command, skip this step.)
+    - If you didn't save the join command in step 4, run the following command on the control plane to generate another token. (If you have the join command, skip this step.)
 
        ```bash
-      kubeadm token create --print-join-command
-      ```
-	- Run the kubeadm join command on the worker node, for example:
+       kubeadm token create --print-join-command
+       ```
 
-      ```bash
-      kubeadm join <Controller_IP>:6443 --token token12456.token12456 \
-         --discovery-token-ca-cert-hash sha256:<sha_of_the_kubernetes_certificate>
-      ```
-	- If join failed, proceed with the following step and give kubelet access to network policy:
+    - Run the kubeadm join command on the worker node, for example:
 
-      ```bash
-      sudo chmod -R 755 /etc/cni/
-      ```
+       ```bash
+       kubeadm join <Controller_IP>:6443 --token token12456.token12456 \
+          --discovery-token-ca-cert-hash sha256:<sha_of_the_kubernetes_certificate>
+       ```
+    - If join failed, proceed with the following step and give kubelet access to network policy:
+
+       ```bash
+       sudo chmod -R 755 /etc/cni/
+       ```
 
 9. Configure Kubernetes on worker side:
-	- Create .kube config folder on worker side:
-      ```bash
-      mkdir $HOME/.kube
-      ```
-   - Copy the configuration file from controller to worker node:
+    - Create .kube config folder on worker side:
 
-      ```bash
-      scp /home/controller_user/.kube/config worker_user@worker_ip:/home/worker_user/.kube/
-      ```
+       ```bash
+       mkdir $HOME/.kube
+       ```
 
-	- Restart kubelet service:
-      ```bash
-      sudo systemctl restart kubelet.service
-      ```
+    - Copy the configuration file from controller to worker node:
+
+       ```bash
+       scp /home/controller_user/.kube/config worker_user@worker_ip:/home/worker_user/.kube/
+       ```
+
+    - Restart kubelet service:
+
+       ```bash
+       sudo systemctl restart kubelet.service
+       ```
 
 10. Check Kubernetes nodes from both machines to be ready with the command:
+
     ```bash
-	 kubectl get nodes -A
+    kubectl get nodes -A
     ```
 
-	Output should look similar to:
+    Output should look similar to:
+
     ```bash
     NAME                                    STATUS   ROLES                              AGE     VERSION
     Control-plane-host-name                 Ready    control-plane,master               5m      v1.23.4
@@ -280,12 +289,15 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     ```bash
     kubectl label node <node_name> node-role.kubernetes.io/worker=worker
     ```
-	Check again to see that the label was placed using the following command:
+
+    Check again to see that the label was placed using the following command:
+
     ```bash
     kubectl get nodes -A
     ```
 
     Output should look similar to:
+
     ```bash
     NAME                                    STATUS   ROLES                              AGE     VERSION
     Control-plane-host-name                 Ready    control-plane,master               5m      v1.23.4
@@ -538,11 +550,13 @@ In the next steps, the tag `<REPOSITORY_PATH>` indicates the path to the reposit
 In the Change examples, replace the line indicated by **-** with the line indicated by **+**
 
 1. `<REPOSITORY_PATH>/src/build_images.sh` - update the tag and version for the image.
+
     ```bash
     Change example:
     -    TAG="5.0"
     +    TAG="5.1"
     ```
+
 2. `<REPOSITORY_PATH>/deploy/services/values.yaml` - update image deployment harbor.
 
     ```bash
@@ -554,13 +568,15 @@ In the Change examples, replace the line indicated by **-** with the line ind
     ```
 
 3. `<REPOSITORY_PATH>/deploy/services/values.yaml` - update version.
-   ```bash
-   Change example:
-   - images:
-   -   tag: "5.0"
-   + images:
-   +   tag: "5.1"
-   ```
+
+    ```bash
+    Change example:
+    - images:
+    -   tag: "5.0"
+    + images:
+    +   tag: "5.1"
+    ```
+
 ### Build and Install
 
 Build the Docker image with the following commands:
@@ -623,11 +639,13 @@ Install Helm with the following commands:
           --set cloud_connector.aws_bucket=<AWS_BUCKET>
     ```
 
->**NOTES:** 1: If your host is not behind a firewall, then skip setting the http and https proxy.
+>**NOTES:**
 >
->2: Cloud connector requires your AWS credentials to connect to it to upload video captures in case of collision,
+>1. If your host is not behind a firewall, then skip setting the http and https proxy.
+>
+>2. Cloud connector requires your AWS credentials to connect to it to upload video captures in case of collision,
 >near miss and overcrowd events. If you don't want this feature enabled, then skip setting these parameters.
->For instructions on how to configure AWS, refer to the [Set Up Amazon Web Services* CLoud Storage](#set-up-amazon-web-services-cloud-storage) section. 
+>For instructions on how to configure AWS, refer to the [Set Up Amazon Web Services* Cloud Storage](#set-up-amazon-web-services-cloud-storage) section.
 
 
 
