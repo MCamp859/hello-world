@@ -25,9 +25,9 @@ software listed below.
 [Configure &
 Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intelligent_traffic_management)
 
-![Screenshot of running Reference Implementation.](docs/intelligent-traffic-management-ri-landing.png)
+![A grid of 9 surveillance camera video feeds. In each feed, detected cars are brightly outlined with yellow and detected pedestrians are brightly outlined with blue.](docs/intelligent-traffic-management-ri-landing.png)
 
--   **Time to Complete:** 30- 45 minutes
+-   **Time to Complete:** 30 - 45 minutes
 -   **Programming Language:** Python\*
 -   **Software:**
 	-   Intel® Distribution of OpenVINO™ toolkit 2021 Release
