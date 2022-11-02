@@ -345,7 +345,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
     unzip intelligent_traffic_management.zip
     ```
 
-4.  Go to the intelligent_traffic_management/
+4.  Go to the ``intelligent_traffic_management/``
     directory.
 
     ```bash
@@ -392,7 +392,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
 
 ### Step 2: Check the Application
 
-Check the Intelligent_Traffic_Management pods with the command:
+Check the ``Intelligent_Traffic_Management`` pods with the command:
 
 ```bash
 kubectl get pod -A
@@ -670,9 +670,9 @@ Install Helm with the following commands:
 After step 6 completes, use your preferred browser to access ITM at: ``https://Controller_IP:30300`` and
 Grafana at: ``https://Controller_IP:32000``.
 
-### Optional Steps
+## Optional Steps
 
-#### Configure the Input
+### Configure the Input
 
 The Helm templates contain all the necessary configurations for the cameras.
 
@@ -714,7 +714,7 @@ the ``./helm/services/templates/itm-analytics-configmap.yaml`` file:
     "analytics": "pedestrian vehicle detection".
 
 
-#### Stop the Application
+### Stop the Application
 
 To remove the deployment of this reference implementation, run the
 following commands.
@@ -749,7 +749,7 @@ on your Intelligent Traffic Management
 Cloud Connector - Configuration.
 
 
-**References**
+### References
 
 
 -  [AWS IAM Official Documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
@@ -972,7 +972,7 @@ If you see any error related to subprocess, run the command below:
 `pip install --ignore-installed subprocess32==3.5.4`
 
 
-## Support Forum
+### Support Forum
 
 If you're unable to resolve your issues, contact the [Support
 Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
