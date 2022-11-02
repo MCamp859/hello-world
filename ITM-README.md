@@ -12,16 +12,20 @@ stream(s).
 
 This collected intelligence can be used to adjust traffic lights to optimize the
 traffic flow of the intersection, or to evaluate and enhance the safety of the
-intersection by allowing Emergency services notifications i.e. 911 calls, to be
-triggered by collision detection, reducing emergency response times.
+intersection by allowing Emergency services notifications, such as 911 calls, to
+be triggered by collision detection, reducing emergency response times.
 
 To run the reference implementation, you will need to first configure the
-control plane host and the worker node host as presented on
+control plane host and the worker node host as presented in
 [Prerequisites](#Prerequisites).
 
+Select **Configure & Download** to download the reference implementation and the
+software listed below.
 
-[Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intelligent_traffic_management)
+[Configure &
+Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intelligent_traffic_management)
 
+![Screenshot of running Reference Implementation.](docs/intelligent-traffic-management-ri-landing.png)
 
 -   **Time to Complete:** 30- 45 minutes
 -   **Programming Language:** Python\*
@@ -36,7 +40,7 @@ control plane host and the worker node host as presented on
 
 -   One of the following processors:
 
-    - 6th to 12th Generation Intel® Core™ processors with Iris® Pro graphics or Intel® HD Graphics
+    - 6th to 12th Generation Intel® Core™ processors with Iris® Pro Graphics or Intel® HD Graphics
 
 -   At least 32 GB RAM.
 
@@ -52,7 +56,7 @@ control plane host and the worker node host as presented on
 
 -   One of the following processors:
 
-    - 6th to 12th Generation Intel® Core™ processors with Iris® Pro graphics or Intel® HD Graphics
+    - 6th to 12th Generation Intel® Core™ processors with Iris® Pro Graphics or Intel® HD Graphics
 
 -   At least 32 GB RAM.
 
@@ -70,7 +74,7 @@ control plane host and the worker node host as presented on
 
 The application uses the inference engine and the Intel® Deep Learning Streamer (Intel® DL Streamer)
 included in the Intel® Distribution of OpenVINO™ toolkit. The solution is
-designed to detect and track vehicles and pedestrians and upload cloud data to an AWS S3 storage.
+designed to detect and track vehicles and pedestrians and upload cloud data to Amazon Web Services* (AWS*) S3 storage.
 
 ![How it works is represented by a complex block diagram. The leftmost block is labeled Monitoring Area with a video camera icon. The raw video input stream in the leftmost block flows into the middle section labeled Edge Applications. The Edge Applications are Intelligent Traffic Management application, InfluxDB database, and Grafana. After the raw video input stream is processed by the Edge Applications, it flows to the rightmost block labeled User Interface.](docs/intelligent-traffic-mgmt-ri-1_how_it_works.png)
 
@@ -85,7 +89,7 @@ database. The visualizer in parallel shows the analysis over the
 metadata like pedestrians detected, observed collisions and processed
 video feed.
 
-The application has capability to perform inferences over as much as 20
+The application has the capability to perform inferences over as much as 20
 channels. In addition, the visualizer is capable of showing each feed
 separately as well as all the feeds at the same time using Grafana\*. The
 user can visualize the output remotely over a browser, provided that
@@ -136,7 +140,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     - Install the docker-compose tool by following [Install Compose](
     https://docs.docker.com/compose/install/#install-compose).
  
-    - Configure the Docker service by adding the following to the
+    - Configure the Docker service by adding the following in the
     ``/etc/docker/daemon.json`` file:
 
         ```bash
@@ -176,7 +180,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         ```
 
 
-    - Install Kubernetes binaries
+    - Install Kubernetes binaries:
         ```bash
         sudo apt-get update && sudo apt-get install -yq kubelet=1.23.4-00 kubeadm=1.23.4-00 kubectl=1.23.4-00 kubernetes-cni
         ```
@@ -253,7 +257,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         sudo chmod -R 755 /etc/cni/
         ```
 
-9. Configure Kubernetes on worker side:
+9. Configure Kubernetes on the worker side:
     - Create .kube config folder on worker side:
 
         ```bash
@@ -336,7 +340,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
     export https_proxy=proxy-address:proxy-port
     ```
 
-3.  Open a new terminal, go to the downloaded folder and unzip the downloaded package:
+3.  Open a new terminal, go to the downloaded folder and unzip the downloaded RI package:
     ```bash
     unzip intelligent_traffic_management.zip
     ```
@@ -364,12 +368,12 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
 7.  During the installation, you will be prompted for the AWS Key ID, AWS Secret, AWS Bucket and Product Key.
     The Product Key is contained in the email you received from Intel
     confirming your download.
-    AWS credentials are optional. AWS Key ID, AWS Secret and AWS Bucket are obtained after following
-    [Amazon Web Services* Cloud Storage Setup](#set-up-amazon-web-services-cloud-storage).
+    AWS credentials are optional. AWS Key ID, AWS Secret and AWS Bucket are obtained after following the steps in the
+    [Set Up Amazon Web Services* Cloud Storage](#set-up-amazon-web-services-cloud-storage) section.
     If you do not need the cloud upload feature, simply provide empty values by pressing **Enter** when prompted for the AWS
     credentials.
 
-    > **NOTE:** Installation logs are available at path:
+    > **NOTE:** Installation logs are available at the path:
     >
     > ``/var/log/esb-cli/Intelligent_Traffic_Management_<version>/<Component_Name>/install.log``
 
@@ -383,7 +387,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
 
     ![A console window showing system output during the install process. At the end of the process, the system displays the message “Installation of package complete” and the installation status for each module. ](docs/intelligent-traffic-mgmt-ri-4_install_success.png)
 
-    Figure 4: Successful Installation
+    Figure 4: Installation Success
 
 
 ### Step 2: Check the Application
@@ -398,9 +402,9 @@ You will see output similar to:
 
 ![A console window showing system output after running the “kubectl get pods” command. The system displays a list of all the pods and the pod status. The expected status is “Running”.](docs/intelligent-traffic-mgmt-ri-6_status_of_itm_pods.png)
 
-Figure 6: Status of Intelligent Traffic Management pods
+Figure 5: Intelligent Traffic Management Pods Status
 
->**NOTE:** If the pods have a status of “ContainerCreating”, please wait
+>**NOTE:** If the pods have a status of **ContainerCreating**, please wait
 for some time, since Kubernetes will pull the images from the registry
 and then deploy them. This happens only the first time the containers
 are deployed, and the wait time will depend upon the network bandwidth
@@ -409,49 +413,49 @@ available.
 ### Step 3: Data Visualization on Grafana
 
 1.  Navigate to https://Controller_IP:30300/dashboard on your browser
-    to check Intelligent Traffic Management dashboard.
+    to check the Intelligent Traffic Management dashboard.
 
     ![A browser window using the ITM dashboard URL and showing a warning message “Your connection is not private”. The option to Proceed to the website is outlined in red, indicating you should click the link.](docs/intelligent-traffic-mgmt-ri-7_login_itm_dashboard.png)
 
-    Figure 7: Login Intelligent Traffic Management Dashboard
+    Figure 6: Login to Intelligent Traffic Management Dashboard
 
 2.  Navigate to https://Controller_IP:30303/camera/0 on your browser
     to check the camera.
 
     ![A browser window using the Camera URL and showing a warning message “Your connection is not private”. The option to Proceed to the website is outlined in red, indicating you should click the link. ](docs/intelligent-traffic-mgmt-ri-7_1_camera_itm.png)
 
-    Figure 8: Intelligent Traffic Management Camera 0
+    Figure 7: Intelligent Traffic Management Camera 0
 
     ![A web app dashboard showing a large map of a city. There are 8 blue drop pins on the map.](docs/intelligent-traffic-mgmt-ri-8_itm_dashboard.png)
 
-    Figure 9: Intelligent Traffic Management Dashboard
+    Figure 8: Intelligent Traffic Management Dashboard
 
-2.  Navigate to **<Controller_IP>:32000** on your
+3.  Navigate to **&lt;Controller_IP&gt;:32000** on your
     browser to login to the Grafana dashboard.
 
-3.  Get **Grafana Password** with the command:
+4.  Get **Grafana Password** with the command:
 
     ```bash
     kubectl get secrets/grafana -n default -o json | jq -r '.data."admin-password"' | base64 -d
     ```
 
-4.  Login with user as **admin** and password as **Grafana Password**
+5.  Login with user as **admin** and password as **Grafana Password**.
 
-5.  Click **Home** and Select the **ITM** to open the main dashboard.
+6.  Click **Home** and select the **ITM** to open the main dashboard.
 
     ![A browser window using the Grafana dashboard URL showing a message “Welcome to Grafana”. You are directed to click the ITM dashboard link.](docs/intelligent-traffic-mgmt-ri-9_grafana_home_screen.png)
 
-    Figure 10: Grafana Home Screen
+    Figure 9: Grafana Home Screen
 
     ![A browser window using the Grafana dashboard URL showing the ITM dashboard outlined in red, indicating you should click the link.](docs/intelligent-traffic-mgmt-ri-10_grafana_dashboard_list.png)
 
-    Figure 11: Grafana Dashboard List
+    Figure 10: Grafana Dashboard List
 
     An example of the Intelligent Traffic Management dashboard:
 
     ![A web app dashboard with navigation, a large map of a city, and an analysis sidebar. There are 8 blue drop pins on the map. The sidebar shows four metrics: number of collisions detected, number of vehicles detected, number of pedestrians detected, and number of bikes detected.](docs/intelligent-traffic-mgmt-ri-11_grafana_main_dashboard.png)
 
-    Figure 12: Grafana Main Dashboard – Intelligent Traffic Management
+    Figure 11: Grafana Main Dashboard – Intelligent Traffic Management
 
 The above dashboard shows the number of vehicles, pedestrians and
 collisions detected on the left side. These may be used for adjusting
@@ -464,7 +468,7 @@ visible with the detection results, as shown in the figure below.
 
 ![A web app dashboard with navigation, a large map of a city, and an analysis sidebar. The sidebar shows four metrics: number of collisions detected, number of vehicles detected, number of pedestrians detected, and number of bikes detected. The 8 blue drop pins on the map are the geographic coordinates of cameras. The image shows a small window of one camera feed and detected pedestrians are brightly outlined with blue.](docs/intelligent-traffic-mgmt-ri-12_detection_results_map_ui.png)
 
-Figure 13: Detection Results on MapUI
+Figure 12: Detection Results on MapUI
 
 To open the Grafana Dashboard for a particular camera with the detection
 results and other data metrics, click on the camera feed on the small
@@ -475,18 +479,18 @@ window, as shown in the figure below.
 
 ![A web app dashboard with showing details of one camera feed including statistics in graphs and analysis in bar charts. The detected pedestrians are brightly outlined with blue.](docs/intelligent-traffic-mgmt-ri-13_grafana_dashboard_individual_camera_feed.png)
 
-Figure 14: Grafana Dashboard of an Individual Camera Feed
+Figure 13: Grafana Dashboard of an Individual Camera Feed
 
 To view the detection results of all the configured camera feeds, click
 on **View All Streams** from the top right corner on the MapUI from the main
-Grafana Dashboard i.e. ITM. Refer to Figure 11: Grafana Main Dashboard –
+Grafana Dashboard i.e. ITM. Refer to Figure 11, Grafana Main Dashboard –
 Intelligent Traffic Management.
 
 ![A web app dashboard showing a grid of 9 surveillance camera video feeds. In each feed, detected cars are brightly outlined with red and detected pedestrians are brightly outlined with blue. The sidebar shows four metrics: number of collisions detected, number of vehicles detected, number of pedestrians detected, and number of bikes detected.](docs/intelligent-traffic-mgmt-ri-14_get_all_stream_detection.png)
 
-Figure 15: Detection Results of all the Configured Camera Feeds
+Figure 14: Detection Results of all the Configured Camera Feeds
 
->**NOTE:** To open combined streams in full tab, go to: https://<Controller_IP>:30300/get_all_streams
+>**NOTE:** To open combined streams in full tab, go to: ``https://<Controller_IP>:30300/get_all_streams``
 
 If the AWS credentials were provided during the installation steps, then you enabled the Cloud Upload feature. 
 
@@ -496,7 +500,7 @@ Navigate to the configured AWS storage to find the uploaded video captures.
 
 Figure 15: List of AWS S3 Bucket Objects
 
-![The AWS management console showing Properties and other details for an AWS S3 Bucket Object. ](docs/intelligent-traffic-mgmt-ri-bucket_2.png)
+![The AWS management console showing Properties and other details for an AWS S3 Bucket Object.](docs/intelligent-traffic-mgmt-ri-bucket_2.png)
 
 Figure 16: AWS S3 Bucket Object Properties
 
@@ -520,26 +524,30 @@ Figure 17: AWS S3 Bucket Object Photo
 
 2.  Run the command below to uninstall all the modules:
 
-    `./edgesoftware uninstall –a`
+    ```bash
+    ./edgesoftware uninstall –a
+    ```
 
 3.  Run the command below to uninstall the Intelligent Traffic Management reference implementation:
 
-    `./edgesoftware uninstall <itm-id get from step 1>`
+    ```bash
+    ./edgesoftware uninstall <itm-id get from step 1>
+    ```
 
     ![A console window showing the output of the "edgesoftware list" and "edgesoftware uninstall" commands. First, the system lists the installed modules. Next, the system displays output during the uninstall process. At the end of the process, the system displays the message “Uninstall finished” and the uninstallation status for each module. ](docs/intelligent-traffic-mgmt-ri-16_uninstall_modules.png)
 
-    Figure 17: Uninstalled Modules
+    Figure 19: Uninstalled Modules
 
 
 ### Public Helm Registry for Helm Charts
 
 Installation of Intelligent Traffic Management Reference Implementation on local Kubernetes Cluster is accomplished using Helm charts. In earlier releases, Helm charts used to be a part of Reference Implementation installation package. Now a global Helm repo is issued
 so that Reference Implementation Helm charts can be accessible from private and public networks. This will speed up and
-ease the process of introducing updates and their integration with Reference Implementation.
+ease the process of introducing updates and their integration with Reference Implementations.
 
 ## Local Build Instructions
 
-After you have installed Kubernetes Cluster from Prerequisites, you can build your own Intelligent Traffic Management Docker image using the following instructions.
+After you have installed Kubernetes Cluster from [Prerequisites](#Prerequisites), you can build your own Intelligent Traffic Management Docker image using the following instructions.
 
 You can proceed with the steps presented using either edgesoftware sources or GitHub sources: [Intelligent Traffic Management](http://www.github.com/intel/intelligent-traffic-management)
 
@@ -659,8 +667,8 @@ Install Helm with the following commands:
 
 
 
-After step 6 completes, use your preferred browser to access ITM at: https://Controller_IP:30300 and
-Grafana https://Controller_IP:32000
+After step 6 completes, use your preferred browser to access ITM at: ``https://Controller_IP:30300`` and
+Grafana at: ``https://Controller_IP:32000``.
 
 ### Optional Steps
 
@@ -701,8 +709,8 @@ the ``./helm/services/templates/itm-analytics-configmap.yaml`` file:
 
 -   **analytics:** Attribute to be detected by the model.
 
-    >**NOTE:** The default model support pedestrian, vehicle and bike
-    detection. User can select desired attributes from these, e.g.,
+    >**NOTE:** The default model supports pedestrian, vehicle and bike
+    detection. You can select desired attributes from these, e.g.,
     "analytics": "pedestrian vehicle detection".
 
 
@@ -736,7 +744,7 @@ your root user account that has to support the following services:
 
 
 After finishing the setup for IAM and S3, you will have your
-AWS_KEY_ID, AWS_SECRET_KEY and AWS_BUCKET_NAME to be used
+``AWS_KEY_ID``, ``AWS_SECRET_KEY`` and ``AWS_BUCKET_NAME`` to be used
 on your Intelligent Traffic Management
 Cloud Connector - Configuration.
 
@@ -798,11 +806,11 @@ Cloud Connector - Configuration.
       Implementation you have installed.
 
      >**NOTE:** The AWS Secret Key is visible only on this page, you cannot get
-         the key in other way.
+         the key in another way.
 
 
-   b. If you forget to save the AWS Secret Key, you can delete the old
-      one and create another key.
+   b. If you forget to save the AWS Secret Key, you can delete the last key and
+      create another key.
 
       ![The AWS management console showing the IAM dashboard with the Add User Success dialog in the main view. The AWS Key and AWS Secret Access key are covered with a blue bar for security.](docs/intelligent-traffic-mgmt-ri-aws_5.png)
 
@@ -817,19 +825,17 @@ Cloud Connector - Configuration.
 
 
 >**NOTE:**
-      In case you forgot to save the AWS Secret key from the User tab,
+      If you forget to save the AWS Secret key from the User tab,
       you can select **Security Credentials**, delete the Access Key and
       create another one.
 
 
 ### S3 Bucket
 
-S3 bucket service offers cloud storage to be used on cloud based
+S3 Bucket Service offers cloud storage to be used on cloud based
 applications.
 
-
-**S3 Bucket Service setup**
-
+Perform the steps below to set up S3 Bucket Service.
 
 1. Open the Amazon Management Console and search for Amazon S3.
 
@@ -886,9 +892,9 @@ applications.
 
 ## Summary and Next Steps
 
-This application successfully implements Intel® Distribution of
+This application successfully leverages Intel® Distribution of
 OpenVINO™ toolkit plugins for detecting and tracking vehicles and
-pedestrians and may be used for a basis in estimating a safety
+pedestrians and estimating a safety
 metric for an intersection. It can be extended further to provide
 support for a feed from a network stream (RTSP or camera device).
 
@@ -920,14 +926,14 @@ resources:
 
 ### Pods status check
 
-Verify that the pods are “**Ready**” as well as in “**Running**” state
+Verify that the pods are **Ready** as well as in **Running** state
 using below command:
 
 ```bash
 kubectl get pods -A
 ```
 
-If any pods are not in “Running” state, use the following command to get
+If any pods are not in **Running** state, use the following command to get
 more information about the pod state:
 
 ```bash
@@ -945,12 +951,11 @@ grafana-8465558bc8-5p65x            3/3     Running   24 (5h23m ago)   12d   10.
 
 #update ITM yaml file
 kubectl set env itm -n default GRAFANA_HOST=10.245.179.203
-
 ```
 
 ### Pod status shows “ContainerCreating” for long time
 
-If Pod status shows “ContainerCreating” or “Error” or “CrashLoopBackOff” for a while (5 minutes or more), run the following commands:
+If Pod status shows **ContainerCreating** or **Error** or **CrashLoopBackOff** for 5 minutes or more, run the following commands:
 
 ```bash
 reboot
