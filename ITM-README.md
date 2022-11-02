@@ -72,7 +72,7 @@ The application uses the inference engine and the Intel® Deep Learning Streamer
 included in the Intel® Distribution of OpenVINO™ toolkit. The solution is
 designed to detect and track vehicles and pedestrians and upload cloud data to an AWS S3 storage.
 
-![How it works is represented by a block diagram. The leftmost block is labeled Monitoring Area with a video camera icon. The raw video input stream in the leftmost block flows into the middle section labeled Edge Applications. The Edge Applications are Intelligent Traffic Management application, InfluxDB database, and Grafana. After the raw video input stream is processed by the Edge Applications, it flows to the rightmost block labeled User Interface.](docs/intelligent-traffic-mgmt-ri-1_how_it_works.png)
+![How it works is represented by a complex block diagram. The leftmost block is labeled Monitoring Area with a video camera icon. The raw video input stream in the leftmost block flows into the middle section labeled Edge Applications. The Edge Applications are Intelligent Traffic Management application, InfluxDB database, and Grafana. After the raw video input stream is processed by the Edge Applications, it flows to the rightmost block labeled User Interface.](docs/intelligent-traffic-mgmt-ri-1_how_it_works.png)
 
 Figure 1: How It Works
 
@@ -373,7 +373,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
     >
     > ``/var/log/esb-cli/Intelligent_Traffic_Management_<version>/<Component_Name>/install.log``
 
-    <img src="docs/intelligent-traffic-mgmt-ri-3_product_key.png" />
+    ![A console window showing a system prompt to enter the Product Key.](docs/intelligent-traffic-mgmt-ri-3_product_key.png)
 
     Figure 3: Product Key
 
@@ -381,7 +381,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
 8.  When the installation is complete, you see the message “Installation
     of package complete” and the installation status for each module.
 
-    <img src="docs/intelligent-traffic-mgmt-ri-4_install_success.png" />
+    ![A console window showing system output during the install process. At the end of the process, the system displays the message “Installation of package complete” and the installation status for each module. ](docs/intelligent-traffic-mgmt-ri-4_install_success.png)
 
     Figure 4: Successful Installation
 
@@ -396,7 +396,7 @@ kubectl get pod -A
 
 You will see output similar to:
 
-<img src="docs/intelligent-traffic-mgmt-ri-6_status_of_itm_pods.png" />
+![A console window showing system output after running the “kubectl get pods” command. The system displays a list of all the pods and the pod status. The expected status is “Running”.](docs/intelligent-traffic-mgmt-ri-6_status_of_itm_pods.png)
 
 Figure 6: Status of Intelligent Traffic Management pods
 
@@ -411,22 +411,22 @@ available.
 1.  Navigate to https://Controller_IP:30300/dashboard on your browser
     to check Intelligent Traffic Management dashboard.
 
-    <img src="docs/intelligent-traffic-mgmt-ri-7_login_itm_dashboard.png" />
+    ![A browser window using the ITM dashboard URL and showing a warning message “Your connection is not private”. The option to Proceed to the website is outlined in red, indicating you should click the link.](docs/intelligent-traffic-mgmt-ri-7_login_itm_dashboard.png)
 
     Figure 7: Login Intelligent Traffic Management Dashboard
 
 2.  Navigate to https://Controller_IP:30303/camera/0 on your browser
     to check the camera.
 
-    <img src="docs/intelligent-traffic-mgmt-ri-7_1_camera_itm.png" />
+    ![A browser window using the Camera URL and showing a warning message “Your connection is not private”. The option to Proceed to the website is outlined in red, indicating you should click the link. ](docs/intelligent-traffic-mgmt-ri-7_1_camera_itm.png)
 
     Figure 8: Intelligent Traffic Management Camera 0
 
-    <img src="docs/intelligent-traffic-mgmt-ri-8_itm_dashboard.png" />
+    ![A web app dashboard showing a large map of a city. There are 8 blue drop pins on the map.](docs/intelligent-traffic-mgmt-ri-8_itm_dashboard.png)
 
     Figure 9: Intelligent Traffic Management Dashboard
 
-2.  Navigate to **&lt;Controller_IP&gt;:32000** on your
+2.  Navigate to **<Controller_IP>:32000** on your
     browser to login to the Grafana dashboard.
 
 3.  Get **Grafana Password** with the command:
@@ -439,17 +439,17 @@ available.
 
 5.  Click **Home** and Select the **ITM** to open the main dashboard.
 
-    <img src="docs/intelligent-traffic-mgmt-ri-9_grafana_home_screen.png" />
+    ![A browser window using the Grafana dashboard URL showing a message “Welcome to Grafana”. You are directed to click the ITM dashboard link.](docs/intelligent-traffic-mgmt-ri-9_grafana_home_screen.png)
 
     Figure 10: Grafana Home Screen
 
-    <img src="docs/intelligent-traffic-mgmt-ri-10_grafana_dashboard_list.png" />
+    ![A browser window using the Grafana dashboard URL showing the ITM dashboard outlined in red, indicating you should click the link.](docs/intelligent-traffic-mgmt-ri-10_grafana_dashboard_list.png)
 
     Figure 11: Grafana Dashboard List
 
     An example of the Intelligent Traffic Management dashboard:
 
-    <img src="docs/intelligent-traffic-mgmt-ri-11_grafana_main_dashboard.png" />
+    ![A web app dashboard with navigation, a large map of a city, and an analysis sidebar. There are 8 blue drop pins on the map. The sidebar shows four metrics: number of collisions detected, number of vehicles detected, number of pedestrians detected, and number of bikes detected.](docs/intelligent-traffic-mgmt-ri-11_grafana_main_dashboard.png)
 
     Figure 12: Grafana Main Dashboard – Intelligent Traffic Management
 
@@ -462,7 +462,7 @@ The blue drop pins on the Map are the geographic coordinates of camera.
 By clicking on these pins, a small window of the camera feed can be
 visible with the detection results, as shown in the figure below.
 
-<img src="docs/intelligent-traffic-mgmt-ri-12_detection_results_map_ui.png" />
+![A web app dashboard with navigation, a large map of a city, and an analysis sidebar. The sidebar shows four metrics: number of collisions detected, number of vehicles detected, number of pedestrians detected, and number of bikes detected. The 8 blue drop pins on the map are the geographic coordinates of cameras. The image shows a small window of one camera feed and detected pedestrians are brightly outlined with blue.](docs/intelligent-traffic-mgmt-ri-12_detection_results_map_ui.png)
 
 Figure 13: Detection Results on MapUI
 
@@ -473,7 +473,7 @@ window, as shown in the figure below.
 >**NOTE:** To close the small window with camera feed, click the close button
 (X) on the top left corner of the window.
 
-<img src="docs/intelligent-traffic-mgmt-ri-13_grafana_dashboard_individual_camera_feed.png" />
+![A web app dashboard with showing details of one camera feed including statistics in graphs and analysis in bar charts. The detected pedestrians are brightly outlined with blue.](docs/intelligent-traffic-mgmt-ri-13_grafana_dashboard_individual_camera_feed.png)
 
 Figure 14: Grafana Dashboard of an Individual Camera Feed
 
@@ -482,7 +482,7 @@ on **View All Streams** from the top right corner on the MapUI from the main
 Grafana Dashboard i.e. ITM. Refer to Figure 11: Grafana Main Dashboard –
 Intelligent Traffic Management.
 
-<img src="docs/intelligent-traffic-mgmt-ri-14_get_all_stream_detection.png" />
+![A web app dashboard showing a grid of 9 surveillance camera video feeds. In each feed, detected cars are brightly outlined with red and detected pedestrians are brightly outlined with blue. The sidebar shows four metrics: number of collisions detected, number of vehicles detected, number of pedestrians detected, and number of bikes detected.](docs/intelligent-traffic-mgmt-ri-14_get_all_stream_detection.png)
 
 Figure 15: Detection Results of all the Configured Camera Feeds
 
@@ -492,11 +492,17 @@ If the AWS credentials were provided during the installation steps, then you ena
 
 Navigate to the configured AWS storage to find the uploaded video captures.
 
-<img src="docs/intelligent-traffic-mgmt-ri-bucket_1.png"/>
+![A web app dashboard showing the AWS management console with a list of AWS S3 Bucket Objects that were uploaded as video captures.](docs/intelligent-traffic-mgmt-ri-bucket_1.png)
 
-<img src="docs/intelligent-traffic-mgmt-ri-bucket_2.png"/>
+Figure 15: List of AWS S3 Bucket Objects
 
-<img src="docs/intelligent-traffic-mgmt-ri-bucket_3.png"/>
+![The AWS management console showing Properties and other details for an AWS S3 Bucket Object. ](docs/intelligent-traffic-mgmt-ri-bucket_2.png)
+
+Figure 16: AWS S3 Bucket Object Properties
+
+![The AWS management console showing an AWS S3 Bucket Object photo. Detected vehicles are brightly outlined with orange.](docs/intelligent-traffic-mgmt-ri-bucket_3.png)
+
+Figure 17: AWS S3 Bucket Object Photo
 
 ### Step 4: Uninstall the Application
 
@@ -508,9 +514,9 @@ Navigate to the configured AWS storage to find the uploaded video captures.
 
     All installed modules will show as seen in the screen below:
 
-    <img src="docs/intelligent-traffic-mgmt-ri-15_installed_modules_list.png" />
+    ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](docs/intelligent-traffic-mgmt-ri-15_installed_modules_list.png)
 
-    Figure 16: Installed Modules List
+    Figure 18: Installed Modules List
 
 2.  Run the command below to uninstall all the modules:
 
@@ -520,7 +526,7 @@ Navigate to the configured AWS storage to find the uploaded video captures.
 
     `./edgesoftware uninstall <itm-id get from step 1>`
 
-    <img src="docs/intelligent-traffic-mgmt-ri-16_uninstall_modules.png" />
+    ![A console window showing the output of the "edgesoftware list" and "edgesoftware uninstall" commands. First, the system lists the installed modules. Next, the system displays output during the uninstall process. At the end of the process, the system displays the message “Uninstall finished” and the uninstallation status for each module. ](docs/intelligent-traffic-mgmt-ri-16_uninstall_modules.png)
 
     Figure 17: Uninstalled Modules
 
@@ -747,18 +753,24 @@ Cloud Connector - Configuration.
 
 
 1. From your AWS management console, search for IAM and open the IAM Dashboard.
-   <img src="docs/intelligent-traffic-mgmt-ri-aws_1.png" />
+   ![A web app dashboard showing the AWS management console with the IAM dashboard in the main view.](docs/intelligent-traffic-mgmt-ri-aws_1.png)
+
+   Figure 20: IAM Dashboard
 
 2. On the left menu of the dashboard, go to **Access management** and
    click on **Users** to open the IAM Users tab.
-   <img src="docs/intelligent-traffic-mgmt-ri-aws_2.png" />
+   ![The AWS management console showing the IAM dashboard with the IAM Users tab in the main view.](docs/intelligent-traffic-mgmt-ri-aws_2.png)
+
+   Figure 21: IAM Users Tab
 
 3. From the IAM users tab, click on **Add User** to access the AWS add
    user setup.
 
 4. On the first tab, provide the username and select the AWS credentials
    type to be **Access key**.
-   <img src="docs/intelligent-traffic-mgmt-ri-aws_3.png" />
+   ![The AWS management console showing the IAM dashboard with the Set user details tab in the main view. The User name field is highlighted, indicating you should enter a user name.](docs/intelligent-traffic-mgmt-ri-aws_3.png)
+
+   Figure 22: Set User Details Tab
 
 5. On the second tab, create a group to attach policies for the new IAM
    user.
@@ -767,7 +779,9 @@ Cloud Connector - Configuration.
 
    b. Click on **Create group**.
 
-      <img src="docs/intelligent-traffic-mgmt-ri-aws_4.png"/>
+      ![The AWS management console showing the IAM dashboard with the Create Group tab in the main view. The Group name field is highlighted, indicating you should enter a group name.](docs/intelligent-traffic-mgmt-ri-aws_4.png)
+
+      Figure 23: Create Group Tab
 
 6. Select the group you have created and click on **Next: Tags**.
 
@@ -790,8 +804,9 @@ Cloud Connector - Configuration.
    b. If you forget to save the AWS Secret Key, you can delete the old
       one and create another key.
 
-      <img src="docs/intelligent-traffic-mgmt-ri-aws_5.png"/>
+      ![The AWS management console showing the IAM dashboard with the Add User Success dialog in the main view. The AWS Key and AWS Secret Access key are covered with a blue bar for security.](docs/intelligent-traffic-mgmt-ri-aws_5.png)
 
+      Figure 24: AWS Key and Secret Access Key
 
 10. After you have saved the keys, close the tab. You are returned to the
    IAM Dashboard page.
@@ -819,7 +834,9 @@ applications.
 1. Open the Amazon Management Console and search for Amazon S3.
 
 2. Click on **S3** to open the AWS S3 Bucket dashboard.
-   <img src="docs/intelligent-traffic-mgmt-ri-aws_6.png"/>
+   ![The AWS management console showing the AWS S3 Bucket dashboard with the Account snapshot and Buckets list in the main view. The Account Snapshot details, Bucket Name, and AWS Region are covered with a blue bar for security.](docs/intelligent-traffic-mgmt-ri-aws_6.png)
+
+   Figure 25: AWS S3 Bucket Dashboard
 
 3. On the left side menu, click on **Buckets**.
 
@@ -827,7 +844,9 @@ applications.
    dashboard.
 
 5. Enter a name for your bucket and select your preferred region.
-   <img src="docs/intelligent-traffic-mgmt-ri-aws_7.png"/>
+   ![The AWS management console showing the Create Bucket dialog with General Configuration and Block Public Access settings in the main view. The AWS Region is covered with a blue bar for security.](docs/intelligent-traffic-mgmt-ri-aws_7.png)
+
+   Figure 26: Create Bucket General Configuration
 
 6. Scroll down and click on **Create Bucket**.
 
@@ -837,7 +856,9 @@ applications.
 8. Scroll to **Bucket Policy** and click on **Edit** to add a new
    statement in statements tab that is already created to deny all the
    uploads.
-   <img src="docs/intelligent-traffic-mgmt-ri-aws_8.png"/>
+   ![The AWS management console showing the Create Bucket dialog with Edit Bucket Policy settings in the main view. The Bucket ARN is covered with a blue bar for security.](docs/intelligent-traffic-mgmt-ri-aws_8.png)
+
+   Figure 27: Edit Bucket Policy
 
 9. You must add a comma before adding the following information.
     ```bash
