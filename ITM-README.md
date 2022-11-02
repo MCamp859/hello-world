@@ -234,7 +234,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
 
     ```bash
     NAME              STATUS   ROLES                  AGE     VERSION
-    Machine1          Ready    control-plane,master   1m     v1.23.4
+    Machine1          Ready    control-plane,master   1m      v1.23.4
     ```
 
 8. Join Kubernetes worker node:
