@@ -371,7 +371,7 @@ Uninstalling K3S: (If required)
 Refer to [Steps to uninstall Rancher K3S](https://rancher.com/docs/k3s/latest/en/installation/uninstall/#:~:text=If%20you%20installed%20K3s%20using,installation%20script%20with%20different%20flags).
 
 
-## Evaluate Use Case Output
+## Step 3: Evaluate Use Case Output
 
 ### Inference Output
 
@@ -406,17 +406,16 @@ task.
 
 
 
-## Optional Steps
 
-### Set Up Azure Storage
+## Set Up Azure Storage (Optional)
 
 Use Azure Storage for multi-node Kubernetes setup if you want to use the same
 storage across all the nodes.
 
-#### Azure References
+### Azure References
   * [Azure File Storage](https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/linux/mount-azure-file-storage-on-linux-using-smb)
 
-#### Setup Steps
+### Setup Steps
 
 1. Open Azure CLI terminal on Azure Portal.
 2. Create a resource group:
@@ -466,7 +465,7 @@ storage across all the nodes.
     sudo mount -t cifs //$STORAGEACCT.file.core.windows.net/myshare /mnt/MyAzureFileShare -o vers=3.0,username=$STORAGEACCT,password=$STORAGEKEY,serverino
     ```
 
-#### Use Azure Storage in Helm Chart
+### Use Azure Storage in Helm Chart
 
 1. Clone the git_repo in /mnt/MyAzureFileShare and make it as your working
    directory.
