@@ -327,67 +327,6 @@ Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-usin
 
 ### Use Case 4: Inference Only
 
-To run only Inference, make sure you have access to the model file and also edit
-the model path in the `helmchart/qat/values.yaml` file. If you want to deploy
-only inference and skip the training, use the following commands:
-
-```bash
-cd helmchart
-helm install qatchart qat --no-hooks
-```
-
-### Clean Up
-
-
-To clean or uninstall Helm chart, run:
-
-```bash
-helm uninstall qatchart
-```
-### Inference Only Output
-
-To view the pods that are deployed, run:
-
-```bash
-kubectl get pods
-```
-Take the pod_name from the list of pods, run:
-
-```bash
-kubectl logs <pod_name>
-```
-
-If the pods are in completed state it means they have completed the running
-task.
-
-### Training Output
-
-1. Output of the training container will be an optimized INT8 model generated in
-   the `quantization_aware_training/model` folder.
-2. Verify if all the model files are generated in the `<output>` folder.
-3. A `logs.txt` file is generated to store the logs of the training container
-   which will have accuracy details.
-
-
-
-## Optional Steps
-
-### Skip Training and Deploy Inference Applications
-
-Before triggering the inference, make sure you have access to the model file and
-also edit the model path in the `qat/values.yaml` file:
-
-```bash
-helm install qatchart qat --no-hooks
-```
-
-Cleanup resources:
-
-```bash
-helm uninstall qatchart
-```
-### Trigger One Inference Application
-
 Before triggering the inference, make sure you have access to the model file and
 also edit the model path in the `qat/values.yaml` file.
 
@@ -403,25 +342,81 @@ just one inference application.
 *  For OpenVINO™ model server, use `deployment-ovms.yaml`. Model format
    acceptable is IR.xml
 
-    ```bash
-    helm install qatchart qat --no-hooks
-    ```
 
-Cleanup resources:
+To run inference, use the following commands:
+
+```bash
+cd helmchart
+helm install qatchart qat --no-hooks
+```
+### Clean Up
+
+After you run a use case, clean up resources using the command:
 
 ```bash
 helm uninstall qatchart
 ```
 
-## Set Up Azure Storage (Optional)
+### Useful Commands
+
+Uninstalling Helm: (If required)
+```bash
+sudo rm -rf /usr/local/bin/helm
+```
+
+Uninstalling K3S: (If required)
+```bash
+/usr/local/bin/k3s-uninstall.sh
+```
+Refer to [Steps to uninstall Rancher K3S](https://rancher.com/docs/k3s/latest/en/installation/uninstall/#:~:text=If%20you%20installed%20K3s%20using,installation%20script%20with%20different%20flags).
+
+
+## Evaluate Use Case Output
+
+### Inference Output
+
+1. Output of the inference will be xxxx
+
+2. Verify files are generated xxx
+
+3. Log file is generated xxx
+
+
+View the pods that are deployed during inference with the command:
+
+```bash
+kubectl get pods
+```
+Take the pod_name from the list of pods, run:
+
+```bash
+kubectl logs <pod_name>
+```
+
+If the pods are in completed state, it means they have completed the running
+task.
+
+### Training Output
+
+1. Output of the training container will be an optimized INT8 model generated in
+   the `quantization_aware_training/model` folder.
+2. Verify if all the model files are generated in the `<output>` folder.
+3. A `logs.txt` file is generated to store the logs of the training container
+   which will have accuracy details.
+
+
+
+## Optional Steps
+
+### Set Up Azure Storage
 
 Use Azure Storage for multi-node Kubernetes setup if you want to use the same
 storage across all the nodes.
 
-### Azure References
+#### Azure References
   * [Azure File Storage](https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/linux/mount-azure-file-storage-on-linux-using-smb)
 
-### Setup Steps
+#### Setup Steps
 
 1. Open Azure CLI terminal on Azure Portal.
 2. Create a resource group:
@@ -471,7 +466,7 @@ storage across all the nodes.
     sudo mount -t cifs //$STORAGEACCT.file.core.windows.net/myshare /mnt/MyAzureFileShare -o vers=3.0,username=$STORAGEACCT,password=$STORAGEKEY,serverino
     ```
 
-### Use Azure Storage in Helm Chart
+#### Use Azure Storage in Helm Chart
 
 1. Clone the git_repo in /mnt/MyAzureFileShare and make it as your working
    directory.
@@ -551,18 +546,7 @@ finetune on the whole dataset.
     helm install qatchart qat --no-hooks
     ```
 
-### Useful Commands
 
-Uninstalling Helm: (If required)
-```bash
-sudo rm -rf /usr/local/bin/helm
-```
-
-Uninstalling K3S: (If required)
-```bash
-/usr/local/bin/k3s-uninstall.sh
-```
-Refer to [Steps to uninstall Rancher K3S](https://rancher.com/docs/k3s/latest/en/installation/uninstall/#:~:text=If%20you%20installed%20K3s%20using,installation%20script%20with%20different%20flags).
 
 
 ### Support Forum
