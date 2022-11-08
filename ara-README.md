@@ -191,8 +191,9 @@ available at the path:
 
           **Model Description**
 
-      -   **Address Detection:** This model detects the numbers on an address plaque.
-      -   **Address Recognition:** This model recognizes the target address and sends an alert when the address number is reached.
+          **Address Detection:** This model detects the numbers on an address plaque.
+
+          **Address Recognition:** This model recognizes the target address and sends an alert when the address number is reached.
 
           >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
