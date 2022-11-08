@@ -207,8 +207,7 @@ available at the path:
 
       -   After selecting the video sample, select the target device for all models. Options include CPU or GPU. Click on **Run Use Case.**
 
-           >**NOTE:** To use a GPU device, you must set the proper group for the device with the command:
-           > `sudo chown root:video /dev/dri/renderD128`
+          >**NOTE:** To use a GPU device, you must set the proper group for the device with the command: `sudo chown root:video /dev/dri/renderD128`
 
       -   The application will start the Visualizer App that will detect address plaques on the surfaces of buildings:
 
