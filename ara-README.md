@@ -55,6 +55,7 @@ This reference implementation contains a notification subsystem which includes a
 cloud dashboard and a cloud storage.
 
 ![The architecture is represented by a complex block diagram.](docs/address-recognition-and-analytics-ri-arch.png)
+
 Figure 1: Architecture Diagram
 
 ## Get Started
@@ -175,46 +176,46 @@ available at the path:
 
 4. Access the Address Recognition and Analytics Dashboard with the following steps.
 
-   -   Go to sidebar and select **Run Use Case**.
+      -   Go to sidebar and select **Run Use Case**.
 
-       ![A web app dashboard showing the Run Use Case tab.](docs/address-recognition-and-analytics-recognition-ri-run-usecase.png)
+         ![A web app dashboard showing the Run Use Case tab.](docs/address-recognition-and-analytics-recognition-ri-run-usecase.png)
 
-       Figure 6: Select Run Use Case Tab
+         Figure 6: Select Run Use Case Tab
 
-   -   Configure the use case by selecting the video sample and the device for the UDF model.
-   -   Enter a target address value (for example, 30) to generate the target address reached alert.
-   -   Optionally, you can also set the simulation data that you want to use. You
-    can choose between using the [KnowGo
-    Simulator](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-know-go-simulator.html)
-    or simply use the CSV pre-recorded simulation data.
+      -   Configure the use case by selecting the video sample and the device for the UDF model.
+      -   Enter a target address value (for example, 30) to generate the target address reached alert.
+      -   Optionally, you can also set the simulation data that you want to use. You
+      can choose between using the [KnowGo
+      Simulator](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-know-go-simulator.html)
+      or simply use the CSV pre-recorded simulation data.
 
-      **Model Description**
+         **Model Description**
 
-   -   **Address Detection:** This model detects the numbers on an address plaque.
-   -   **Address Recognition:** This model recognizes the target address and sends an alert when the address number is reached.
+      -   **Address Detection:** This model detects the numbers on an address plaque.
+      -   **Address Recognition:** This model recognizes the target address and sends an alert when the address number is reached.
 
-       >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+         >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-       ![A web app dashboard showing the Dashboard.](docs/address-recognition-and-analytics-recognition-ri-dashboard.png)
+         ![A web app dashboard showing the Dashboard.](docs/address-recognition-and-analytics-recognition-ri-dashboard.png)
 
-       Figure 7: Configure Use Case
+         Figure 7: Configure Use Case
 
 
-   -   Click on the **Browse** button and search for video on the following path:
-    `<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase/config/VideoIngestion/test_videos/`
+      -   Click on the **Browse** button and search for video on the following path:
+      `<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase/config/VideoIngestion/test_videos/`
 
-   -   After selecting the video sample, select the target device for all models. Options include CPU or GPU. Click on **Run Use Case.**
+      -   After selecting the video sample, select the target device for all models. Options include CPU or GPU. Click on **Run Use Case.**
 
-         >**NOTE:** To use a GPU device, you must set the proper group for the device with the command:
-          >
-          > `sudo chown root:video /dev/dri/renderD128`
+            >**NOTE:** To use a GPU device, you must set the proper group for the device with the command:
+            >
+            > `sudo chown root:video /dev/dri/renderD128`
 
-   -   The application will start the Visualizer App that will detect address plaques on the surfaces of buildings:
-       >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+      -   The application will start the Visualizer App that will detect address plaques on the surfaces of buildings:
+         >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-       ![A web app dashboard showing output from the visualizer.](docs/address-recognition-and-analytics-recognition-ri-visualizer.png)
+         ![A web app dashboard showing output from the visualizer.](docs/address-recognition-and-analytics-recognition-ri-visualizer.png)
 
-       Figure 8: Visualizer Output
+         Figure 8: Visualizer Output
 
 
 5. After the visualizer starts, you can go to the ThingsBoard link and check the
@@ -410,13 +411,11 @@ If Docker image build on corporate network fails, follow the steps below.
 
 ### Installation Failure Due to Ubuntu Timezone Setting
 
-While building the reference implementation, if you see:
+While building the reference implementation, if you see: `/etc/timezone &&
+apt-get install -y tzdata && ln -sf /usr/share/zoneinfo/${HOST_TIME_ZONE}
+/etc/localtime && dpkg-reconfigure -f noninteractive tzdata' returned a non-zero
+code: 1 make: *** [config] Error 1`
 
-```bash
-/etc/timezone && apt-get install -y tzdata && ln -sf
-/usr/share/zoneinfo/${HOST_TIME_ZONE} /etc/localtime && dpkg-reconfigure -f noninteractive tzdata' returned a non-zero code: 1 make: ***
-[config] Error 1
-```
 
 Run the following command in your terminal:
 
@@ -426,7 +425,8 @@ sudo timedatectl set-local-rtc 0
 
 ### Installation Encoding Issue
 
-While building the reference implementation, if you see: `ERROR: 'latin-1' codec can't encode character '\\u2615' in position 3: ordinal not in range(256)`
+While building the reference implementation, if you see: `ERROR: 'latin-1' codec
+can't encode character '\\u2615' in position 3: ordinal not in range(256)`
 
 Run the following command in your terminal:
 
