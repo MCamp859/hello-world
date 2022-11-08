@@ -178,9 +178,9 @@ available at the path:
 
       -   Go to sidebar and select **Run Use Case**.
 
-         ![A web app dashboard showing the Run Use Case tab.](docs/address-recognition-and-analytics-recognition-ri-run-usecase.png)
+          ![A web app dashboard showing the Run Use Case tab.](docs/address-recognition-and-analytics-recognition-ri-run-usecase.png)
 
-         Figure 6: Select Run Use Case Tab
+          Figure 6: Select Run Use Case Tab
 
       -   Configure the use case by selecting the video sample and the device for the UDF model.
       -   Enter a target address value (for example, 30) to generate the target address reached alert.
@@ -189,16 +189,16 @@ available at the path:
       Simulator](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-know-go-simulator.html)
       or simply use the CSV pre-recorded simulation data.
 
-         **Model Description**
+          **Model Description**
 
       -   **Address Detection:** This model detects the numbers on an address plaque.
       -   **Address Recognition:** This model recognizes the target address and sends an alert when the address number is reached.
 
-         >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+          >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-         ![A web app dashboard showing the Dashboard.](docs/address-recognition-and-analytics-recognition-ri-dashboard.png)
+          ![A web app dashboard showing the Dashboard.](docs/address-recognition-and-analytics-recognition-ri-dashboard.png)
 
-         Figure 7: Configure Use Case
+          Figure 7: Configure Use Case
 
 
       -   Click on the **Browse** button and search for video on the following path:
@@ -211,11 +211,12 @@ available at the path:
             > `sudo chown root:video /dev/dri/renderD128`
 
       -   The application will start the Visualizer App that will detect address plaques on the surfaces of buildings:
-         >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-         ![A web app dashboard showing output from the visualizer.](docs/address-recognition-and-analytics-recognition-ri-visualizer.png)
+          >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-         Figure 8: Visualizer Output
+          ![A web app dashboard showing output from the visualizer.](docs/address-recognition-and-analytics-recognition-ri-visualizer.png)
+
+          Figure 8: Visualizer Output
 
 
 5. After the visualizer starts, you can go to the ThingsBoard link and check the
