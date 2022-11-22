@@ -15,7 +15,8 @@ Select **Configure & Download** to download the workflow.
 
 -  **Time to Complete:** 10 minutes
 -  **Programming Language:** Python*
--  **Available Software:** OpenVINO™ Integration with Optimum*, Docker*, Kubernetes*, Helm*
+-  **Available Software:** OpenVINO™ toolkit, OpenVINO™ Integration with
+   Optimum*, Docker*, Kubernetes*, Helm*
 
 
 ## How It Works
