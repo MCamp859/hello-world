@@ -13,6 +13,11 @@ Select **Configure & Download** to download the workflow.
 [Configure & Download - link TBD](xxx)
 
 
+-  **Time to Complete:** 10 minutes
+-  **Programming Language:** Python*
+-  **Available Software:** OpenVINO™ Integration with Optimum*, Docker*, Kubernetes*, Helm*
+
+
 ## How It Works
 
 ![The workflow is represented by a complex block diagram.](quantization-aware-training-usecase-flow.png)
@@ -101,63 +106,6 @@ Choose one of the following options:
     cd frameworks.ai.edgecsp.quantization-training-inference
     ```
 
-### Build Docker Images
-You can build Docker images to store in a local image registry or pull images from Azure
-Marketplace. Follow either Option 1 or Option 2 below.
-
-Option 1: Build images locally
-
-1. Start a local registry. You can use any string for `<registry_name>` such as
-   `qat_docker_registry`.
-
-
-    ```bash
-    docker run -d -p 5000:5000 --restart=always --name <registry_name>  registry:2
-    ```
-
-2. Build Docker image. Edit the `docker-compose.yaml` file for `<registry>` tag
-   with the local or private registry address. If using local registry, edit it
-   to `"localhost:5000"`.
-
-    ```bash
-    cd dockerfiles
-    docker compose build
-    ```
-
-3. Push the image to the local image registry.
-
-    ```bash
-    docker compose push openvino_optimum
-    cd ..
-    ```
-
-Option 2. Pull Images from Azure Marketplace
-
-1. Subscribe to the images mentioned below.
-
-   **OPEN: Azure image names/screenshots TBD**
-
-   *To be updated with screenshots once we know the name and place of the images.*
-
-   Subscribed images from Azure Marketplace will be stored onto your private
-   registry.
-
-2. Create a kubectl secret for the private registry where the images are
-   stored.
-
-    ```bash
-    kubectl create secret docker-registry <secret_name>
-       --docker-server <registry_name>.azurecr.io
-       --docker-email <your_email>
-       --docker-username=<service_principal_id>
-       --docker-password <your_password>
-    ```
-
-3. Edit the `helmchart/qat/values.yaml` with the secret name for the
-   imagePullSecrets field with the `<secret_name>` as above.
-
-4. Edit the `helmchart/qat/values.yaml` with the `<registry_name>` for the
-   `repo_name` field.
 
 
 ### Modify Helm Chart Values
@@ -203,7 +151,7 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
 This section contains step-by-step details to install specific Helm charts with both training and inference. [Learn more about Helm commands.](https://helm.sh/docs/helm/helm_install/)
 
 
-### Use Case 1: QAT with Inference using OpenVINO™ Integration with Optimum
+### Use Case 1: QAT with Inference using OpenVINO™ Integration with Optimum*
 
 The Training pod is deployed through `pre_install_job.yaml`.
 The Inference pod is deployed through `deployment_optimum.yaml`.
@@ -373,16 +321,7 @@ Refer to [Steps to uninstall Rancher K3S](https://rancher.com/docs/k3s/latest/en
 
 ## Step 3: Evaluate Use Case Output
 
-### Inference Output
-
-1. Output of the inference will be xxxx
-
-2. Verify files are generated xxx
-
-3. Log file is generated xxx
-
-
-View the pods that are deployed during inference with the command:
+View the pods that are deployed through Helm Chart with the command below:
 
 ```bash
 kubectl get pods
@@ -404,6 +343,10 @@ task.
 3. A `logs.txt` file is generated to store the logs of the training container
    which will have accuracy details.
 
+### Inference Output
+
+1. Output of the inference will be inference time and the answer to the question pertraining to a context file that is given as input
+2. Log file is generated named logs.txt in the inference folder
 
 
 
