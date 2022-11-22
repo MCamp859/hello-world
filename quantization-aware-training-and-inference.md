@@ -10,13 +10,13 @@ taken from Microsoft Azure* Marketplace.†
 
 Select **Configure & Download** to download the workflow.
 
-[Configure & Download - link TBD](xxx)
+[Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download/home/ri/quantization_aware_training_and_inference)
 
 
 -  **Time to Complete:** 10 minutes
 -  **Programming Language:** Python*
 -  **Available Software:** OpenVINO™ toolkit, OpenVINO™ Integration with
-   Optimum*, Docker*, Kubernetes*, Helm*
+   Optimum\*, Docker\*, Kubernetes\*, Helm\*
 
 
 ## How It Works
@@ -24,7 +24,6 @@ Select **Configure & Download** to download the workflow.
 ![The workflow is represented by a complex block diagram.](quantization-aware-training-usecase-flow.png)
 
 Figure 1: Flow Diagram
-
 
 The workflow executes as follows:
 
@@ -37,6 +36,13 @@ The workflow executes as follows:
     *  Inference using Hugging Face API
     *  Inference using ONNX Runtime API
     *  Deploy the model using OpenVINO™ Model Server and send in grpc requests
+
+The workflow architecture is shown below.
+
+![The architecture is represented by a complex block diagram.](quantization-aware-training-usecase-architecture.png)
+
+Figure 2: Architecture Diagram
+
 
 
 ## Get Started
@@ -97,7 +103,7 @@ Choose one of the following options:
 
 *  Select **Configure & Download** to download the workflow.
 
-    [Configure & Download - link TBD](xxx)
+    [Configure & Download](https://www.intel.com/iot/edgesoftwarehub/download/home/ri/quantization_aware_training_and_inference)
 
 
 *  Or, run the command:
@@ -163,7 +169,7 @@ cd helmchart
 helm install qatchart qat  --timeout <time>
 ```
 The `<time>` value has the format ``nnns``, where **s** indicates seconds. For the above hardware configuration and with
-MAX_TRAINING_SAMPLES=50, we recommend you set the `<time>` value as ``480s``. You can increase the value
+``MAX_TRAIN_SAMPLES=50``, we recommend you set the `<time>` value as ``480s``. You can increase the value
 for reduced hardware configuration. Refer to [Troubleshooting](#Troubleshooting)
 in case of timeout errors.
 
@@ -469,7 +475,7 @@ Based on the system performance, add `--timeout <seconds>` to the helm command:
 helm install qatchart qat --timeout <time>
 ```
 The `<time>` value has the format ``nnns``, where **s** indicates seconds. For
-the above hardware configuration and with MAX_TRAINING_SAMPLES=50, we recommend
+the above hardware configuration and with ``MAX_TRAIN_SAMPLES=50``, we recommend
 you set the `<time>` value as ``480s``. Increase the timeout if you need to
 finetune on the whole dataset.
 
