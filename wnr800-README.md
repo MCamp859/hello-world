@@ -221,7 +221,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/wirele
 
     > **NOTE:** Installation logs are available at path:
     >
-    > `/var/log/esb-cli/Wireless_NetworkReady_Intelligent_Traffic_Management_&lt;version&gt;/&lt;Component_Name&gt;/install.log`
+    > `/var/log/esb-cli/Wireless_NetworkReady_Intelligent_Traffic_Management_<version>/<Component_Name>/install.log`
 
     ![A console window showing a system prompt to enter the product key.](docs/wnr_itm_3_product_key.png)
 
@@ -545,7 +545,7 @@ Install Helm with the following commands:
 >
 >2. Cloud connector requires your AWS credentials to connect to it to upload video captures in case of collision,
 >near miss and overcrowd events. If you don't want this feature enabled, then skip setting these parameters.
->For instructions on how to configure AWS, refer to the [Set Up Amazon Web Services* Cloud Storage](#set-up-amazon-web-services-cloud-storage) section. 
+>For instructions on how to configure AWS, refer to the [Set Up Amazon Web Services* Cloud Storage](#set-up-amazon-web-services-cloud-storage) section.
 >3. If the command above fails with an error related to PostgreSQL dependencies, execute the following command:  ``helm dependency build services/``
 
 
@@ -571,7 +571,7 @@ itm_video_inference:
 ```
 
 To use camera stream instead of video, replace the video file
-name with /dev/video0
+name with ``/dev/video0``.
 
 To use RTSP stream instead of video, replace the video file name
 with the RTSP link.
@@ -644,12 +644,14 @@ Cloud Connector - Configuration.
 
 
 1. From your AWS management console, search for IAM and open the IAM Dashboard.
+
    ![A web app dashboard showing the AWS management console with the IAM dashboard in the main view.](docs/aws_1.png)
 
    Figure 21: IAM Dashboard
 
 2. On the left menu of the dashboard, go to **Access management** and
    click on **Users** to open the IAM Users tab.
+
    ![The AWS management console showing the IAM dashboard with the IAM Users tab in the main view.](docs/aws_2.png)
 
    Figure 22: IAM Users Tab
@@ -659,6 +661,7 @@ Cloud Connector - Configuration.
 
 4. On the first tab, provide the username and select the AWS credentials
    type to be **Access key**.
+
    ![The AWS management console showing the IAM dashboard with the Set user details tab in the main view. The User name field is highlighted, indicating you should enter a user name.](docs/aws_3.png)
 
    Figure 23: Set User Details Tab
@@ -813,7 +816,7 @@ resources:
 
 ### Pods status check
 
-Verify that the pods are **Ready**as well as in **Running**state
+Verify that the pods are **Ready** as well as in **Running** state
 using the below command:
 
 ```bash
