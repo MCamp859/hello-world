@@ -50,8 +50,8 @@ for the source code.
 -  **Programming Language:** Python*
 -  **Available Software:**
 
-   -  Intel® Distribution of OpenVINO™ toolkit 2021 Release
-   -  Intel® Smart Edge Open 22.03 with multi-node support
+    -  Intel® Distribution of OpenVINO™ toolkit 2021 Release
+    -  Intel® Smart Edge Open 22.03 with multi-node support
 
 
 ## Target System Requirements
@@ -107,7 +107,7 @@ Figure 1: How It Works
 
 The Wireless Network-Ready application requires the application pods,
 database and a visualizer. Once the installation is successful, the
-application is ready to be deployed using Helm*. After the deployment,
+application is ready to be deployed using Helm\*. After the deployment,
 the application pod takes in the virtual/real RTSP stream addresses and
 performs inference and sends metadata for each stream to the InfluxDB*
 database. The visualizer in parallel shows the analysis over the
@@ -188,7 +188,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/wirele
     unzip wireless_network_ready_intelligent_traffic_management.zip
     ```
 
-5.  Go to the wireless_network_ready_intelligent_traffic_management/
+5.  Go to the `wireless_network_ready_intelligent_traffic_management/`
     directory.
 
     ```bash
@@ -221,7 +221,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/wirele
 
     > **NOTE:** Installation logs are available at path:
     >
-    > /var/log/esb-cli/Wireless_NetworkReady_Intelligent_Traffic_Management_&lt;version&gt;/&lt;Component_Name&gt;/install.log
+    > `/var/log/esb-cli/Wireless_NetworkReady_Intelligent_Traffic_Management_&lt;version&gt;/&lt;Component_Name&gt;/install.log`
 
     ![A console window showing a system prompt to enter the product key.](docs/wnr_itm_3_product_key.png)
 
@@ -249,7 +249,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/wirele
 
 ### Step 2: Check the Application
 
-Check the Wireless_NetworkReady_Intelligent_Traffic_Management pod with the command:
+Check the `Wireless_NetworkReady_Intelligent_Traffic_Management` pod with the command:
 
 ```bash
 kubectl get pod -n smartedge-apps
@@ -545,12 +545,12 @@ Install Helm with the following commands:
 >
 >2. Cloud connector requires your AWS credentials to connect to it to upload video captures in case of collision,
 >near miss and overcrowd events. If you don't want this feature enabled, then skip setting these parameters.
->For instructions on how to configure AWS, refer to the [Set Up Amazon Web Services* CLoud Storage](#set-up-amazon-web-services-cloud-storage) section. 
+>For instructions on how to configure AWS, refer to the [Set Up Amazon Web Services* Cloud Storage](#set-up-amazon-web-services-cloud-storage) section. 
 >3. If the command above fails with an error related to PostgreSQL dependencies, execute the following command:  ``helm dependency build services/``
 
 
-After step 6 completes, use your preferred browser to access WNR ITM at: https://Controller_IP:30300 and
-Grafana https://Controller_IP:32000
+After step 6 completes, use your preferred browser to access WNR ITM at: ``https://Controller_IP:30300`` and
+Grafana ``https://Controller_IP:32000``
 
 ### Optional Steps
 
@@ -592,8 +592,8 @@ file:
 
 -   analytics: Attribute to be detected by the model.
 
-    >**NOTE:** The default model support pedestrian, vehicle and bike
-    detection. User can select desired attributes from these. (E.g.:
+    >**NOTE:** The default model supports pedestrian, vehicle and bike
+    detection. You can select desired attributes from these. (E.g.:
     "analytics": "pedestrian vehicle detection")
 
 
@@ -627,7 +627,7 @@ your root user account that has to support the following services:
 
 
 After finishing the setup for IAM and S3, you will have your
-AWS_KEY_ID, AWS_SECRET_KEY and AWS_BUCKET_NAME to be used
+``AWS_KEY_ID``, ``AWS_SECRET_KEY`` and ``AWS_BUCKET_NAME`` to be used
 on your Wireless Network Ready Intelligent Traffic Management
 Cloud Connector - Configuration.
 
@@ -708,7 +708,7 @@ Cloud Connector - Configuration.
 
 
 >**NOTE:**
-      In case you forgot to save the AWS Secret key from the User tab,
+      If you forget to save the AWS Secret key from the User tab,
       you can select **Security Credentials**, delete the Access Key and
       create another one.
 
@@ -813,14 +813,14 @@ resources:
 
 ### Pods status check
 
-Verify that the pods are “**Ready**” as well as in “**Running**” state
+Verify that the pods are **Ready**as well as in **Running**state
 using the below command:
 
 ```bash
 kubectl get pods -n smartedge-apps
 ```
 
-If any pods are not in “Running” state, use the following command to get
+If any pods are not in **Running** state, use the following command to get
 more information about the pod state:
 
 ```bash
