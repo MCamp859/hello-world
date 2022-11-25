@@ -457,31 +457,31 @@ In the Change examples, replace the line indicated by - with the line indicated 
 
 1. <REPOSITORY_PATH>/src/build_images.sh - update the tag and version for the image.
 
-   ```bash
-   Change example:
-   -    TAG="5.0"
-   +    TAG="5.1"
-   ```
+    ```bash
+    Change example:
+    -    TAG="5.0"
+    +    TAG="5.1"
+    ```
 
 2. <REPOSITORY_PATH>/helm/services/values.yaml - update image deployment harbor.
 
-   ```bash
-   Change example:
-   - images:
-   -   registry: ""
-   + images:
-   +   registry: <local harbor host>:<local_harbor_port>/<repository>/
-   ```
+    ```bash
+    Change example:
+    - images:
+    -   registry: ""
+    + images:
+    +   registry: <local harbor host>:<local_harbor_port>/<repository>/
+    ```
 
 3. <REPOSITORY_PATH>/helm/services/values.yaml - update version.
 
-   ```bash
-   Change example:
-   - images:
-   -   tag: "5.0"
-   + images:
-   +   tag: "5.1"
-   ```
+    ```bash
+    Change example:
+    - images:
+    -   tag: "5.0"
+    + images:
+    +   tag: "5.1"
+    ```
 ### Build and Install
 
 Build the Docker image with the following commands:
@@ -495,50 +495,50 @@ Install Helm with the following commands:
 
 1. Get Grafana password:
 
-   ```bash
-   kubectl get secrets/grafana -n telemetry -o json | jq -r '.data."admin-password"' | base64 -d
-   ```
+    ```bash
+    kubectl get secrets/grafana -n telemetry -o json | jq -r '.data."admin-password"' | base64 -d
+    ```
 
 2. Get the Grafana service IP using the following command:
 
-   ```bash
-   kubectl describe service -n telemetry grafana |grep -i Endpoint
-   ```
+    ```bash
+    kubectl describe service -n telemetry grafana |grep -i Endpoint
+    ```
 
 3. Get the host IP using the following command:
 
-   ```bash
-   hostname -I | awk '{print $1}'
-   ```
+    ```bash
+    hostname -I | awk '{print $1}'
+    ```
 
 4. Change directory to deployment directory from repository path:
 
-   ```bash
-   cd <REPOSITORY_PATH>/helm/
-   ```
+    ```bash
+    cd <REPOSITORY_PATH>/helm/
+    ```
 
 5. Deploy the MQTT broker and wait for it to initialize:
 
-   ```bash
-   helm install broker broker/ --set namespace=smartedge-apps
-   kubectl wait --namespace=smartedge-apps --for=condition=Ready pods --timeout=600s --selector=app=hivemq-cluster
-   ```
+    ```bash
+    helm install broker broker/ --set namespace=smartedge-apps
+    kubectl wait --namespace=smartedge-apps --for=condition=Ready pods --timeout=600s --selector=app=hivemq-cluster
+    ```
 
 
 6. Using the host IP, Grafana service IP and password from steps 1 and 2, run the following Helm installation command:
 
-   ```bash
-   helm install wnr-itm services/ --wait --timeout 10m \
-            --set grafana.password=<Grafana_Password> \
-            --set grafana.ip=<Grafana_PodIP> \
-            --set host_ip=<Controller_IP> \
-            --set namespace=smartedge-apps \
-            --set proxy.http=<HTTP_PROXY> \
-            --set proxy.https=<HTTPS_PROXY> \
-            --set cloud_connector.aws_key=<AWS_KEY_ID> \
-            --set cloud_connector.aws_secret=<AWS_SECRET> \
-            --set cloud_connector.aws_bucket=<AWS_BUCKET>
-   ```
+    ```bash
+    helm install wnr-itm services/ --wait --timeout 10m \
+             --set grafana.password=<Grafana_Password> \
+             --set grafana.ip=<Grafana_PodIP> \
+             --set host_ip=<Controller_IP> \
+             --set namespace=smartedge-apps \
+             --set proxy.http=<HTTP_PROXY> \
+             --set proxy.https=<HTTPS_PROXY> \
+             --set cloud_connector.aws_key=<AWS_KEY_ID> \
+             --set cloud_connector.aws_secret=<AWS_SECRET> \
+             --set cloud_connector.aws_bucket=<AWS_BUCKET>
+    ```
 
 >**NOTES:**
 >1. If your host is not behind a firewall, then skip setting the http and https proxy.
