@@ -7,24 +7,29 @@ human and machine communications. On the other hand, driving more data through a
 scarce and finite radio spectrum becomes a real challenge, and spectrum
 efficiency is approaching a plateau and will not deliver the needed increase in
 bandwidth improvement itself. Therefore, 5G is likely to utilize frequencies
-below 6GHz as well as mmWave, in both licensed and unlicensed bands. We
-developed a new  Software-Defined  & Access-Agnostic & High-Performance solution
-– “Generic Multi-Access (GMA)” to enable seamless integration of multiple access
-networks at the edge, with no impact to legacy (cellular or Wi-Fi) radio
-protocols, e.g. PDCP, RRC, Ethernet, etc., or network protocols, e.g. IP, TCP,
-UDP, etc.
+below 6 GHz as well as mmWave, in both licensed and unlicensed bands.
+
+Use a new software-defined, access-agnostic and high-performance reference
+implementation (RI) to enable seamless integration of multiple access networks
+at the edge. The Generic Multi-Access (GMA) RI can be used with no impact to
+cellular or Wi-Fi* radio protocols (PDCP, RRC, Ethernet, and
+others) or network protocols (IP, TCP, UDP, and others).
 
 To run the reference implementation, you will need to first download and install
 the [Intel® Smart Edge Open Private Wireless Experience
-Kit](https://smart-edge-open.github.io/docs/experience-kits/private-wireless-experience-kit).
+Kit](https://intelsmartedge.github.io/docs/experience-kits/private-wireless-experience-kit/#overview).
+
+Once you have installed the Intel® Smart Edge Open Private Wireless Experience
+Kit, select **Configure & Download** to download the reference implementation
+and then follow the steps below to install it.
+
+[Configure &
+Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-access-with-private-5g)
 
 *  **Time to Complete:**  120 - 150 minutes
 *  **Programming Language:**  Python\*
-*  **Software:**
+*  **Software:** Intel® Smart Edge Open 22.04.01 PWEK Release
 
-   *  Intel® Smart Edge Open 22.04.01 PWEK Release
-   
-   
 ## Target System Requirements
 
 ### Edge Controller
@@ -58,17 +63,24 @@ Kit](https://smart-edge-open.github.io/docs/experience-kits/private-wireless-exp
 
 -   CentOS* 7.9.2009.
 
-### Client devices
+### Client Device
 
--   Laptop support Cellular / WIFI (or Wi-Fi + Cellular/USB tethering) 
+-   Laptop supporting Wi-Fi and cellular (or Wi-Fi + cellular/USB tethering)
 
 -   Ubuntu* 20.04
 
--   Wifi AP
+-   Wi-Fi AP
 
 ## How It Works
 
-GMA client will connect to GMA server over Celluar and Wifi, At the very beginning, client has only one delivery connection (e.g. celluar) established,and will try getting the second delivery connection. After both delivery connections are established, will then establish a websocket,A websocket-based secure connection is established between client and server to exchange messages, A new protocol layer – GMA convergence is introduced to handle all multi-path related operations, e.g. splitting, reordering, duplication, elimination measurements, etc.
+The Generic Multi-Access (GMA) client connects to the GMA server over cellular
+and Wi-Fi. At the very beginning, the client has only one delivery connection
+established (e.g. cellular) and will try to make the second delivery connection.
+After both delivery connections are established, the client will then establish
+a websocket-based secure connection between client and server to exchange
+messages. A new protocol layer for GMA convergence is introduced to handle all
+multi-path related operations, for example, splitting, reordering, duplication,
+elimination measurements, etc.
 
 ![The architecture is represented by a complex block diagram.](/images/multi-access-with-private-5g-arch-diagram.png)
 
@@ -87,11 +99,13 @@ Ensure that the following conditions are met properly to ensure a smooth install
    Make sure you have a fresh **CentOS\* 7.9.2009** installation with the
    Hardware specified in the [Target System
    Requirements](#target-system-requirements) section.
-2. Network connection
 
-   Laptop connect to wifi through Wifi AP which is connected to E810 nic
-   
-   Laptop connect to celluar through Cellular tethering
+2. Network connections
+
+    - Laptop connected to Wi-Fi through Wi-Fi AP which is connected to 100GbE
+      Intel® Ethernet Network Adapter E810.
+
+    - Laptop connected to cellular network through cellular tethering.
 
 ### Step 1: Install the Reference Implementation
 
@@ -103,7 +117,7 @@ Select **Configure & Download** to download the reference implementation and
 then follow the steps below to install it.
 
 [Configure &
-Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-access-with-private-5g)
+Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-access-with-private-5g)
 
 1.  Make sure that the Target System Requirements are met properly
     before proceeding further.
@@ -116,7 +130,7 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     export https_proxy=proxy-address:proxy-port
     ```
 
-3.  Under the user deploy PWEK, for example smartedge-open, download GMA RI package:
+3.  Under the user deploy PWEK, for example smartedge-open, download the GMA RI package:
 
     ```bash
     mkdir path-of-downloaded-directory
@@ -146,7 +160,7 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     openssl req -new -key server.key -out server.csr (input user info)
     openssl x509 -req -in server.csr -out server.crt -signkey server.key -days 3650
     ```
-    Three files will be generated, server.key, server.csr and server.crt.
+    Three files will be generated: server.key, server.csr and server.crt.
 
 7.  Apply the Network Attachment Definition and network policy:
 
@@ -159,6 +173,7 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
 
 8.  Change permissions of the executable edgesoftware file to enable
     execution:
+
     ```bash
     cd ../../../..
     chmod +x edgesoftware
@@ -178,16 +193,16 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
 10. When the installation is complete, you see the message “Installation
     of package complete” and the installation status for each module.
 
-     ![A console window showing system output during the install process. At the
-     end of the process, the system displays the message "Installation of
-     package complete" and the installation status for each
-     module.](images/multi-access-with-private-5g-install-success.png)
+    ![A console window showing system output during the install process. At the
+    end of the process, the system displays the message "Installation of
+    package complete" and the installation status for each
+    module.](images/multi-access-with-private-5g-install-success.png)
 
-     Figure 2: Successful installation
+    Figure 2: Successful Installation
 
 
     >**NOTE:** If the pods have a status of “ContainerCreating”, please wait
-  for some time, since Kubernetes will pull the images from the registry
+  for some time, since Kubernetes* will pull the images from the registry
   and then deploys them. This happens only the first time the containers
   are deployed, and the wait time will depend upon the network bandwidth
   available.
@@ -198,27 +213,27 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     kubectl get pods -n smartedge-apps
     ```
 
-     ![A console window showing system output after running the "kubectl get
-     pods" command. The system displays a list of all the pods and the pod
-     status. The expected status is "Running" or
-     "Completed".](images/multi-access-with-private-5g-status-of-pods.png)
+    ![A console window showing system output after running the "kubectl get
+    pods" command. The system displays a list of all the pods and the pod
+    status. The expected status is "Running" or
+    "Completed".](images/multi-access-with-private-5g-status-of-pods.png)
 
-     Figure 3: Status of pods
+    Figure 3: Status of pods
 
-12. Get **Container ID** of gmaserver with the command:
+12. Get the **Container ID** of gmaserver with the command:
 
     ```bash
     kubectl describe pod <gma-pod> -n smartedge-apps | grep "Container ID"
     ```
 
-13. Copy the ssl certificate to the gma container:
+13. Copy the SSL certificate to the GMA container:
 
     ```bash
     docker cp ./server.key <gma-pod>:/home/python
     docker cp ./server.csr <gma-pod>:/home/python
     docker cp ./server.crt <gma-pod>:/home/python
     ```
-    > **NOTE:** Run the command on k8s node.
+    > **NOTE:** Run the command on Kubernetes node.
 
 14. Run the gmaserver application:
 
@@ -226,18 +241,18 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     docker exec -itd <gma-container-id> bash -c "sudo ./rungma.sh"
     ```
 
-    > **NOTE:** Run the command on k8s node.
+    > **NOTE:** Run the command on Kubernetes node.
 
 15. Install test tools of gmaserver:
 
     ```bash
     docker exec -itd <gma-container-id> bash -c "sudo apt-get update && sudo apt-get install iperf3 -y"
     ```
-    > **NOTE:** Run the command on k8s node.
+    > **NOTE:** Run the command on Kubernetes node.
 
 ### Step 2: Check the Application
-1. Set up GMA client
-   on the GMA client device, which is the laptop: 
+
+1. Set up GMA client on the GMA client device, which is the laptop:
 
     ```bash
     git clone https://github.com/IntelLabs/gma.git
@@ -249,14 +264,16 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     sudo apt install screen speedometer iw -y
     ```
 
-   Change client key to generated Key,use server.csr which generate in step 1:
+   Change client key to generated key. Use ``server.csr`` which was generated in [Step 1](#step-1-install-the-reference-implementation).
 
     ```bash
     cp /path/to/server.crt /path/to/gma
     cd gma
     sed '/./{s/^/        "&/;s/$/&\\n"/}' server.crt > client.crt
     ```
-   Copy client.crt's content to path/to/gma/client/root_certificates.hpp to replace std::string const cert content,Compile GMA client:
+   Copy the contents of ``client.crt`` to ``path/to/gma/client/root_certificates.hpp`` to replace std::string const cert content.
+
+   Compile the GMA client:
 
      ```bash
      cd ./GMAlib/lib
@@ -265,7 +282,7 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
      make -B
      ```
 
-   Install GMA client:
+   Install the GMA client:
 
      ```bash
      sudo mkdir /home/gmaclient
@@ -275,25 +292,30 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
      cp ./config.txt /home/gmaclient/
      ```
 
-   Config GMA client(wlan0: network interface for wifi, wwan0: network interface for cellular, gmaserver.apps.local: local DNS name for GMA service running at Edge,    a.b.c.d is the (GMA service) IP address at the edge node via LTE)
+   Configure the GMA client using the command below, where:
+
+    ``wlan0``: network interface for Wi-Fi
+
+    ``wwan0``: network interface for cellular
+
+    ``gmaserver.apps.local``: local DNS name for GMA service running at Edge
+
+    ``a.b.c.d``: GMA service IP address at the edge node via LTE
 
      ```bash
      SERVER_NCM_IP=a.b.c.d
-
      WLAN_INTERFACE_CONFIG=wlan0
-
      LTE_INTERFACE_CONFIG=wwan0
      ```
 
-   Start GMA client
+   Start the GMA client:
 
      ```bash
      cd /home/gmaclient
      sudo ./gmaclient
      ```
 
- 2. Ping GMA server
-   there will be tun setup after connection setup
+ 2. Ping the GMA server. You will do tun setup after connection setup.
 
     ```bash
     ping 10.8.0.1
@@ -307,8 +329,7 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     64 bytes from 10.8.0.1: icmp_seq=6 ttl=64 time=0.830 ms
     ```
 
- 3. Run demo Test
-   Install test tools in server, login to GMA docker
+ 3. Run Demo Tests. Install test tools in server and log in to GMA Docker.
 
     ```bash
     kubectl exec -it <GMA-pod> -c gma -n smartedge-apps /bin/bash
@@ -316,7 +337,8 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     ```
 
 ### Step 3: Check Seamless Mobility
-1. Run demo test tools on GMA client device:
+
+1. Run demo test tools on the GMA client device:
     ```bash
     iperf3 -c 10.8.0.1 -t 1000 -i 5 -b 2M -u -l 1000
     speedometer -t tun0 -t wlp0s20f3 -t enx000ec6d75f05 -b -s -l -n 0 -m 400000
@@ -325,37 +347,38 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     ![Two console windows displayed side by side. The left window shows output of the "iperf3" command. The right window shows output of the speedometer tool.](/images/seamless_mobility/multi-access-with-private-5g-seamless-scene1-1.png)
 
     Figure 4: Start Demo Test Tools
-  
-2. Disconnect the wifi path:
+
+2. Disconnect the Wi-Fi path:
     ```bash
     nmcli device disconnect <wifi-interface>
     ```
-    Now the flow is transferred from wifi to cellular:
+    Now the flow is transferred from Wi-Fi to cellular:
 
-    ![Speedometer output showing data flow transfer from wifi to cellular.](/images/seamless_mobility/multi-access-with-private-5g-seamless-scene1-2.png)
+    ![Speedometer output showing data flow transfer from Wi-Fi to cellular.](/images/seamless_mobility/multi-access-with-private-5g-seamless-scene1-2.png)
 
-    Figure 5: Disconnect the Wifi Path
+    Figure 5: Disconnect the Wi-Fi Path
 
-3. Re-connect the wifi path:
+3. Reconnect the Wi-Fi path:
     ```bash
     nmcli device connect <wifi-interface>
     ```
 
-    Now the flow is transferred to wifi again:
+    Now the flow is transferred to Wi-Fi again:
 
-    ![Speedometer output showing data flow transfer from cellular to wifi.](/images/seamless_mobility/multi-access-with-private-5g-seamless-scene1-3.png)
+    ![Speedometer output showing data flow transfer from cellular to Wi-Fi.](/images/seamless_mobility/multi-access-with-private-5g-seamless-scene1-3.png)
 
-    Figure 6: Reconnect the Wifi Path
+    Figure 6: Reconnect the Wi-Fi Path
 
 ### Step 4: Check Uplink Redundancy
-1. Run demo Test Install test tools on GMA client device:
+
+1. Run demo test. Install test tools on the GMA client device:
 
     ```bash
     iperf3 -c 10.8.0.1 -t 1000 -i 5 -b 2M -u -l 1000
     speedometer -t tun0 -t wlp0s20f3 -t enx000ec6d75f05 -b -s -l -n 0 -m 400000
     ```
-  
-2. Set the packet loss rate to 50% for both wifi and cellular:
+
+2. Set the packet loss rate to 50% for both Wi-Fi and cellular:
 
     ```bash
     tc qdisc add dev <cellular-interface> root netem loss 50%
@@ -371,6 +394,7 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     Figure 8: Status of Packet Loss Rate
 
 3. Run GMA controller and enable uplink redundancy:
+
     ```bash
     ./gmactrl
     tfc 2 1 2 0 65520
@@ -401,6 +425,7 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     Figure 12: Real Time Transmission Status
 
 ### Step 5: Uninstall the Application
+
 1. Check installed modules with the following command:
 
     ```bash
@@ -418,7 +443,9 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
     ```bash
     ./edgesoftware uninstall -a
     ```
-3. Run the command below to uninstall the Multi Access with Private 5g reference implementation:
+
+3. Run the command below to uninstall the Multi Access with Private 5G reference
+   implementation:
 
     ```bash
     ./edgesoftware uninstall <gma-id>
@@ -431,9 +458,10 @@ Download](https://eshqawebui.intel.com/iot/edgesoftwarehub/download/home/multi-a
 
 ## Local Build Instructions
 
-After you have installed Intel® Smart Edge Open Private Wireless Experience Kit, you can build your own Multi Access with Private 5g image using the following instructions. You can proceed with the steps presented using either edgesoftware sources or GitHub sources.
+After you have installed Intel® Smart Edge Open Private Wireless Experience Kit, you can build your own Multi Access with Private 5G image using the following instructions. You can proceed with the steps presented using either edgesoftware sources or GitHub* sources.
 
 ### Setup
+
 Change the directory to repository path with one of the following options.
 
 For Edgesoftware:
@@ -455,7 +483,7 @@ In the next steps, the tag `<REPOSITORY_PATH>` indicates the path to the reposit
 
 In the Change examples, replace the line indicated by - with the line indicated by +
 
-1. <REPOSITORY_PATH>/GMA/gmaserver/dockerbuild.sh - update the tag and version for the image.
+1. ``<REPOSITORY_PATH>/GMA/gmaserver/dockerbuild.sh`` - update the tag and version for the image.
 
     ```bash
     Change example:
@@ -463,7 +491,7 @@ In the Change examples, replace the line indicated by - with the line indicat
     +    -t docker build -f ./dockerfile . -t <local_tag>/generic-multi-access-network-virtualization:<version> 
     ```
 
-2. <REPOSITORY_PATH>/GMA/deploy/gma/templates/deployment.yaml - update image deployment
+2. ``<REPOSITORY_PATH>/GMA/deploy/gma/templates/deployment.yaml`` - update image deployment
    tag.
 
     ```bash
@@ -472,7 +500,7 @@ In the Change examples, replace the line indicated by - with the line indicat
     + image: "<local_tag>/{{ .Values.image.repository }}:{{ .Values.image.Version }}"
     ```
 
-3. <REPOSITORY_PATH>/GMA/deploy/gma/values.yaml - update version.
+3. ``<REPOSITORY_PATH>/GMA/deploy/gma/values.yaml`` - update version.
 
     ```bash
     Change example:
@@ -511,20 +539,37 @@ Install Helm with the following commands:
     helm install gma ./gma
     ```
 
-After step 3 completes, run GMA client application on client machine to test the connectivity.
+After step 3 completes, run the GMA client application on client machine to test
+the connectivity.
 
+## Summary and Next Steps
+
+*OPEN: Provide 2-3 line description of what they have successfully done and
+where they should go to as the next step.*
+
+## Learn More
+
+To continue learning, see the following guides and software resources:
+
+-  [Intel® Smart Edge Open Private Wireless Experience
+Kit](https://intelsmartedge.github.io/docs/experience-kits/private-wireless-experience-kit/#overview)
+-  [relevant link title](URL) *OPEN*
+-  [relevant link title](URL) *OPEN*
 
 
 ## Troubleshooting
 
-### Setting packet loss rate of wifi and cellular interface
-If the loss rate can't be added:
-```
+### Setting packet loss rate of Wi-Fi and cellular interface
+
+If the loss rate can't be added and you see this error:
+
+```bash
 tc qdisc add dev <wifi-interface> root netem loss 50%
 Error: Exclusivity flag on, cannot modify.
 ```
-Please using the following command instead:
-```
+Use the following command instead:
+
+```bash
 tc qdisc change dev <wifi-interface> root netem loss 50%
 ```
 
