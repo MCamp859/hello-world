@@ -69,12 +69,20 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 
 -   Ubuntu* 20.04
 
--   Wi-Fi AP
+-   Wi-Fi Access Point
 
 ## How It Works
 
 The Generic Multi-Access (GMA) client connects to the GMA server over cellular
-and Wi-Fi. At the very beginning, the client has only one delivery connection
+and Wi-Fi.
+
+![The architecture overview is represented by a complex block diagram.](/images/multi-access-with-private-5g-overview-diagram.png)
+
+Figure 1: How It Works
+
+
+
+At the very beginning, the client has only one delivery connection
 established (e.g. cellular) and will try to make the second delivery connection.
 After both delivery connections are established, the client will then establish
 a websocket-based secure connection between client and server to exchange
@@ -84,7 +92,7 @@ elimination measurements, etc.
 
 ![The architecture is represented by a complex block diagram.](/images/multi-access-with-private-5g-arch-diagram.png)
 
-Figure 1: Architecture Diagram
+Figure 2: Architecture Diagram
 
 
 ## Get Started
@@ -102,7 +110,7 @@ Ensure that the following conditions are met properly to ensure a smooth install
 
 2. Network connections
 
-    - Laptop connected to Wi-Fi through Wi-Fi AP which is connected to 100GbE
+    - Laptop connected to Wi-Fi through Wi-Fi access point, which is connected to 100GbE
       Intel® Ethernet Network Adapter E810.
 
     - Laptop connected to cellular network through cellular tethering.
@@ -198,7 +206,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
     package complete" and the installation status for each
     module.](images/multi-access-with-private-5g-install-success.png)
 
-    Figure 2: Successful Installation
+    Figure 3: Successful Installation
 
 
     >**NOTE:** If the pods have a status of “ContainerCreating”, please wait
@@ -218,7 +226,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
     status. The expected status is "Running" or
     "Completed".](images/multi-access-with-private-5g-status-of-pods.png)
 
-    Figure 3: Status of pods
+    Figure 4: Status of pods
 
 12. Get the **Container ID** of gmaserver with the command:
 
@@ -329,7 +337,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
     64 bytes from 10.8.0.1: icmp_seq=6 ttl=64 time=0.830 ms
     ```
 
- 3. Run Demo Tests. Install test tools in server and log in to GMA Docker.
+ 3. Run Demo Tests. Install test tools in server and log in to GMA Docker\*.
 
     ```bash
     kubectl exec -it <GMA-pod> -c gma -n smartedge-apps /bin/bash
@@ -346,7 +354,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 
     ![Two console windows displayed side by side. The left window shows output of the "iperf3" command. The right window shows output of the speedometer tool.](/images/seamless_mobility/multi-access-with-private-5g-seamless-scene1-1.png)
 
-    Figure 4: Start Demo Test Tools
+    Figure 5: Start Demo Test Tools
 
 2. Disconnect the Wi-Fi path:
     ```bash
@@ -356,7 +364,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 
     ![Speedometer output showing data flow transfer from Wi-Fi to cellular.](/images/seamless_mobility/multi-access-with-private-5g-seamless-scene1-2.png)
 
-    Figure 5: Disconnect the Wi-Fi Path
+    Figure 6: Disconnect the Wi-Fi Path
 
 3. Reconnect the Wi-Fi path:
     ```bash
@@ -367,7 +375,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 
     ![Speedometer output showing data flow transfer from cellular to Wi-Fi.](/images/seamless_mobility/multi-access-with-private-5g-seamless-scene1-3.png)
 
-    Figure 6: Reconnect the Wi-Fi Path
+    Figure 7: Reconnect the Wi-Fi Path
 
 ### Step 4: Check Uplink Redundancy
 
@@ -387,11 +395,11 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 
     ![Speedometer output showing packet loss rate.](/images/uplink_redundancy/multi-access-with-private-5g-uplink-scene2-1.png)
 
-    Figure 7: Status of Packet Loss Rate
+    Figure 8: Status of Packet Loss Rate
 
     ![iperf output showing packet loss rate.](/images/uplink_redundancy/multi-access-with-private-5g-uplink-scene2-2.png)
 
-    Figure 8: Status of Packet Loss Rate
+    Figure 9: Status of Packet Loss Rate
 
 3. Run GMA controller and enable uplink redundancy:
 
@@ -403,11 +411,11 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 
     ![Speedometer output showing real time transmission status.](/images/uplink_redundancy/multi-access-with-private-5g-uplink-scene2-4.png)
 
-    Figure 9: Real Time Transmission Status
+    Figure 10: Real Time Transmission Status
 
     ![iperf output showing status of packet loss rate.](/images/uplink_redundancy/multi-access-with-private-5g-uplink-scene2-5.png)
 
-    Figure 10: Status of Packet Loss Rate
+    Figure 11: Status of Packet Loss Rate
 
 4. Disable Uplink Redundancy:
 
@@ -418,11 +426,11 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 
     ![iperf output showing packet loss rate.](/images/uplink_redundancy/multi-access-with-private-5g-uplink-scene2-6.png)
 
-    Figure 11: Status of Packet Loss Rate
+    Figure 12: Status of Packet Loss Rate
 
     ![Speedometer output showing real time transmission status.](/images/uplink_redundancy/multi-access-with-private-5g-uplink-scene2-7.png)
 
-    Figure 12: Real Time Transmission Status
+    Figure 13: Real Time Transmission Status
 
 ### Step 5: Uninstall the Application
 
@@ -435,7 +443,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 
     ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](/images/multi-access-with-private-5g-modules-list.png)
 
-    Figure 13: Installed Modules List
+    Figure 14: Installed Modules List
 
 
 2. Run the command below to uninstall all the modules:
@@ -444,7 +452,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
     ./edgesoftware uninstall -a
     ```
 
-3. Run the command below to uninstall the Multi Access with Private 5G reference
+3. Run the command below to uninstall the Multi-Access with Private 5G reference
    implementation:
 
     ```bash
@@ -453,12 +461,12 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 
     ![A console window showing the output of the "edgesoftware uninstall" command. The system displays output during the uninstall process. At the end of the process, the system displays the message “Uninstall finished” and the uninstallation status for each module.](/images/multi-access-with-private-5g-uninstall.png)
 
-    Figure 14: Uninstalled Modules
+    Figure 15: Uninstalled Modules
 
 
 ## Local Build Instructions
 
-After you have installed Intel® Smart Edge Open Private Wireless Experience Kit, you can build your own Multi Access with Private 5G image using the following instructions. You can proceed with the steps presented using either edgesoftware sources or GitHub* sources.
+After you have installed Intel® Smart Edge Open Private Wireless Experience Kit, you can build your own Multi-Access with Private 5G image using the following instructions. You can proceed with the steps presented using either edgesoftware sources or GitHub* sources.
 
 ### Setup
 
@@ -517,7 +525,7 @@ cd <REPOSITORY_PATH>/GMA/gmaserver
 ./dockerbuild.sh   # The local Docker image will be built on the Ubuntu machine.
 ```
 
-Install Helm with the following commands:
+Install Helm\* with the following commands:
 
 1. Apply the Network Attachment Definition:
 
@@ -544,8 +552,18 @@ the connectivity.
 
 ## Summary and Next Steps
 
-*OPEN: Provide 2-3 line description of what they have successfully done and
-where they should go to as the next step.*
+This RI demonstrates how a device can be simultaneously connected to multiple
+networks, for example, Wi-Fi, LTE, 5G, and DSL. Seamlessly combining the
+connectivity over these networks below the transport layer is shown to improve
+quality of experience for applications that do not have built-in multi-path
+capabilities. This RI demonstrates a new control protocol to manage traffic
+steering, splitting, and duplicating across multiple connections.
+
+As a next step, you can experiment with traffic management provided by the
+Generic Multi-Access (GMA) RI to make edge client connections much more stable.
+You can also enable functions like seamless handover, simultaneous Wi-Fi and
+cellular during download, and uplink (downlink) redundancy to improve
+performance.
 
 ## Learn More
 
@@ -553,8 +571,8 @@ To continue learning, see the following guides and software resources:
 
 -  [Intel® Smart Edge Open Private Wireless Experience
 Kit](https://intelsmartedge.github.io/docs/experience-kits/private-wireless-experience-kit/#overview)
--  [relevant link title](URL) *OPEN*
--  [relevant link title](URL) *OPEN*
+-  [UDP-based Generic Multi-Access (GMA) Control Protocol - IETF Draft](https://www.ietf.org/archive/id/draft-zhu-intarea-gma-control-02.txt)
+-  [Multi-access Traffic Management at the Edge - Blog Post](https://www.intel.com/content/www/us/en/research/blogs/multi-access-traffic-management-edge.html)
 
 
 ## Troubleshooting
