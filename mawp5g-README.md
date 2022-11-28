@@ -76,10 +76,9 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/multi-acc
 The Generic Multi-Access (GMA) client connects to the GMA server over cellular
 and Wi-Fi.
 
-![The architecture overview is represented by a complex block diagram.](/images/multi-access-with-private-5g-overview-diagram.png)
+![How it Works is represented by a complex block diagram.](/images/multi-access-with-private-5g-overview-diagram.png)
 
 Figure 1: How It Works
-
 
 
 At the very beginning, the client has only one delivery connection
