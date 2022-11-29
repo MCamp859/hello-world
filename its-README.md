@@ -2,21 +2,24 @@
 
 ## Overview
 
-The **Intel® Edge Video Infrastructure Reference Architecture** is a containerized micro-service architecture, modularized and extensible software platform on Edge Cloud side to support video applications and services. Intel offers it to Edge Video users and developers (OxM and end-user) to easily deploy video processing, AI and big data related edge video applications.
-**Intelligent Traffic Searching** (**ITS**) is a reference implementation demonstrating its capability. This document will walk you through deploying **ITS** on the target system.
+Create a solution that monitors vehicles in traffic using Intel® Edge Video
+Infrastructure Reference Architecture and Intel® Smart Edge Open.
 
-Once done, you will have the following:
+*  Intel® Edge Video Infrastructure Reference Architecture: A containerized,
+   microservice architecture used to easily deploy video processing, AI, and big
+   data edge video applications.
 
-* *Query Web*, a front-end service that provides a user interface, from which the user can input an image of the vehicle and obtain the historical track of the vehicle.
-* *Query REST*, which receives API requests from *Query Web* and then query *Search Image by Image* service and *Storage REST* service to obtain and reconstruct data.
-* *Search Image by Image* service, which receives requests from *Query REST* and send requests to *Feature Matching* services to obtain related features.
+*  Intel® Smart Edge Open: A software toolkit for building edge platforms.
 
-To run the reference implementation, you will need to first download and install the [Intel® Smart Edge Open Developer Experience Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
+To run the Intelligent Traffic Searching (ITS) reference implementation, you
+will need to first download and install the [Intel® Smart Edge Open Developer
+Experience Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
 
-Once you have installed the Intel® Smart Edge Open Developer Experience Kit, select
-[**Configure & Download**](https://software.intel.com/iot/edgesoftwarehub/download/home/intelligent-traffic-searching) to
-download the reference implementation and the software listed below.
+Once you have installed the Intel® Smart Edge Open Developer Experience Kit,
+select **Configure & Download** to download the reference implementation and the
+software listed below.
 
+[Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/intelligent-traffic-searching)
 
 -  **Time to Complete:** Approximately 60 - 90 minutes
 -  **Programming Language:** Python\*, C++
@@ -28,8 +31,8 @@ download the reference implementation and the software listed below.
 ### Intel® Smart Edge Open Nodes
 
 * Intel® Xeon® Scalable Processor, such as
-    * Intel® Xeon® Gold 6330 CPU @ 2.00 GHz
-    * Intel® Xeon® Silver 4310 CPU @ 2.10 GHz
+    * Intel® Xeon® Gold 6330 Processor @ 2.00 GHz
+    * Intel® Xeon® Silver 4310 Processor @ 2.10 GHz
 * At least 64 GB RAM.
 * At least 100 GB SSD as the system disk.
 * At least 1.3 TB HDD as the data disk.
@@ -38,28 +41,60 @@ download the reference implementation and the software listed below.
 
 ## How It Works
 
+Intelligent Traffic Searching (ITS) is a reference implementation demonstrating
+the capabilities of Intel® Edge Video Infrastructure Reference Architecture.
+After you complete the installation, you will have the following components:
+
+*  Query Web provides a user interface from which the user can input an image of
+   a vehicle and obtain the historical record of the vehicle.
+*  Query REST, which receives API requests from Query Web, then queries Search
+   Image by Image service and Storage REST service to obtain and reconstruct the
+   data.
+*  Search Image by Image service receives requests from Query REST and sends
+   requests to Feature Matching services to obtain related features.
+
 ### Architecture
 
-![The architecture is represented by a complex block diagram.](./images/ITS-framework.png)
+![The architecture is represented by a complex block diagram.](./images/intelligent-traffic-searching-ri-arch-diagram.png)
 
 Figure 1: Architecture Diagram
 
-1.	Browser sends get data-source request to Query service via API Gateway.
-2.	Browser sends reverse image search request to Query service via API Gateway.
-3.	Query service parses the request and finds out the query as a reverse image search query, then sends it to Search Image by Image service and waits for the response.
-4.	Search Image by Image service needs to convert the unstructured images into feature vector at first, so images as well as additional job requirements (e.g., models, pre-processing/post-processing mechanism, etc.) are transferred to Structuring pod for computer vision inference. Also, Search Image by Image service waits for the response from Structuring pod.
-5.	Structuring pod parses the job and builds an inference pipeline which is then sent to AI Inference pod together with query images. Structuring pod waits for the response of AI Inference pod. As models and dependencies are pre-loaded in AI Inference pod, the pod can process the query images and turn them into feature vectors. Extracted feature vectors are sent back to Structuring pod.
-6.	Search Image by Image service receives the response from Structuring pod and moves on to feature matching. Since there’re two tasks parsed for feature matching, Search Image by Image service firstly sends extracted feature vectors to Feature Matching service to acquire matched archived images. Feature Matching service calculates the distances between query feature vectors and feature vectors from archived images. Matched top k results are sent back to Search Image by Image service.
-7.	Query service has got response from Search Image by Image pod and queries the full information of received archived and unarchived top k results from structured storage.
-8.	Query vehicle history request is triggered by user being sent to Query service via API Gateway.
-9.	Query service query vehicle history through storage.
+1.  Browser sends get data-source request to Query service via API Gateway.
+2.  Browser sends reverse image search request to Query service via API Gateway.
+3.  Query service parses the request and finds out the query as a reverse image
+    search query, then sends it to Search Image by Image service and waits for
+    the response.
+4.  Search Image by Image service needs to convert the unstructured images into
+    feature vector at first, so images as well as additional job requirements
+    (e.g., models, pre-processing/post-processing mechanism, etc.) are
+    transferred to Structuring pod for computer vision inference. Also, Search
+    Image by Image service waits for the response from Structuring pod.
+5.  Structuring pod parses the job and builds an inference pipeline which is
+    then sent to AI Inference pod together with query images. Structuring pod
+    waits for the response of AI Inference pod. As models and dependencies are
+    pre-loaded in AI Inference pod, the pod can process the query images and
+    turn them into feature vectors. Extracted feature vectors are sent back to
+    Structuring pod.
+6.  Search Image by Image service receives the response from Structuring pod and
+    moves on to feature matching. Since there’re two tasks parsed for feature
+    matching, Search Image by Image service firstly sends extracted feature
+    vectors to Feature Matching service to acquire matched archived images.
+    Feature Matching service calculates the distances between query feature
+    vectors and feature vectors from archived images. Matched top k results are
+    sent back to Search Image by Image service.
+7.  Query service has got response from Search Image by Image pod and queries
+    the full information of received archived and unarchived top k results from
+    structured storage.
+8.  Query vehicle history request is triggered by user being sent to Query
+    service via API Gateway.
+9.  Query service query vehicle history through storage.
 
 ### ITS example use case: Search Image by Image
 
 The Use Case diagram below shows the workflow of search image by image use case.
 
 ![The Use Case for search image by image is represented by a complex block
-diagram.](./images/ITS-use-case.png)
+diagram.](./images/intelligent-traffic-searching-ri-use-case.png)
 
 Figure 2: Use Case Diagram
 
@@ -74,7 +109,7 @@ Make sure that Intel® Smart Edge Open Developer Experience Kit package is inst
 Refer to the link below:
 [Intel® Smart Edge Open Developer Experience Kit Install](https://github.com/smart-edge-open/docs/blob/main/experience-kits/developer-experience-kit.md#install-the-developer-experience-kit)
 
-Configure Docker's logging driver to prevent running out of storage space by editing /etc/docker/daemon.json:
+Configure the Docker\* logging driver to prevent running out of storage space by editing `/etc/docker/daemon.json`:
 
 ```console
 "log-driver": "json-file",
@@ -94,11 +129,11 @@ sudo systemctl restart docker
 #### Partition, format, and mount different disks to the specific directories
 
 Prepare a disk larger than **1.3 TB** to mount to the machine, and then divide the disk into 5 partitions.
-   * first partition 10GB: Allocat to Consul service to store storage encryption key and other related information.
-   * second partition 100GB: Allocat to the Psql database to store media metadata and other related information.
-   * third partition 400GB: Allocat to Media Storage to store pictures or videos.
-   * fourth partition 500GB: Allocated to Hbase to store archive data.
-   * fifth partition 200GB: Used to store local images or videos and corresponding metadata data.
+   * first partition 10 GB: Allocate to Consul service to store storage encryption key and other related information.
+   * second partition 100 GB: Allocate to the Psql database to store media metadata and other related information.
+   * third partition 400 GB: Allocate to Media Storage to store pictures or videos.
+   * fourth partition 500 GB: Allocate to Hbase to store archive data.
+   * fifth partition 200 GB: Used to store local images or videos and corresponding metadata data.
 
 Run the following commands to create the script `mount_disks.sh`:
 
@@ -155,7 +190,8 @@ echo "create paths and mount the disks done."
 echo "All done."
 ```
 
-Use the script to prepare disks by passing the drive path dedicated to the application, e.g. `/dev/sdd`:
+Use the script to prepare disks by passing the drive path dedicated to the
+application, e.g. `/dev/sdd`:
 
 ```shell
 sudo apt-get install xfsprogs
@@ -166,11 +202,12 @@ bash mount_disks.sh /dev/sdd
 ### Install the Application
 
 
-Select [**Configure & Download**](https://software.intel.com/iot/edgesoftwarehub/download/home/intelligent-traffic-searching) to
-download the reference implementation and then follow the steps below to install it.
+Select **Configure & Download** to download the reference implementation and
+then follow the steps below to install it.
 
+[Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/intelligent-traffic-searching)
 
-1. Make sure that the Target System Requirements as mentioned earlier are accomplished properly before proceeding further.
+1. Make sure that the [Target System Requirements](#target-system-requirements) are accomplished properly before proceeding further.
 
     * For single-device mode, only one machine is needed. (Both controller and edge node will be on same device.)
 
@@ -197,20 +234,20 @@ download the reference implementation and then follow the steps below to install
     ssh-copy-id smartedge-open@target_server_IP
     ```
 
-5. Move the downloaded zip package to the ``/home/smartedge-open`` folder.
+5. Move the downloaded zip package to the `/home/smartedge-open` folder.
 
     ```bash
     sudo mv <path-of-downloaded-directory>/intelligent-traffic-searching.zip /home/smartedge-open
     ```
 
-6. Go to the /home/smartedge-open directory using the following command and unzip the RI:
+6. Go to the `/home/smartedge-open` directory using the following command and unzip the RI:
 
     ```bash
     cd /home/smartedge-open
     unzip intelligent-traffic-searching.zip
     ```
 
-7. Go to the intelligent-traffic-searching/ directory: 
+7. Go to the `intelligent-traffic-searching/` directory: 
 
     ```bash
     cd intelligent-traffic-searching/
@@ -229,17 +266,17 @@ download the reference implementation and then follow the steps below to install
     ```
 
     >**NOTE:** Installation logs are available at the following path:
-    ``/var/log/esb-cli/Intelligent\_Traffic\_Searching\_Reference\_Implementation\_<version\>/output.log``
+    ``/var/log/esb-cli/Intelligent_Traffic_Searching_Reference_Implementation_<version>/output.log``
 
 10. When the installation is complete, you see the message “Installation of package complete” and the installation status for each module.
 
-    ![A console window showing system output during the install process.](images/esh-install.png)
+    ![A console window showing system output during the install process.](images/intelligent-traffic-searching-ri-install-success.png)
 
     Figure 3: Install Success
 
     >**NOTE:** If the pods have a status of “ContainerCreating”, please wait
     for some time, since Kubernetes will pull the images from the registry
-    and then deploys them. This happens only the first time the containers
+    and then deploy them. This happens the first time the containers
     are deployed, and the wait time will depend upon the network bandwidth
     available.
 
@@ -250,7 +287,7 @@ download the reference implementation and then follow the steps below to install
     $ kubectl get pods -A
     ```
 
-    ![A console window showing system output after running the "kubectl get pods" command. The system displays a list of all the pods and the pod status. The expected status is "Running" or "Completed".](images/esh-pod-all.png)
+    ![A console window showing system output after running the "kubectl get pods" command. The system displays a list of all the pods and the pod status. The expected status is "Running" or "Completed".](images/intelligent-traffic-searching-ri-pods-status.png)
 
     Figure 4: Pods Status
 
@@ -260,13 +297,13 @@ download the reference implementation and then follow the steps below to install
     kubectl get pods -n smartedge-apps
     ```
 
-    ![A console window showing system output after running the "kubectl get pods" command.](images/esh-pod-its.png)
+    ![A console window showing system output after running the "kubectl get pods" command.](images/intelligent-traffic-searching-ri-its-pods.png)
 
-    Figure 5: Smart Edge Pods Status
+    Figure 5: ITS Pods Status
 
 ##  Demonstration
 
-This section will work you through the ITS demo.
+This section will walk you through the ITS demo.
 
 ### Prepare Test Data
 
@@ -304,19 +341,19 @@ python3 ./image_into_metadata.py
 Inject the test data into the database with the following commands:
 
 ```bash
-# enter the evi-test-tool pod
+# Enter the evi-test-tool pod.
 kubectl exec -ti -n smartedge-apps "$(kubectl get pod -l app=evi-test-tool -o jsonpath='{.items[0].metadata.name}' -n smartedge-apps)" -- /bin/bash
 
-# check the help message
+# Check the help message.
 ./evi_test_tool -h
 
-# upload media data and metadata to storage.
+# Upload media data and metadata to storage.
 ./evi_test_tool -f configuration/evi-test-tool.json -i
 
 # Trigger AI Inference.
 ./evi_test_tool -f configuration/evi-test-tool.json -s
 
-# Exit the pod
+# Exit the pod.
 exit
 ```
 
@@ -352,7 +389,7 @@ Now, visit `https://$host:$port` through a browser (such as Chrome\*). Login wit
 * User: `evi`
 * Password: `evi`
 
-![A browser window showing the EVI login screen.](images/query-evi-login.png)
+![A browser window showing the EVI login screen.](images/intelligent-traffic-searching-ri-query-evi-login.png)
 
 Figure 6: EVI Login Screen
 
@@ -360,7 +397,7 @@ Figure 6: EVI Login Screen
 
 #### Query Image
 
-![A browser window showing a large map of a city. Many vehicles are identified on the map. A rectangular area is highlighted in blue.](images/query-image.png)
+![A browser window showing a large map of a city. Many vehicles are identified on the map. A rectangular area is highlighted in blue.](images/intelligent-traffic-searching-ri-query-image.png)
 
 Figure 7: Map in Browser
 
@@ -369,7 +406,7 @@ Figure 7: Map in Browser
 3. Specify filter criteria. The valid date range is `2021.08.10 - 2021.08.12`.
 4. Click **Search** button.
 
-![A browser window showing a large map of a city. The right side of the window shows the search results pane.](images/query-history.png)
+![A browser window showing a large map of a city. The right side of the window shows the search results pane.](images/intelligent-traffic-searching-ri-query-history.png)
 
 Figure 8: Search Results
 
@@ -394,7 +431,7 @@ bash ./reset_demo_data.sh -y
     cd /home/smartedge-open/intelligent-traffic-searching
     ./edgesoftware list
     ```
-    ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](images/esh-list.png)
+    ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](images/intelligent-traffic-searching-ri-esh-list.png)
 
     Figure 9: Module List
 
@@ -410,7 +447,7 @@ bash ./reset_demo_data.sh -y
     ./edgesoftware uninstall <its-id>
     ```
 
-    ![A console window showing the output of the "edgesoftware uninstall" command. At the end of the process, the system displays the message "Uninstall finished" and the uninstallation status for each module.](images/esh-uninstall.png)
+    ![A console window showing the output of the "edgesoftware uninstall" command. At the end of the process, the system displays the message "Uninstall finished" and the uninstallation status for each module.](images/intelligent-traffic-searching-ri-esh-uninstall.png)
 
     Figure 10: Uninstallation Successful
 
