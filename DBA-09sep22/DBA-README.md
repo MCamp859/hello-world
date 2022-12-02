@@ -6,7 +6,7 @@ injection and analytics and event recording services to monitor driver behavior.
 Develop the solution that provides alerts and stored video clips to drivers and
 fleet managers with this reference implementation.
 
-Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/driver_behavior_analytics) to download the reference implementation and the software listed below.
+Select **Configure & Download** to download the reference implementation and the software listed below.
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/driver_behavior_analytics)
 
@@ -52,7 +52,8 @@ Figure 1: Architecture Diagram
 
 ### Step 1: Install the Reference Implementation
 
-Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/driver_behavior_analytics) to download the reference implementation and then follow the steps below to install it.
+Select **Configure & Download** to download the reference implementation and
+then follow the steps below to install it.
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/driver_behavior_analytics)
 
