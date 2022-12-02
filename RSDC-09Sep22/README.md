@@ -177,7 +177,7 @@ to enable all dashboard features, including the cloud storage.
 
     -  Go to sidebar and select the  **Run Application** menu option.
 
-    - Select the **RSDC** tab on the **General Fleet Solution** dashboard.
+    -  Select the **RSDC** tab on the **General Fleet Solution** dashboard.
 
        ![A web app dashboard showing the Run Application tab.](docs/road-sign-detection-and-classification-ri-run-usecase.png)
 
@@ -206,8 +206,8 @@ to enable all dashboard features, including the cloud storage.
        Figure 7: Configure Use Case
 
     -  Click on the **Browse** button and search for the sample video delivered with the application at the following path:
-     `/opt/intel/eif/EII-UseCaseManager/modules/EII-RoadSignDetection-UseCase/config/VideoIngestion/test_videos/`
-     and select the one available.
+       `/opt/intel/eif/EII-UseCaseManager/modules/EII-RoadSignDetection-UseCase/config/VideoIngestion/test_videos/`
+       and select the one available.
 
        >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
