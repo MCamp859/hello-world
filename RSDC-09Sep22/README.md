@@ -1,7 +1,7 @@
 # Road Sign Detection and Classification Reference Implementation
 ## Overview
 
-The Road Sign Detection and Classification Reference Implementation monitors the exterior of a
+XXX The Road Sign Detection and Classification Reference Implementation monitors the exterior of a
 vehicle and send alerts to Cloud Dashboard. It uses a camera placed in the front
 of the vehicle facing forward to detect and recognize traffic signs while
 driving. The OpenVINO™ Semantic Segmentation model is able to detect and
@@ -209,21 +209,21 @@ to enable all dashboard features, including the cloud storage.
        `/opt/intel/eif/EII-UseCaseManager/modules/EII-RoadSignDetection-UseCase/config/VideoIngestion/test_videos/`
        and select the one available.
 
-       >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+         >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-       ![A web app dashboard showing the sample video to be uploaded.](docs/road-sign-detection-and-classification-ri-test-video.png)
+         ![A web app dashboard showing the sample video to be uploaded.](docs/road-sign-detection-and-classification-ri-test-video.png)
 
-       Figure 8: Select Sample Video
+         Figure 8: Select Sample Video
 
     -  After selecting the video sample, select the device for the inference model. Options include CPU or GPU. Click on **Run  Application**.
 
     -  The application will start the Visualizer App that will detect and classify the traffic signs as in the following image:
 
-       >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+         >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-       ![A web app showing output from the visualizer.](docs/road-sign-detection-and-classification-ri-visualizer.png)
+         ![A web app showing output from the visualizer.](docs/road-sign-detection-and-classification-ri-visualizer.png)
 
-       Figure 9: Visualizer Output
+         Figure 9: Visualizer Output
 
 5. After the visualizer starts, you can go to the ThingsBoard link and check the
    alerts sent by the reference implementation. If you configured the AWS
@@ -417,4 +417,5 @@ packages. If you experience timeouts due to Linux* apt or Python* pip
 installation, try to reinstall the package.
 
 ### Support Forum
+
 If you're unable to resolve your issues, contact the [Support Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
