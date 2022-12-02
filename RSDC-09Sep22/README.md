@@ -11,13 +11,14 @@ placed on the road, such as speed limits, no entry, turn left or right ahead,
 road work, pedestrians, children crossing, no passing of heavy vehicles, etc.
 
 >**Disclaimer**\
-This proof of concept demonstration shows how to use Edge Insights for Fleet middleware.
-This model is provided for demonstration purposes only. We strongly recommend developers use an
-appropriate model validated for their context of use.
-In this example, one model detects Road Signs visible to a vehicles’ front-facing camera,
-and another classifies/recognizes those Signs.
-The proof of concept demonstration also uploads JPEG snapshots of video frames containing
-signs to AWS cloud servers, to validate that detection events have been triggered accurately.
+This proof of concept demonstration shows how to use Edge Insights for Fleet
+middleware. This model is provided for demonstration purposes only. We strongly
+recommend developers use an appropriate model validated for their context of
+use. In this example, one model detects Road Signs visible to a vehicles’
+front-facing camera, and another classifies/recognizes those Signs. The proof of
+concept demonstration also uploads JPEG snapshots of video frames containing
+signs to Amazon Web Services* (AWS*) cloud servers, to validate that detection
+events have been triggered accurately.
 
 Select **Configure & Download** to download the reference implementation and the software listed below.
 
@@ -322,27 +323,27 @@ You must stop/force stop existing containers and images.
 
 -  To remove all stopped containers, dangling images, and unused networks:
 
-   ```bash
-   sudo docker system prune --volumes
-   ```
+    ```bash
+    sudo docker system prune --volumes
+    ```
 
 -  To stop Docker containers:
 
-   ```bash
-   sudo docker stop $(sudo docker ps -aq)
-   ```
+    ```bash
+    sudo docker stop $(sudo docker ps -aq)
+    ```
 
 -  To remove Docker containers:
 
-   ```bash
-   sudo docker rm $(sudo docker ps -aq)
-   ```
+    ```bash
+    sudo docker rm $(sudo docker ps -aq)
+    ```
 
 -  To remove all Docker images:
 
-   ```bash
-   sudo docker rmi -f $(sudo docker images -aq)
-   ```
+    ```bash
+    sudo docker rmi -f $(sudo docker images -aq)
+    ```
 
 ### Docker Image Build Failure
 
@@ -350,21 +351,21 @@ If Docker image build on corporate network fails, follow the steps below.
 
 1. Get DNS server using the command:
 
-   ```bash
-   nmcli dev show | grep 'IP4.DNS'
-   ```
+    ```bash
+    nmcli dev show | grep 'IP4.DNS'
+    ```
 
 2. Configure Docker to use the server. Paste the line below in the `/etc/docker/daemon.json` file:
 
-   ```bash
-   { "dns": ["<dns-server-from-above-command>"]}
-   ```
+    ```bash
+    { "dns": ["<dns-server-from-above-command>"]}
+    ```
 
 3. Restart Docker:
 
-   ```bash
-   sudo systemctl daemon-reload && sudo systemctl restart docker
-   ```
+    ```bash
+    sudo systemctl daemon-reload && sudo systemctl restart docker
+    ```
 
 ### Installation Failure Due to Ubuntu Timezone Setting
 
