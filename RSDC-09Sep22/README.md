@@ -19,7 +19,7 @@ and another classifies/recognizes those Signs.
 The proof of concept demonstration also uploads JPEG snapshots of video frames containing
 signs to AWS cloud servers, to validate that detection events have been triggered accurately.
 
-Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/road_sign_detection_and_classification) to download the reference implementation and the software listed below.
+Select **Configure & Download** to download the reference implementation and the software listed below.
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/road_sign_detection_and_classification)
 
@@ -71,7 +71,8 @@ Figure 1: Architecture Diagram
 
 ### Step 1: Install the Reference Implementation
 
-Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/road_sign_detection_and_classification) to download the reference implementation and then follow the steps below to install it.
+Select **Configure & Download** to download the reference implementation and
+then follow the steps below to install it.
 
 >**NOTE:** The images provided in the reference implementation are ONLY to be used
 for validating the accuracy of detection events.
@@ -87,56 +88,56 @@ implementation installation.
 
 1. Open a new terminal, go to the downloaded folder and unzip the downloaded RI package.
 
-   ```bash
-   unzip road_sign_detection_and_classification.zip
-   ```
+    ```bash
+    unzip road_sign_detection_and_classification.zip
+    ```
 
 2. Go to the `road_sign_detection_and_classification/` directory.
 
-   ```bash
-   cd road_sign_detection_and_classification/
-   ```
+    ```bash
+    cd road_sign_detection_and_classification/
+    ```
 
 3. Change permission of the executable *edgesoftware* file.
 
-   ```bash
-   chmod 755 edgesoftware
-   ```
+    ```bash
+    chmod 755 edgesoftware
+    ```
 
 4. Run the command below to install the Reference Implementation.
 
-   ```bash
-   ./edgesoftware install
-   ```
+    ```bash
+    ./edgesoftware install
+    ```
 
 5. During the installation, you will be prompted for the **Product Key**. The
    **Product Key** is contained in the email you received from Intel confirming
    your download.
 
-   ![A console window showing a system prompt to enter the product key.](docs/road-sign-detection-and-classification-ri-product-key.png)
+    ![A console window showing a system prompt to enter the product key.](docs/road-sign-detection-and-classification-ri-product-key.png)
 
-   Figure 2: Product Key
+    Figure 2: Product Key
 
 6. When the installation is complete, you see the message "Installation of
    package complete" and the installation status for each module.
 
-   ![A console window showing system output during the install process. At the end of the process, the system displays the message “Installation of package complete” and the installation status for each module. ](docs/road-sign-detection-and-classification-ri-install.png)
+    ![A console window showing system output during the install process. At the end of the process, the system displays the message “Installation of package complete” and the installation status for each module. ](docs/road-sign-detection-and-classification-ri-install.png)
 
-   Figure 3: Installation Success
+    Figure 3: Installation Success
 
 
-   >**NOTE:** If you encounter any issues, please refer to the
+    >**NOTE:** If you encounter any issues, please refer to the
 [Troubleshooting](#troubleshooting)
 section at the end of this document. Installation failure logs will be
 available at the path:
-`/var/log/esb-cli/Road_Sign_Detection_and_Classification_2022.1/output.log`
+`/var/log/esb-cli/Road_Sign_Detection_and_Classification_<version>/output.log`
 
 7. To start the application, change the directory using the
    cd command printed at the end of the installation process:
 
-   ```bash
-   cd <INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase
-   ```
+    ```bash
+    cd /opt/intel/eif/EII-UseCaseManager
+    ```
 
 ### Step 2: Run the Application
 
@@ -147,21 +148,15 @@ available at the path:
 
 1. Run the application. Copy and run the `make webui` command from the end of the installation:
 
-   ```bash
-   make webui EII_BASE=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase
-   ```
+    ```bash
+    make webui
+    ```
 
-   For example:
+2. Open the Web UI: Go to **127.0.0.1:9090** on your web browser.
 
-   ```bash
-   make webui EII_BASE=/home/intel/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=/home/intel/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase
-   ```
+    ![A browser window showing the reference implementation dashboard.](docs/road-sign-detection-and-classification-ri-open-webgui.png)
 
-2. Open the Web UI: Go to **127.0.0.1:9098** on your web browser.
-
-   ![A browser window showing the reference implementation dashboard.](docs/road-sign-detection-and-classification-ri-open-webgui.png)
-
-   Figure 4: Reference Implementation Dashboard
+    Figure 4: Reference Implementation Dashboard
 
 3. If you installed your ThingsBoard Cloud Server and you have enabled S3 Bucket Server
 on your AWS account, you can provide your configured **AWS Access Key ID**, **AWS Secret Access Key**, **AWS S3 Bucket Name**,
@@ -170,156 +165,126 @@ After you completed the Cloud configuration, make sure you click on **Save Crede
 Now you can import the ThingsBoard dashboard as described at the end of the [Set Up ThingsBoard* Cloud Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-thingsboard-cloud-data.html)
 to enable all dashboard features, including the cloud storage.
 
-   ![A web app dashboard showing the Configuration tab. Certain fields are
+    ![A web app dashboard showing the Configuration tab. Certain fields are
    covered with a blue bar for security](docs/road-sign-detection-and-classification-ri-aws.png)
 
-   Figure 5: Configuration Tab Contents
+    Figure 5: Configuration Tab Contents
 
-   > **NOTE:** If you don't have an AWS account, you will not be able to access Storage Cloud. You can still enable the ThingsBoard Cloud Data if you configured it locally or on another machine.
+    > **NOTE:** If you don't have an AWS account, you will not be able to access Storage Cloud. You can still enable the ThingsBoard Cloud Data if you configured it locally or on another machine.
 
 4. Access the Road Sign Detection and Classification Dashboard with the following steps.
 
-   -  Go to sidebar and select **Run Use Case**.
+    -  Go to sidebar and select the  **Run Application** menu option.
 
-      ![A web app dashboard showing the Run Use Case tab.](docs/road-sign-detection-and-classification-ri-run-usecase.png)
+    - Select the **RSDC** tab on the **General Fleet Solution** dashboard.
 
-      Figure 6: Select Run Use Case Tab
+       ![A web app dashboard showing the Run Application tab.](docs/road-sign-detection-and-classification-ri-run-usecase.png)
 
-   -  Configure the use case by selecting the video sample and the CPU or GPU
-      device for the inference model to run on it.
+       Figure 6: Select Run  Application Menu Option
 
-   -  Optionally, you can also set the simulation data that you want to use. You
-      can choose between using the [KnowGo
-      Simulator](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-know-go-simulator.html)
-      or simply use the CSV pre-recorded simulation data.
+    -  Configure the use case by selecting the video sample and the CPU or GPU
+       device for the inference model to run on it.
 
-      **Model Description**
+    -  Optionally, you can also set the simulation data that you want to use. You
+       can choose between using the [KnowGo
+       Simulator](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-know-go-simulator.html)
+       or simply use the CSV pre-recorded simulation data.
 
-      **Semantic Segmentation:** The OpenVINO™ Semantic Segmentation model
-         detects and classifies the traffic signs.
+       **Model Description**
 
-      **Sign Recognition:** The OpenVINO™ Signs Recognition model recognizes
-          different traffic signs placed on the road, such as speed limits, no
-          entry, turn left or right ahead, road work, pedestrians, children
-          crossing, no passing of heavy vehicles, etc.
+       **Semantic Segmentation:** The OpenVINO™ Semantic Segmentation model
+          detects and classifies the traffic signs.
 
+       **Sign Recognition:** The OpenVINO™ Signs Recognition model recognizes
+           different traffic signs placed on the road, such as speed limits, no
+           entry, turn left or right ahead, road work, pedestrians, children
+           crossing, no passing of heavy vehicles, etc.
 
-      ![A web app dashboard showing the Dashboard.](docs/road-sign-detection-and-classification-ri-dashboard.png)
+       ![A web app dashboard showing the Dashboard.](docs/road-sign-detection-and-classification-ri-dashboard.png)
 
-      Figure 7: Configure Use Case
+       Figure 7: Configure Use Case
 
-   -  Click on the **Browse** button and search for the sample video delivered with the application at the following path:
-    `<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase/config/VideoIngestion/test_videos/`
-    and select the one available.
+    -  Click on the **Browse** button and search for the sample video delivered with the application at the following path:
+     `/opt/intel/eif/EII-UseCaseManager/modules/EII-RoadSignDetection-UseCase/config/VideoIngestion/test_videos/`
+     and select the one available.
 
-      >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+       >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-      ![A web app dashboard showing the sample video to be uploaded.](docs/road-sign-detection-and-classification-ri-test-video.png)
+       ![A web app dashboard showing the sample video to be uploaded.](docs/road-sign-detection-and-classification-ri-test-video.png)
 
-      Figure 8: Select Sample Video
+       Figure 8: Select Sample Video
 
-   -  After selecting the video sample, select the device for the inference model. Options include CPU or GPU. Click on **Run Use Case.**
+    -  After selecting the video sample, select the device for the inference model. Options include CPU or GPU. Click on **Run  Application**.
 
-   -  The application will start the Visualizer App that will detect and classify the traffic signs as in the following image:
+    -  The application will start the Visualizer App that will detect and classify the traffic signs as in the following image:
 
-      >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+       >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
+       ![A web app showing output from the visualizer.](docs/road-sign-detection-and-classification-ri-visualizer.png)
 
-      ![A web app showing output from the visualizer.](docs/road-sign-detection-and-classification-ri-visualizer.png)
-
-      Figure 9: Visualizer Output
+       Figure 9: Visualizer Output
 
 5. After the visualizer starts, you can go to the ThingsBoard link and check the
    alerts sent by the reference implementation. If you configured the AWS
    credentials, you will also have access to pictures taken by the application on
    the video stream.
 
-   ![A browser window showing the ThingsBoard link with the Intel Fleet Manager dashboard in the main view. Several components are displayed, including Alerts, Temperature, and a map showing the vehicle location.](docs/road-sign-detection-and-classification-ri-tb-dashboard-with-data.png)
+    ![A browser window showing the ThingsBoard link with the Intel Fleet Manager dashboard in the main view. Several components are displayed, including Alerts, Temperature, and a map showing the vehicle location.](docs/road-sign-detection-and-classification-ri-tb-dashboard-with-data.png)
 
-   Figure 10: Intel Fleet Manager Dashboard shown in ThingsBoard
+    Figure 10: Intel Fleet Manager Dashboard shown in ThingsBoard
 
-6. You can also check the cloud storage from the Reference Implementation **Storage** tab.
+6. You can also check the cloud storage from the **Storage** menu option.
 
     >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-   ![A web app dashboard showing the Storage tab.](docs/road-sign-detection-and-classification-ri-aws-storage.png)
+    ![A web app dashboard showing the Storage tab.](docs/road-sign-detection-and-classification-ri-aws-storage.png)
 
-   Figure 11: Reference Implementation Storage Tab
+    Figure 11: Reference Implementation Storage Menu Option
 
 
 ## Run in Parallel with Driver Behavior Analytics Reference Implementation
 
 To run this task you will need to download and install [Driver Behavior Analytics](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/driver-behavior-analytics.html) Reference Implementation.
 
-### Prerequisites
+For more details about parallel execution, see the Edge Insights for Fleet
+[Use Case Manager](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/use-case-manager.html) documentation.
 
--   Two terminals
+### Prerequisites
 
 -   Follow the steps to install [Driver Behavior Analytics](https://www.intel.com/content/www/us/en/develop/articles/driver-behavior-analytics.html#install) after installing [Road Sign Detection and Classification](#step-1-install-the-reference-implementation)
 
 ### Steps to Run the Application
 
-1. Change directory to **Road Sign Detection and Classification Use Case** path on terminal 1:
+1.  Change directory to **EII-UseCaseManager** on your terminal:
 
-   ```bash
-   cd <INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase
-   ```
+      ```bash
+      cd /opt/intel/eif/EII-UseCaseManager
+      ```
 
-   ![A window showing 2 system consoles in side-by-side view.](docs/road-sign-detection-and-classification-ri-change-directory.png)
+2.  Run the following command to start the web server application.
 
-   Figure 12: Set Up System Console Windows
+      ```bash
+      make webui
+      ```
 
-2. Change directory to **Driver Behavior Analytics Use Case** path on terminal 2:
+3.  Open your browser and go to **127.0.0.1:9090**.
 
-   ```bash
-   cd <INSTALL_PATH>/driver_behavior_analytics/Driver_Behavior_Analytics_2022.2/Driver_Behavior_Analytics/EII-DriverBehavior-UseCase
-   ```
+4.  Configure both installed reference implementations by setting the **video source** and the **target** (**CPU**, **GPU** or **HETERO**). Click on **Run Application**.
+    >**NOTE:** Configure each reference implementation by selecting the desired tab. For example, click the **Run Application** menu option, then click on **RSDC** to configure the Road Sign Detection and Classification RI. Next, click on **DBA** to configure the Driver Behavior Analytics RI.
 
-   ![A window showing 2 system consoles. Each console is displaying a different directory.](docs/road-sign-detection-and-classification-ri-change-directory2.png)
+    ![A browser window showing application with RSDC and DBA tabs - RSDC selected.](docs/road-sign-detection-and-classification-ri-configure-rsdc.png)
 
-   Figure 13: System Console Windows Displaying Different Directories
+    Figure 13: Configure Road Sign Detection and Classification Reference Implementation
 
-3. Run the following command on terminal 1 to start the webserver application.
-   Copy and run the `make webui` command from the end of the installation:
+    ![A browser window showing application with RSDC and DBA tabs - DBA selected.](docs/road-sign-detection-and-classification-ri-configure-dba.png)
 
-   ```bash
-   make webui EII_BASE=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/Road_Sign_Detection_and_Classification/EII-RoadSignDetection-UseCase
-   ```
+    Figure 14: Configure Driver Behavior Analytics Reference Implementation
 
-4. Run the following command on terminal 2 to start the webserver application.
-   Copy and run the `make webui` command from the end of the installation:
+5.  Wait for both Visualizers to get up and running.
 
-   ```bash
-   make webui EII_BASE=<INSTALL_PATH>/road_sign_detection_and_classification/Road_Sign_Detection_and_Classification_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/driver_behavior_analytics/Driver_Behavior_Analytics_2022.2/Driver_Behavior_Analytics/EII-DriverBehavior-UseCase
-   ```
+    ![A browser window showing output of 2 visualizers in a side-by-side view.](docs/road-sign-detection-and-classification-ri-two-use-cases.png)
 
-   ![A window showing 2 system consoles. Each console is running a different application.](docs/road-sign-detection-and-classification-ri-webserver-app.png)
-
-   Figure 14: System Console Windows Running Different Applications
-
-5. Open your browser and go to **127.0.0.1:9098**.
-
-6. Configure Road Sign Detection and Classification by setting the **video
-   source**, the **target** and click on **Run Use Case**.
-
-7. Wait for the Visualizer to get up and running.
-
-8. Open the Driver Behavior Analytics page by going to address **127.0.0.1:9092**.
-
-9. Configure the camera with the desired video and set the target for each one (**CPU** or **GPU**) and click **Run Use Case**.
-
-   >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
-
-   ![A browser window showing 2 application dashboards in a side-by-side view.](docs/road-sign-detection-and-classification-ri-configure-rsdc.png)
-
-   Figure 15: Set Up Reference Implementation Dashboards
-
-At this point, Road Sign Detection and Classification will close and after that both use cases will start.
->**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
-
-![A browser window showing output of 2 visualizers in a side-by-side view.](docs/road-sign-detection-and-classification-ri-two-use-cases.png)
-
-Figure 16: Visualizer Output for 2 Reference Implementations
+    Figure 15: Visualizer Output for 2 Reference Implementations
 
 >**NOTE:** If you reinstall the first RI, you must reinstall the second one.
 
@@ -439,7 +404,16 @@ Check before retrying to install if group Docker is available for you by running
 groups
 ```
 
-The output should contain “docker”.
+The output should contain "docker".
+
+### Installation Timeout When Using pip or apt Commands
+
+You may experience a timeout issue when using the People's Republic of China (PRC)
+internet network.
+
+Make sure that you have a stable internet connection while installing the
+packages. If you experience timeouts due to Linux* apt or Python* pip
+installation, try to reinstall the package.
 
 ### Support Forum
 If you're unable to resolve your issues, contact the [Support Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
