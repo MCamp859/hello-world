@@ -12,8 +12,6 @@ software listed below.
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/address_recognition_and_analytics)
 
->**NOTE:** This software package will not work on the People's Republic of China
->(PRC) network.
 
 >**Legal Disclaimers**\
 Recipient is solely responsible for compliance with all applicable regulatory standards and safety, privacy, and security related requirements concerning Recipient's use of the Intel hardware and software.\
@@ -109,6 +107,7 @@ implementation installation.
 
     Figure 2: Product Key
 
+
 6. When the installation is complete, you see the message "Installation of
    package complete" and the installation status for each module.
 
@@ -120,14 +119,15 @@ implementation installation.
 [Troubleshooting](#troubleshooting)
 section at the end of this document. Installation failure logs will be
 available at the path:
-`/var/log/esb-cli/Address_Recognition_And_Analytics_2022.2/output.log`
+`/var/log/esb-cli/Address_Recognition_And_Analytics_<version>/output.log`
 
 7. To start the application, you need to change the directory using the cd
    command printed at the end of the installation process:
 
     ```bash
-    cd <INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase
+    cd /opt/intel/eif/EII-UseCaseManager/
     ```
+
 
 ### Step 2: Run the Application
 
@@ -140,16 +140,10 @@ available at the path:
    the installation log:
 
     ```bash
-    make webui EII_BASE=<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_<version>/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_<version>/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase
+    `make webui`
     ```
 
-   For example:
-
-    ```bash
-   make webui EII_BASE=/home/intel/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/IEdgeInsights REPO_FOLDER=/home/intel/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase
-    ```
-
-2. Open the Web UI: Go to **127.0.0.1:9097** on your web browser.
+2. Open the Web UI: Go to **127.0.0.1:9090** on your web browser.
 
     ![A browser window showing the reference implementation dashboard.](docs/address-recognition-and-analytics-recognition-ri-open-webgui.png)
 
@@ -176,11 +170,12 @@ available at the path:
 
 4. Access the Address Recognition and Analytics Dashboard with the following steps.
 
-      -   Go to sidebar and select **Run Use Case**.
+      -   Go to sidebar and select the **Run Application** menu option.
+      -   Select the **ARA** tab on the **General Fleet Solution** dashbaord.
 
-          ![A web app dashboard showing the Run Use Case tab.](docs/address-recognition-and-analytics-recognition-ri-run-usecase.png)
+          ![A web app dashboard showing the Run Application tab.](docs/address-recognition-and-analytics-recognition-ri-run-usecase.png)
 
-          Figure 6: Select Run Use Case Tab
+          Figure 6: Select Run Application Menu Option
 
       -   Configure the use case by selecting the video sample and the device for the UDF model.
       -   Enter a target address value (for example, 30) to generate the target address reached alert.
@@ -194,20 +189,16 @@ available at the path:
           **Address Detection:** This model detects the numbers on an address plaque.
 
           **Address Recognition:** This model recognizes the target address and sends an alert when the address number is reached.
-
           >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
           ![A web app dashboard showing the Dashboard.](docs/address-recognition-and-analytics-recognition-ri-dashboard.png)
 
           Figure 7: Configure Use Case
 
-
       -   Click on the **Browse** button and search for video on the following path:
-      `<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase/config/VideoIngestion/test_videos/`
+          `/opt/intel/eif/EII-UseCaseManager/modules/EII-AddressDetection-UseCase/config/VideoIngestion/test_videos/`
 
-      -   After selecting the video sample, select the target device for all models. Options include CPU or GPU. Click on **Run Use Case.**
-
-          >**NOTE:** To use a GPU device, you must set the proper group for the device with the command: `sudo chown root:video /dev/dri/renderD128`
+      -   After selecting the video sample, select the target device for all models. Options include CPU or GPU. Click on **Run Application.**
 
       -   The application will start the Visualizer App that will detect address plaques on the surfaces of buildings:
 
@@ -228,7 +219,7 @@ available at the path:
     Figure 9: Intel Fleet Manager Dashboard shown in ThingsBoard
 
 
-6. You can also check the cloud storage from the Reference Implementation **Storage** tab.
+6. You can also check the cloud storage from the **Storage** menu option.
    >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
     ![A web app dashboard showing the Storage tab.](docs/address-recognition-and-analytics-recognition-ri-aws-storage.png)
@@ -240,90 +231,49 @@ available at the path:
 
 To run this task you will need to download and install [Work Zone Analytics](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/work_zone_analytics) Reference Implementation.
 
-### Prerequisites
+For more details about parallel execution, see the Edge Insights for Fleet [Use Case
+Manager](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/use-case-manager.html) documentation.
 
--   Two terminals
+### Prerequisites
 
 -   Follow the steps to install [Work Zone Analytics](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/work-zone-analytics.html ) after installing [Address Recognition and Analytics](#step-1-install-the-reference-implementation)
 
 ### Steps to Run the Application
 
-1.  Change directory to **Work Zone Analytics Use Case** path on terminal 1:
+
+1.  Change directory to **EII-Use Case Manager** path on your terminal:
 
     ```bash
-    cd <INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_2022.2/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase
+    cd /opt/intel/eif/EII-UseCaseManager
     ```
 
-    ![A window showing 2 system consoles in side-by-side view.](docs/address-recognition-and-analytics-change-directory.png)
-
-    Figure 11: Set Up System Console Windows
-
-
-2.  Change directory to **Address Recognition and Analytics** path on terminal 2:
+2.  Run the following command on your terminal to start the web server application.
 
     ```bash
-    cd <INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase
+    make webui
     ```
 
-    ![A window showing 2 system consoles. Each console is displaying a different directory.](docs/address-recognition-and-analytics-change-directory2.png)
+3.  Open your browser and go to **127.0.0.1:9090**.
 
-    Figure 12: System Console Windows Displaying Different Directories
-
-3.  Run the following command on terminal 1 to start the webserver application.
-
-    Copy and run the `make webui` command from the end of the installation log:
-
-    ```bash
-    make webui EII_BASE=<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_<version>/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_<version>/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase
-    ```
-
-    For example:
-
-    ```bash
-    make webui EII_BASE=<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/IEdgeInsights REPO_FOLDER=/home/intel/work_zone_analytics/Work_Zone_Analytics_2022.2/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase
-    ```
+4.  Configure both installed reference implementations by setting the **video source** and the **target**. Click on **Run Application**.
+    >**NOTE:** Configure each reference implementation by selecting the desired tab. For example, click the **Run Application** menu option, then click on **ARA** to configure the Address Recognition and Analytics RI. Next, click on **WZA** to configure the Work Zone Analytics RI.
 
 
-4.  Run the following command on terminal 2 to start the webserver application.
+    ![A browser window showing application with ARA and WZA tabs - ARA selected.](docs/address-recognition-and-analytics-configure-ara.png)
 
-    Copy and run the `make webui` command from the end of the installation log:
+    Figure 11: Configure Address Recognition and Analytics Reference Implementation
 
-    ```bash
-    make webui EII_BASE=<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_<version>/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_<version>/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase
-    ```
+    ![A browser window showing application with ARA and WZA tabs - WZA selected.](docs/address-recognition-and-analytics-configure-wza.png)
 
-    For example:
+    Figure 12: Configure Work Zone Analytics Reference Implementation
 
-    ```bash
-    make webui EII_BASE=/home/intel/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/IEdgeInsights REPO_FOLDER=/home/intel/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.2/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase
-    ```
+5.  Wait for both Visualizers to get up and running.
 
-    ![A window showing 2 system consoles. Each console is running a different application.](docs/address-recognition-and-analytics-webserver-app.png)
-
-    Figure 13: System Console Windows Running Different Applications
-
-5.  Open your browser and go to **127.0.0.1:9096**.
-
-6.  Configure Work Zone Analytics by setting the **video source** and the **target**. Click on **Run Use Case**.
-
-7.  Wait for Visualizer to get up and running.
-
-8.  Open the Address Recognition and Analytics page by going to address **127.0.0.1:9097**.
-
-9.  Configure all available cameras with the desired videos and set the target
-    for each model. Options include **CPU** or **GPU**. Click **Run Use Case**.
-    >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
-
-    ![A browser window showing 2 application dashboards in a side-by-side view.](docs/address-recognition-and-analytics-configure-wza.png)
-
-    Figure 14: Set Up Reference Implementation Dashboards
-
-At this point Work Zone Analytics will close and after that both use cases will start.
 >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
 ![A browser window showing output of 2 visualizers in a side-by-side view.](docs/address-recognition-and-analytics-two-use-cases.png)
 
-Figure 15: Visualizer Output for 2 Reference Implementations
+Figure 13: Visualizer Output for 2 Reference Implementations
 
 
 >**NOTE:** If you reinstall the first reference implementation, you must also reinstall the second one.
@@ -453,6 +403,15 @@ groups
 ```
 
 The output should contain “docker”.
+
+### Installation Timeout When Using pip or apt Commands
+
+You may experience a timeout issue when using the People's Republic of China (PRC)
+internet network.
+
+Make sure that you have a stable internet connection while installing the
+packages. If you experience timeouts due to Linux* apt or Python* pip
+installation, try to reinstall the package.
 
 ### Support Forum
 If you're unable to resolve your issues, contact the [Support Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
