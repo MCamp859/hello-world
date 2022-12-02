@@ -65,47 +65,47 @@ implementation installation.
 
 1. Open a new terminal, go to the downloaded folder and unzip the downloaded RI package.
 
-   ```bash
-   unzip driver_behavior_analytics.zip
-   ```
+    ```bash
+    unzip driver_behavior_analytics.zip
+    ```
 
 2. Go to the `driver_behavior_analytics/` directory.
 
-   ```bash
-   cd driver_behavior_analytics/
-   ```
+    ```bash
+    cd driver_behavior_analytics/
+    ```
 
 3. Change permission of the executable *edgesoftware* file.
 
-   ```bash
-   chmod 755 edgesoftware
-   ```
+    ```bash
+    chmod 755 edgesoftware
+    ```
 
 4. Run the command below to install the Reference Implementation.
 
-   ```bash
-   ./edgesoftware install
-   ```
+    ```bash
+    ./edgesoftware install
+    ```
 
 5. During the installation, you will be prompted for the **Product Key**. The
    **Product Key** is contained in the email you received from Intel confirming
    your download.
 
-   ![A console window showing a system prompt to enter the product key.](docs/driver-behavior-ri-product-key.png)
+    ![A console window showing a system prompt to enter the product key.](docs/driver-behavior-ri-product-key.png)
 
-   Figure 2: Product Key
+    Figure 2: Product Key
 
 6. When the installation is complete, you see the message "Installation of
    package complete" and the installation status for each module.
 
-   ![A console window showing system output during the install process. At the
-   end of the process, the system displays the message “Installation of package
-   complete” and the installation status for each module.
-   ](docs/driver-behavior-ri-install.png)
+    ![A console window showing system output during the install process. At the
+    end of the process, the system displays the message “Installation of package
+    complete” and the installation status for each module.
+    ](docs/driver-behavior-ri-install.png)
 
-   Figure 3: Installation Success
+    Figure 3: Installation Success
 
-   >**NOTE:** If you encounter any issues, please refer to the
+    >**NOTE:** If you encounter any issues, please refer to the
 [Troubleshooting](#troubleshooting)
 section at the end of this document. Installation failure logs will be
 available at the path: 
@@ -114,9 +114,9 @@ available at the path:
 7. To start the application, change the directory using the cd command printed
    at the end of the installation process:
 
-   ```bash
-   cd /opt/intel/eif/EII-UseCaseManager/
-   ```
+    ```bash
+    cd /opt/intel/eif/EII-UseCaseManager/
+    ```
 
 ### Step 2: Run the Application
 
@@ -127,18 +127,18 @@ available at the path:
 
 1. Run the application:
 
-   Copy and run the `make webui` command from the end of the installation log:
+    Copy and run the `make webui` command from the end of the installation log:
 
-   ```bash
-   make webui
-   ```
+    ```bash
+    make webui
+    ```
 
 2. Open the Web UI: Go to **127.0.0.1:9090** on your web browser.
 
-   ![A browser window showing the reference implementation
-   dashboard.](docs/driver-behavior-ri-open-webgui.png)
+    ![A browser window showing the reference implementation
+    dashboard.](docs/driver-behavior-ri-open-webgui.png)
 
-   Figure 4: Reference Implementation Dashboard
+    Figure 4: Reference Implementation Dashboard
 
 3. If you installed your ThingsBoard Cloud Server and you have enabled S3 Bucket
 Server on your AWS account, you can provide your configured **AWS Access Key
@@ -147,80 +147,80 @@ ID**, **AWS Secret Access Key**, **AWS S3 Bucket Name** **Thingsboard IP**,
 Configuration** tab. After you complete the Cloud configuration, make sure you
 click on the **Save Credentials** and **Save Token** buttons.
 
-   Now you can import the ThingsBoard dashboard as described at the end of the [Set Up ThingsBoard* Cloud Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-thingsboard-cloud-data.html) to enable all dashboard features, including the cloud storage.
+    Now you can import the ThingsBoard dashboard as described at the end of the [Set Up ThingsBoard* Cloud Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-thingsboard-cloud-data.html) to enable all dashboard features, including the cloud storage.
 
-   ![A web app dashboard showing the Configuration tab. Certain fields are
+    ![A web app dashboard showing the Configuration tab. Certain fields are
    covered with a blue bar for security](docs/driver-behavior-ri-aws.png)
 
-   Figure 5: Configuration Tab Contents
+    Figure 5: Configuration Tab Contents
 
-   > **NOTE:** If you don't have an AWS account, you will not be able to access Storage Cloud. You can still enable the Thingsboard Cloud Data if you configured it locally or on another machine.
+    > **NOTE:** If you don't have an AWS account, you will not be able to access Storage Cloud. You can still enable the Thingsboard Cloud Data if you configured it locally or on another machine.
 
 4. In the sidebar, select the **Driver** menu option to set up a driver for the
    use case.
 
-   Go to the video samples directory.
-   `/opt/intel/eif/EII-UseCaseManager/modules/EII-DriverBehavior-UseCase/config/VideoIngestion/test_videos/`
+    Go to the video samples directory.
+    `/opt/intel/eif/EII-UseCaseManager/modules/EII-DriverBehavior-UseCase/config/VideoIngestion/test_videos/`
 
 
-   Open the video sample you will use to run the use case with your preferred
-   video player. Make a screenshot profile picture of the driver's face.
+    Open the video sample you will use to run the use case with your preferred
+    video player. Make a screenshot profile picture of the driver's face.
 
-   Access the **Driver** menu option on the dashboard. In **Settings**, add the profile
-   picture and a driver name. Click on the **Add Driver** button.
+    Access the **Driver** menu option on the dashboard. In **Settings**, add the profile
+    picture and a driver name. Click on the **Add Driver** button.
 
-   ![A web app dashboard showing the Driver tab.](docs/driver-behavior-ri-driver-settings.png)
+    ![A web app dashboard showing the Driver tab.](docs/driver-behavior-ri-driver-settings.png)
 
-   Figure 6: Driver Tab Contents
+    Figure 6: Driver Tab Contents
 
 
 5. Access the Driver Behavior Analytics Dashboard with the following steps.
 
-   -  Go to sidebar and select **Run Application**.
+    -  Go to sidebar and select **Run Application**.
 
-      ![A web app dashboard showing the Run Use Case
-      tab.](docs/driver-behavior-ri-run-usecase.png)
+       ![A web app dashboard showing the Run Use Case
+       tab.](docs/driver-behavior-ri-run-usecase.png)
 
-      Figure 7: Select Driver Menu Option
+       Figure 7: Select Driver Menu Option
 
-   -  Configure the use case by selecting the video sample and the device for
-      all UDF models.
+    -  Configure the use case by selecting the video sample and the device for
+       all UDF models.
 
-   -  Optionally, you can also set the simulation data that you want to use. You
-      can choose between using the [KnowGo
-      Simulator](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-know-go-simulator.html)
-      or simply use the CSV pre-recorded simulation data.
+    -  Optionally, you can also set the simulation data that you want to use. You
+       can choose between using the [KnowGo
+       Simulator](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-know-go-simulator.html)
+       or simply use the CSV pre-recorded simulation data.
 
-   #### Model Descriptions
+    #### Model Descriptions
 
-   - Head Pose: Estimates the head(s) position in the video frame.
-   - Facial Landmarks: Determines the facial landmarks of the identified people.
-   - Face Detection: Detects the face(s) in the video frame.
-   - Face Re-identification: Recognizes persons using the provided faces.
+    - Head Pose: Estimates the head(s) position in the video frame.
+    - Facial Landmarks: Determines the facial landmarks of the identified people.
+    - Face Detection: Detects the face(s) in the video frame.
+    - Face Re-identification: Recognizes persons using the provided faces.
 
-      ![A web app dashboard showing the
-      Dashboard.](docs/driver-behavior-ri-dashboard.png)
+       ![A web app dashboard showing the
+       Dashboard.](docs/driver-behavior-ri-dashboard.png)
 
-      Figure 8: Configure Use Case
+       Figure 8: Configure Use Case
 
-   -  Click on the **Browse** button and search for one of the sample videos
-    delivered with the application at the following path:
-    `/opt/intel/eif/EII-UseCaseManager/modules/EII-DriverBehavior-UseCase/config/VideoIngestion/test_videos/`
-   and select one of the two available.
+    -  Click on the **Browse** button and search for one of the sample videos
+       delivered with the application at the following path:
+       `/opt/intel/eif/EII-UseCaseManager/modules/EII-DriverBehavior-UseCase/config/VideoIngestion/test_videos/`
+       and select one of the two available.
 
-      ![A web app dashboard showing the sample video to be uploaded.](docs/driver-behavior-ri-test-video.png)
+       ![A web app dashboard showing the sample video to be uploaded.](docs/driver-behavior-ri-test-video.png)
 
-      Figure 9: Select Sample Video
+       Figure 9: Select Sample Video
 
-   -  After selecting the video sample, select the device for all UDF models. Options include CPU, GPU, or HETERO:CPU,GPU. Click on **Run Application.**
+    -  After selecting the video sample, select the device for all UDF models. Options include CPU, GPU, or HETERO:CPU, GPU. Click on **Run Application.**
 
-   -  The application will start the Visualizer App that will detect yawns,
-      blinks, drowsiness, distraction status and will display the name of the
-      driver as in the following image:
+    -  The application will start the Visualizer App that will detect yawns,
+       blinks, drowsiness, distraction status and will display the name of the
+       driver as in the following image:
 
-      ![A web app showing output from the visualizer.](docs/driver-behavior-ri-visualizer.png)
+       ![A web app showing output from the visualizer.](docs/driver-behavior-ri-visualizer.png)
 
-      Figure 10: Visualizer Output
+       Figure 10: Visualizer Output
 
 
 6. After the visualizer starts, you can go to the ThingsBoard link and check the
@@ -228,16 +228,16 @@ alerts sent by the reference implementation, the driver name and the profile
 picture previously added. If you configured the AWS credentials, you will also
 have access to video snapshots taken by the application on the video stream.
 
-   ![A browser window showing the ThingsBoard link with the Intel Fleet Manager dashboard in the main view. Several components are displayed, including Alerts, Driver Photo, and a map showing the vehicle location.](docs/driver-behavior-ri-tb-alerts.png)
+    ![A browser window showing the ThingsBoard link with the Intel Fleet Manager dashboard in the main view. Several components are displayed, including Alerts, Driver Photo, and a map showing the vehicle location.](docs/driver-behavior-ri-tb-alerts.png)
 
-   Figure 11: Intel Fleet Manager Dashboard shown in ThingsBoard
+    Figure 11: Intel Fleet Manager Dashboard shown in ThingsBoard
 
 
 7. You can also check the cloud storage from the **Storage** menu option.
 
-   ![A web app dashboard showing the Storage tab.](docs/driver-behavior-ri-cloud-storage.png)
+    ![A web app dashboard showing the Storage tab.](docs/driver-behavior-ri-cloud-storage.png)
 
-   Figure 12: Reference Implementation Storage Tab
+    Figure 12: Reference Implementation Storage Tab
 
 ## Run in Parallel with Vehicle Event Recording Reference Implementation
 
@@ -286,9 +286,9 @@ Manager](https://www.intel.com/content/www/us/en/develop/documentation/edge-insi
 
 5.  Wait for both Visualizers to get up and running.
 
-![A browser window showing output of 2 visualizers in a side-by-side view.](docs/vehicle-event-recording-two-use-cases.png)
+    ![A browser window showing output of 2 visualizers in a side-by-side view.](docs/vehicle-event-recording-two-use-cases.png)
 
-Figure 15: Visualizer Output for 2 Reference Implementations
+    Figure 15: Visualizer Output for 2 Reference Implementations
 
 >NOTE: If you reinstall the first reference implementation, you must reinstall the second reference implementation.
 
@@ -327,27 +327,27 @@ You must stop/force stop existing containers and images.
 
 -  To remove all stopped containers, dangling images, and unused networks:
 
-   ```bash
-   sudo docker system prune --volumes
-   ```
+    ```bash
+    sudo docker system prune --volumes
+    ```
 
 -  To stop Docker containers:
 
-   ```bash
-   sudo docker stop $(sudo docker ps -aq)
-   ```
+    ```bash
+    sudo docker stop $(sudo docker ps -aq)
+    ```
 
 -  To remove Docker containers:
 
-   ```bash
-   sudo docker rm $(sudo docker ps -aq)
-   ```
+    ```bash
+    sudo docker rm $(sudo docker ps -aq)
+    ```
 
 -  To remove all Docker images:
 
-   ```bash
-   sudo docker rmi -f $(sudo docker images -aq)
-   ```
+    ```bash
+    sudo docker rmi -f $(sudo docker images -aq)
+    ```
 
 ### Docker Image Build Failure
 
@@ -355,21 +355,21 @@ If Docker image build on corporate network fails, follow the steps below.
 
 1. Get DNS server using the command:
 
-   ```bash
-   nmcli dev show | grep 'IP4.DNS'
-   ```
+    ```bash
+    nmcli dev show | grep 'IP4.DNS'
+    ```
 
 2. Configure Docker to use the server. Paste the line below in the `/etc/docker/daemon.json` file:
 
-   ```bash
-   { "dns": ["<dns-server-from-above-command>"]}
-   ```
+    ```bash
+    { "dns": ["<dns-server-from-above-command>"]}
+    ```
 
 3. Restart Docker:
 
-   ```bash
-   sudo systemctl daemon-reload && sudo systemctl restart docker
-   ```
+    ```bash
+    sudo systemctl daemon-reload && sudo systemctl restart docker
+    ```
 
 ### Installation Failure Due to Ubuntu Timezone Setting
 
