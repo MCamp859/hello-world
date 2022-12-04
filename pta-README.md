@@ -148,9 +148,9 @@ available at the path:
     Figure 4: Reference Implementation Dashboard
 
 3. If you installed your ThingsBoard Cloud Server and you have enabled S3 Bucket Server
-on your AWS account you can provide your configured **AWS Access Key ID**, **AWS Secret Access Key**,
+on your AWS account, you can provide your configured **AWS Access Key ID**, **AWS Secret Access Key**,
 **Thingsboard IP**, **Thingsboard Port** and **Thingsboard Device token** on the **Cloud Data Configuration** tab.
-After you completed the Cloud configuration, make sure you click on the **Save Credentials** and **Save Token** buttons.
+After you complete the Cloud configuration, make sure you click on the **Save Credentials** and **Save Token** buttons.
 Now you can import the ThingsBoard dashboard as described at the end of the [Set Up ThingsBoard* Cloud Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top.html)
 to enable all dashboard features, including the cloud storage.
 
@@ -192,7 +192,7 @@ to enable all dashboard features, including the cloud storage.
 
         Figure 8: Search for Sample Video
 
-    -   After selecting the video sample, select the device for the inference model. Options include CPU or GPU. Click on **Run Use Case.**
+    -   After selecting the video sample, select the device for the inference model. Options include CPU or GPU. Click on **Run Application.**
 
     -   The application will start the Visualizer App that detects people and counts them as in the following image:
 
@@ -271,13 +271,13 @@ For more details about parallel execution, see the Edge Insights for Fleet
 
 ## Summary and Next Steps
 
-This application successfully implements Intel® Distribution of OpenVINO™ toolkit plugins to
-detect and extract the license plate information.
+This application successfully implements Intel® Distribution of OpenVINO™
+toolkit plugins to calculate the number of passengers.
 
 As a next step, try the following:
 
-It can be extended further to provide support for feed from network stream (RTSP camera),
-and the algorithm can be optimized for better performance.
+Extend the RI further to provide support for feed from network stream (RTSP
+camera) and optimize the algorithm for better performance.
 
 ## Learn More
 
@@ -289,18 +289,9 @@ To continue your learning, see the following guides and software resources:
 
 ## Known Issues
 
-### Uninstall use case known issue
+### Uninstall Reference Implementation
 
-If you uninstall one of the use cases, you need to reinstall the other ones because the Docker images will be cleared.
-
-### License plate recognition neural network issue
-
-The neural network model used in this RI has 3 limitations:
--  it has been trained to recognize Chinese license plates
--  the minimum plate width must be of 94 pixels
--  only "blue" license plates have been tested thoroughly. Other types of license plates may underperform.
-
-For more details check [OpenVINO™ Model Zoo](https://docs.openvino.ai/latest/omz_models_model_license_plate_recognition_barrier_0007.html)
+If you uninstall one of the reference implementations, you need to reinstall the other ones because the Docker images will be cleared.
 
 ## Troubleshooting
 
