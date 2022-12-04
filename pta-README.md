@@ -1,31 +1,33 @@
 # Public Transit Analytics Reference Implementation
 ## Overview
 
-Public Transit Analytics (PTA) reference implementation delivers deep
-learning models, computer vision algorithms, OpenVINO and other software
-dependencies on the Edge Insights for Fleet middleware architecture.
-Video streams from cameras in a bus passenger area are analyzed to extract
-passenger count, and if a passenger is wearing face masks.
-The results are available for the bus driver, and the bus fleet operators via
-a cloud dashboard.
+Public Transit Analytics (PTA) reference implementation demonstrates how to use
+Edge Insights for Fleet middleware and delivers deep learning models, computer
+vision algorithms, OpenVINO™ and other software. In this example, the model
+outputs counts of passengers on public transport, potentially for use in public
+transportation route planning. The results are available for the bus driver and
+the bus fleet operators via a cloud dashboard. The application also temporarily
+stores relevant video images for validating the accuracy of detections.
 
 
-Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/public_transit_analytics) to download the reference implementation and the software listed below.
+Select **Configure & Download** to download the reference implementation and the software listed below.
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/public_transit_analytics)
 
-<img src="docs/public-transit-analytics-ri-landing.png"/>
 
-| Table 1 |  |
-| ----------- | ----------- |
-| Time to Complete | Approximately 60 minutes |
-| Programming Language | Python* |
-| Available Software | Intel® Distribution of OpenVINO™ toolkit 2020 Release |
+>**Legal Disclaimers**\
+Recipient is solely responsible for compliance with all applicable regulatory standards and safety, privacy, and security related requirements concerning Recipient's use of the Intel hardware and software.\
+Recipient is solely responsible for any and all integration tasks, functions, and performance in connection with use of the Intel hardware or software as part of a larger system. Intel does not have sufficient knowledge of any adjoining, connecting, or component parts used with or possibly impacted by the Intel hardware or software or information about operating conditions or operating environments in which the Intel hardware or software may be used by Recipient.  Intel bears no responsibility, liability, or fault for any integration issues associated with the inclusion of the Intel hardware or software into a system.  It is Recipient’s responsibility to design, manage, and assure safeguards to anticipate, monitor, and control component, system, quality, and or safety failures.
+
+-   **Time to Complete:**  Approximately 60 minutes
+-   **Programming Language:**  Python*
+-   **Available Software:**  Intel® Distribution of OpenVINO™ toolkit 2021.4.2 Release
 
 
-**Recommended Hardware**
+### Recommended Hardware
 
-The below hardware is recommended for use with this reference implementation. See the [Recommended Hardware](https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/edge-solutions/hardware.html?s=Newest) page for other suggestions. 
+The below hardware is recommended for use with this reference implementation.
+For other suggestions, see [Recommended Hardware](https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/edge-solutions/hardware.html?s=Newest).
 
 -   [ADLINK MXE-5500 Series](https://www.adlinktech.com/Products/Industrial_PCs_Fanless_Embedded_PCs/IntegratedFanlessEmbeddedComputers/MXE-5500_Series?lang=en)
 
@@ -33,7 +35,7 @@ The below hardware is recommended for use with this reference implementation. Se
 
 ## Target System Requirements
 
--   Ubuntu* 18.04.3 LTS
+-   Ubuntu* 20.04 LTS
 
 -   6th to 10th Generation Intel® Core™ processors with Intel® Iris® Plus graphics or Intel® HD Graphics
 
@@ -41,22 +43,28 @@ The below hardware is recommended for use with this reference implementation. Se
 
 
 The reference implementation contains a full pipeline of analytics on video streams from
-IP cameras mounted inside a bus in the passenger area with an Intel
-Core or Atom processor-based computer onboard the bus.
+IP cameras mounted inside a bus in the passenger area with an Intel®
+Core™ or Intel Atom® processor-based computer onboard the bus.
 Pretrained models are used to inference and calculate the number
 of passengers.
 
-This reference implementation contains a notification subsystem which includes a local
-dashboard for the bus driver, and a cloud dashboard for the bus operator and fleet manager
+This reference implementation contains a notification subsystem which includes a cloud
+dashboard and a cloud storage for the bus operator and fleet manager.
 
 
-<img src="docs/public-transit-analytics-ri-architecture.png"/>
+![The architecture is represented by a complex block diagram.](docs/public-transit-analytics-ri-architecture.png)
+
+Figure 1: Architecture Diagram
 
 ## Get Started
 
 ### Step 1: Install the Reference Implementation
 
-Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/public_transit_analytics) to download the reference implementation and then follow the steps below to install it.
+Select **Configure & Download** to download the reference implementation and
+then follow the steps below to install it.
+
+>**NOTE:** The images provided in the reference implementation are ONLY to be used
+for validating the accuracy of detection events.
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/public_transit_analytics)
 
@@ -69,156 +77,202 @@ implementation installation.
 
 1. Open a new terminal, go to the downloaded folder and unzip the downloaded RI package.
 
-`public_transit_analytics.zip`
+    ```bash
+    unzip public_transit_analytics.zip
+    ```
 
-2. Go to the *public_transit_analytics/* directory.
+2. Go to the `public_transit_analytics/` directory.
 
-`cd public_transit_analytics/`
+    ```bash
+    cd public_transit_analytics/
+    ```
 
 3. Change permission of the executable *edgesoftware* file.
 
-`chmod 755 edgesoftware`
+    ```bash
+    chmod 755 edgesoftware
+    ```
 
 4. Run the command below to install the Reference Implementation.
 
-`./edgesoftware install`
+    ```bash
+    ./edgesoftware install
+    ```
 
 5. During the installation, you will be prompted for the **Product Key**. The **Product Key** is contained in the email you received from Intel confirming your download.
 
 
-<img src="docs/public-transit-analytics-ri-product-key.png"/>
+    ![A console window showing a system prompt to enter the product key.](docs/public-transit-analytics-ri-product-key.png)
+
+    Figure 2: Product Key
 
 6. When the installation is complete, you see the message "Installation of package complete" and the installation status for each module.
 
-<img src="docs/public-transit-analytics-ri-install.png"/>
+    ![A console window showing system output during the install process. At the
+    end of the process, the system displays the message “Installation of package
+    complete” and the installation status for each module.
+    ](docs/public-transit-analytics-ri-install.png)
 
->**NOTE:** If you encounter any issues, please refer to the
+    Figure 3: Installation Success
+
+    >**NOTE:** If you encounter any issues, refer to the
 [Troubleshooting](#troubleshooting)
 section at the end of this document. Installation failure logs will be
 available at the path:
-`/var/log/esb-cli/Public_Transit_Analytics_2021.1/output.log`
+`/var/log/esb-cli/Public_Transit_Analytics_<version>/output.log`
 
-7. In order to start the application, you need to change the directory using the cd command printed at the end of the installation process:
+7. To start the application, change the directory using the cd command printed at the end of the installation process:
 
-`cd <INSTALL_PATH>/public_transit_analytics/Public_Transit_Analytics_2021.1/Public_Transit_Analytics/EII-PassengerCounting-UseCase`
+    ```bash
+    cd /opt/intel/eif/EII-UseCaseManager/
+    ```
 
 ### Step 2: Run the Application
 
-**Pre-requisites**
-- [Install Thingsboard Local Cloud dashboard](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top.html)
-- [Prepare AWS S3 bucket server](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top.html)
+#### Prerequisites
 
-1. Run the application:
+- [Set Up ThingsBoard* Cloud Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top.html)
+- [Set Up Amazon Web Services* Cloud Storage](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top.html)
 
-        Please copy and run the "make webui" command from the end of the installation:
+1. Run the application. Copy and run the `make webui` command from the end of the installation:
 
-`make webui EII_BASE=<INSTALL_PATH>/public_transit_analytics/Public_Transit_Analytics_2021.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/public_transit_analytics/Public_Transit_Analytics_2021.1/Public_Transit_Analytics/EII-PassengerCounting-UseCase`
+    ```bash
+    make webui
+    ```
 
-`Eg. make webui EII_BASE=/home/intel/public_transit_analytics/Public_Transit_Analytics_2021.1/IEdgeInsights REPO_FOLDER=/home/intel/public_transit_analytics/Public_Transit_Analytics_2021.1/Public_Transit_Analytics/EII-PassengerCounting-UseCase`
+2. Open the Web UI: Go to **127.0.0.1:9090** on your web browser.
 
-2. Open the Web UI: Go to **127.0.0.1:9094** on your web browser.
+    ![A browser window showing the reference implementation
+    dashboard.](docs/public-transit-analytics-ri-open-webgui.png)
 
-<img src="docs/public-transit-analytics-ri-open-webgui.png" />
+    Figure 4: Reference Implementation Dashboard
 
-3. If you installed your Thingsboard Local Cloud Server and you have enabled S3 Bucket Server
+3. If you installed your ThingsBoard Cloud Server and you have enabled S3 Bucket Server
 on your AWS account you can provide your configured **AWS Access Key ID**, **AWS Secret Access Key**,
-**Thingsboard IP**, **Thingsboard Port** and **Thingsboard Device token on Cloud Data Configuration tab**
-After you completed the Cloud configuration make sure you click on Save Credentials and Save Token buttons.
-Now you can import the Thingsboard dashboard as described at the end of the [Thingsboard setup](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top.html)
-to enable all dashboard features which include the cloud storage.
+**Thingsboard IP**, **Thingsboard Port** and **Thingsboard Device token** on the **Cloud Data Configuration** tab.
+After you completed the Cloud configuration, make sure you click on the **Save Credentials** and **Save Token** buttons.
+Now you can import the ThingsBoard dashboard as described at the end of the [Set Up ThingsBoard* Cloud Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top.html)
+to enable all dashboard features, including the cloud storage.
 
-<img src="docs/public-transit-analytics-ri-aws.png" />
+    ![A web app dashboard showing the Configuration tab. Certain fields are
+    covered with a blue bar for security](docs/public-transit-analytics-ri-aws.png)
 
->**NOTE:** If you don't have an AWS account you can still enable the Thingsboard Cloud Data
+    Figure 5: Configuration Tab Contents
+
+    > **NOTE:** If you don't have an AWS account, you will not be able to access Storage Cloud. You can still enable the ThingsBoard Cloud Data if you configured it locally or on another machine.
 
 4. Access the Public Transit Analytics Dashboard with the following steps.
 
--   Go to sidebar and select **Run Use Case**.
-<img src="docs/public-transit-analytics-ri-run-usecase.png" />
+    -   Go to sidebar and select the **Run Application** menu option.
 
--   Configure the use case. Select video sample and the CPU or GPU device to run on it.
-<img src="docs/public-transit-analytics-ri-dashboard.png" />
+        ![A web app dashboard showing the Run Application menu option.](docs/public-transit-analytics-ri-run-usecase.png)
 
--   Click on the **Browse** button and search for one of the sample videos delivered with the application at the following path:
-    `<INSTALL_PATH>/public_transit_analytics/Public_Transit_Analytics_2021.1/Public_Transit_Analytics/EII-PassengerCounting-UseCase/config/VideoIngestion/test_videos/`
-    and select one of the two available.
-<img src="docs/public-transit-analytics-ri-test-video.png" />
+        Figure 6: Select Run Application Menu Option
 
--   After selecting the video sample, select the target CPU or GPU and click on **Run Use Case.**
+    -   Configure the use case by selecting the video sample and the device for the inference model.
 
--   The application will start the Visualizer App that will detect yawns, blinks, drowsiness and distraction status as in the following image:
-<img src="docs/public-transit-analytics-ri-visualizer.png"/>
+    -   Optionally, you can also set the simulation data that you want to use. You
+        can choose between using the [KnowGo
+        Simulator](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-know-go-simulator.html)
+        or simply use the CSV pre-recorded simulation data.
 
-5. After the visualiser started you can go to Thingsboard Link and check the alerts sent by the
-reference implementation. If you configured the AWS credentials you will have access also to
-pictures taken by the application on the video stream
-<img src="docs/public-transit-analytics-ri-tb-dashboard-with-data.png"/>
+    ### Model Description
+    -   **Face Detection:** Face detector based on ResNet152 as a backbone with a ATSS head for indoor and outdoor scenes shot by a front-facing camera. Select video sample and the CPU or GPU device for the inference model to run on it.
 
-6. You can also check the cloud storage from the Reference Implementation Storage tab
-<img src="docs/public-transit-analytics-ri-aws-storage.png"/>
+        ![A web app dashboard showing the Dashboard.](docs/public-transit-analytics-ri-dashboard.png)
 
+        Figure 7: Configure Use Case
+
+    -   Click on the **Browse** button and search for the sample video delivered with the application at the following path:
+        `<INSTALL_PATH>/public_transit_analytics/Public_Transit_Analytics_2022.1/Public_Transit_Analytics/EII-PassengerCounting-UseCase/config/VideoIngestion/test_videos/`
+        and select the one available.
+        >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+
+        ![Dashboard showing the sample video search results.](docs/public-transit-analytics-ri-test-video.png)
+
+        Figure 8: Search for Sample Video
+
+    -   After selecting the video sample, select the device for the inference model. Options include CPU or GPU. Click on **Run Use Case.**
+
+    -   The application will start the Visualizer App that detects people and counts them as in the following image:
+
+        >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+
+        ![A web app dashboard showing output from the visualizer.](docs/public-transit-analytics-ri-visualizer.png)
+
+        Figure 9: Visualizer Output
+
+
+
+5. After the visualizer starts, you can go to the ThingsBoard link and check the alerts sent by the
+reference implementation. If you configured the AWS credentials, you will also have access to
+pictures taken by the application on the video stream.
+
+    ![A browser window showing the ThingsBoard link with the Intel Fleet Manager dashboard in the main view. Several components are displayed, including Alerts, Temperature, and a map showing the vehicle location.](docs/public-transit-analytics-ri-tb-dashboard-with-data.png)
+
+    Figure 10: Intel Fleet Manager Dashboard shown in ThingsBoard
+
+6. You can also check the cloud storage from the Reference Implementation **Storage** menu option.
+
+    >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+
+    ![A web app dashboard showing the Storage menu option.](docs/public-transit-analytics-ri-aws-storage.png)
+
+    Figure 11: Reference Implementation Storage Menu Option
 
 ## Run in Parallel with Automated License Plate Recognition Reference Implementation
 
-To run this task you will need to download and install [Automated License Plate Recognition](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/public-transit-analitics.html) Reference Implementation.
+To run this task you will need to download and install [Automated License Plate Recognition](https://www.intel.com/content/www/us/en/developer/articles/reference-implementation/public-transit-analytics.html) Reference Implementation.
 
-### Pre-requisites
+For more details about parallel execution, see the Edge Insights for Fleet
+[Use Case Manager](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/use-case-manager.html) documentation.
 
--   Two terminals
+### Prerequisites
 
 -   Follow the steps to install [Automated License Plate Recognition](https://www.intel.com/content/www/us/en/develop/articles/automated-license-plate-recognition.html#install) after installing [Public Transit Analytics](#step-1-install-the-reference-implementation)
 
 ### Steps to Run the Application
 
-1.  Change directory to **Public Transit Analytics Use Case** path on terminal 1:
+1.  Change directory to **EII-UseCaseManager** path on your terminal:
 
-`cd <INSTALL_PATH>/public_transit_analytics/Public_Transit_Analytics_2021.1/Public_Transit_Analytics/EII-PassengerCounting-UseCase`
+    ```bash
+    cd /opt/intel/eif/EII-UseCaseManager
+    ```
 
-<img src="docs/public-transit-analytics-change-directory.png" />
+2.  Run the following command on your terminal to start the web server application.
 
-2.  Change directory to **Automated License Plate Recognition Use Case** path on terminal 2:
+    ```bash
+    make webui
+    ```
 
-`cd <INSTALL_PATH>/automated_license_plate_recognition/Automated_License_Plate_Recognition_2021.1/Automated_License_Plate_Recognition/EII-LicensePlateRecognition-UseCase`
+3.  Open your browser and go to **127.0.0.1:9090**.
 
-<img src="docs/public-transit-analytics-change-directory2.png" />
+4.  Configure both installed reference implementations by setting the **video source** and the **target**. Click on **Run Application**.
 
-3.  Run the following common on terminal 1 to start the webserver application:
+    >**NOTE:** Configure each reference implementation by selecting the desired tab. For example, click the **Run Application** menu option, then click on **PTA** to configure the Public Transit Analytics RI. Next, click on **ALPR** to configure the Automated License Plate Recognition RI.
 
-    Please copy and run the "make webui" command from the end of the installation:
+    ![A browser window showing application with ALPR and PTA tabs - PTA selected.](docs/public-transit-analytics-configure-pta.png)
 
-`make webui EII_BASE=<INSTALL_PATH>/public_transit_analytics/Public_Transit_Analytics_2021.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/public_transit_analytics/Public_Transit_Analytics_2021.1/Public_Transit_Analytics/EII-PassengerCounting-UseCase`
+    Figure 12: Configure Public Transit Analytics Reference Implementation
 
-4.  Run the following command on terminal 2 to start the webserver application:
+    ![A browser window showing application with ALPR and PTA tabs - ALPR selected.](docs/public-transit-analytics-configure-alpr.png)
 
-    Please copy and run the "make webui" command from the end of the installation:
+    Figure 13: Configure Automated License Plate Recognition Reference Implementation
 
-`make webui EII_BASE=<INSTALL_PATH>/public_transit_analytics/Public_Transit_Analytics_2021.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/automated_license_plate_recognition/Automated_License_Plate_Recognition_2021.1/Automated_License_Plate_Recognition/EII-LicensePlateRecognition-UseCase`
+5.  Wait for both Visualizers to get up and running.
 
-<img src="docs/public-transit-analytics-webserver-app.png" />
+    >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-5.  Open your browser and go to **127.0.0.1:9094**.
+    ![A browser window showing output of 2 visualizers in a side-by-side view.](docs/public-transit-analytics-two-use-cases.png)
 
-6.  Configure Public Transit Analytics by setting the **video source**, the **target** and click on **Run Use Case**.
+    Figure 14: Visualizer Output for 2 Reference Implementations
 
-7.  Wait for Visualizer to get up and running.
-
-8.  Open the Automated License Plate Recognition page by going to address **127.0.0.1:9095**.
-
-9.  Configure all available cameras with the desired videos and set the target for each one (**CPU** or **GPU**) and click **Run Use Case**.
-
-<img src="docs/public-transit-analytics-configure-alpr.png" />
-
-At this point Public Transit Analytics will close and after that both use cases will start.
-
-<img src="docs/public-transit-analytics-two-use-cases.png" />
-
->NOTE: If you reinstall the first RI, you must reinstall the second one.
+    >**NOTE:** If you reinstall the first reference implementation, you must also reinstall the second one.
 
 ## Summary and Next Steps
 
 This application successfully implements Intel® Distribution of OpenVINO™ toolkit plugins to
-calculate the number of passengers.
-
+detect and extract the license plate information.
 
 As a next step, try the following:
 
@@ -229,6 +283,8 @@ and the algorithm can be optimized for better performance.
 
 To continue your learning, see the following guides and software resources:
 
+-   For additional reference implementations, visit
+    [Edge Insights for Fleet](https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/edge-solutions/fleet-recipes.html?s=Newest).
 -   [Intel® Distribution of OpenVINO™ toolkit documentation](http://docs.openvinotoolkit.org/2019_R3/index.html)
 
 ## Known Issues
@@ -237,6 +293,15 @@ To continue your learning, see the following guides and software resources:
 
 If you uninstall one of the use cases, you need to reinstall the other ones because the Docker images will be cleared.
 
+### License plate recognition neural network issue
+
+The neural network model used in this RI has 3 limitations:
+-  it has been trained to recognize Chinese license plates
+-  the minimum plate width must be of 94 pixels
+-  only "blue" license plates have been tested thoroughly. Other types of license plates may underperform.
+
+For more details check [OpenVINO™ Model Zoo](https://docs.openvino.ai/latest/omz_models_model_license_plate_recognition_barrier_0007.html)
+
 ## Troubleshooting
 
 ### Installation Failure
@@ -244,37 +309,51 @@ If you uninstall one of the use cases, you need to reinstall the other ones beca
 If the host system already has Docker images and its containers running, you will have issues during the RI installation.
 You must stop/force stop existing containers and images.
 
--   To remove all stopped containers, dangling images, and unused networks:
+-  To remove all stopped containers, dangling images, and unused networks:
 
-`sudo docker system prune --volumes`
+    ```bash
+    sudo docker system prune --volumes
+    ```
 
--   To stop Docker containers:
+-  To stop Docker containers:
 
-`sudo docker stop $(sudo docker ps -aq)`
+    ```bash
+    sudo docker stop $(sudo docker ps -aq)
+    ```
 
--   To remove Docker containers:
+-  To remove Docker containers:
 
-`sudo docker rm $(sudo docker ps -aq)`
+    ```bash
+    sudo docker rm $(sudo docker ps -aq)
+    ```
 
--   To remove all Docker images:
+-  To remove all Docker images:
 
-`sudo docker rmi -f $(sudo docker images -aq)`
+    ```bash
+    sudo docker rmi -f $(sudo docker images -aq)
+    ```
 
 ### Docker Image Build Failure
 
 If Docker image build on corporate network fails, follow the steps below.
 
-1.  Get DNS server using the command:
+1. Get DNS server using the command:
 
-`nmcli dev show | grep 'IP4.DNS'`
+    ```bash
+    nmcli dev show | grep 'IP4.DNS'
+    ```
 
-2.  Configure Docker to use the server. Paste the line below in the `/etc/docker/daemon.json` file:
+2. Configure Docker to use the server. Paste the line below in the `/etc/docker/daemon.json` file:
 
-`{ "dns": ["<dns-server-from-above-command>"]}`
+    ```bash
+    { "dns": ["<dns-server-from-above-command>"]}
+    ```
 
-3.  Restart Docker:
+3. Restart Docker:
 
-`sudo systemctl daemon-reload && sudo systemctl restart docker`
+    ```bash
+    sudo systemctl daemon-reload && sudo systemctl restart docker
+    ```
 
 ### Installation Failure Due to Ubuntu Timezone Setting
 
@@ -284,7 +363,9 @@ While building the reference implementation, if you see `/etc/timezone && apt-ge
 
 Run the following command in your terminal:
 
-`sudo timedatectl set-local-rtc 0`
+```bash
+sudo timedatectl set-local-rtc 0
+```
 
 ### Installation Encoding Issue
 
@@ -292,22 +373,36 @@ While building the reference implementation, if you see `ERROR: 'latin-1' codec 
 
 Run the following command in your terminal:
 
-`export LANG=en_US.UTF-8`
+```bash
+export LANG=en_US.UTF-8
+```
 
 ### Can't Connect to Docker Daemon
 
 If you can't connect to docker daemon at http+docker://localhost, run the following command in your terminal:
 
-`sudo usermod -aG docker $USER`
+```bash
+sudo usermod -aG docker $USER
+```
 
 Log out and log back in to Ubuntu.
 
-Check before retry to install if group docker is available for your user:
+Check before retrying to install if group Docker is available for you by running the following command in a terminal:
 
-In a terminal, run the following command:
-`groups`
+```bash
+groups
+```
 
-The output should contain “docker”.
+The output should contain "docker".
+
+### Installation Timeout When Using pip or apt Commands
+
+You may experience a timeout issue when using the People's Republic of China (PRC)
+internet network.
+
+Make sure that you have a stable internet connection while installing the
+packages. If you experience timeouts due to Linux* apt or Python* pip
+installation, try to reinstall the package.
 
 ### Support Forum
 If you're unable to resolve your issues, contact the [Support Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
