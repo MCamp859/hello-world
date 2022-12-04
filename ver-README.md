@@ -96,9 +96,9 @@ implementation installation.
 
     ![A console window showing system output during the install process. At the end of the process, the system displays the message “Installation of package complete” and the installation status for each module. ](docs/vehicle-event-recording-install-success.png)
 
-   Figure 3: Installation Success
+    Figure 3: Installation Success
 
-   >**NOTE:** If you encounter any issues, refer to the
+    >**NOTE:** If you encounter any issues, refer to the
 [Troubleshooting](#troubleshooting)
 section at the end of this document. Installation failure logs are
 available at the path:
@@ -163,7 +163,7 @@ to enable all dashboard features, including the cloud storage.
     -   After you configure all four videos, select the target CPU, GPU or Hetero (which will combine CPU and GPU) for all models selected. Click on **Run Application**.
 
 
-    #### Model Description
+    **Model Description**
     -   Obstacles Detection is enabled by default - this model will detect cars, pedestrians or other obstacles on the street.
     -   Road Segmentation will classify each pixel into four classes: BG, road, curb, mark.
 
@@ -176,7 +176,7 @@ to enable all dashboard features, including the cloud storage.
     At this point, you can see that the algorithm is analyzing the traffic from the video streams.
 
 
-5. After the visualiser starts, you can go to the ThingsBoard link and check the alerts sent by the
+5. After the visualizer starts, you can go to the ThingsBoard link and check the alerts sent by the
 reference implementation. If you configured the AWS credentials, you will also have access to
 video snapshots taken by the application on the video stream.
 
@@ -184,11 +184,11 @@ video snapshots taken by the application on the video stream.
 
     Figure 9: Intel Fleet Manager Dashboard shown in ThingsBoard
 
-6. You can also check the cloud storage from the Reference Implementation **Storage** tab.
+6. You can also check the cloud storage from the Reference Implementation **Storage** menu option.
 
-    ![A web app dashboard showing the Storage tab.](docs/vehicle-event-recording-ri-cloud-storage.png)
+    ![A web app dashboard showing the Storage menu option.](docs/vehicle-event-recording-ri-cloud-storage.png)
 
-    Figure 10: Reference Implementation Storage Tab
+    Figure 10: Reference Implementation Storage Menu Option
 
 ## Run in Parallel with Driver Behavior Analytics Reference Implementation
 
