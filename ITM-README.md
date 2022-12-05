@@ -25,13 +25,13 @@ software listed below.
 [Configure &
 Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intelligent_traffic_management)
 
-![A grid of 9 surveillance camera video feeds. In each feed, detected cars are brightly outlined with yellow and detected pedestrians are brightly outlined with blue.](docs/intelligent-traffic-management-ri-landing.png)
+![A grid of 8 surveillance camera video feeds. In each feed, detected cars are brightly outlined with yellow and detected pedestrians are brightly outlined with blue.](docs/intelligent-traffic-management-ri-landing.png)
 
 -   **Time to Complete:** 30 - 45 minutes
 -   **Programming Language:** Python\*
 -   **Software:**
-	-   Intel® Distribution of OpenVINO™ toolkit 2021 Release
-	-   Kubernetes*
+    -   Intel® Distribution of OpenVINO™ toolkit 2021 Release
+    -   Kubernetes*
 
 
 ## Target System Requirements
@@ -115,6 +115,9 @@ Figure 2: Architecture Diagram
 
 In order to run the latest version of Intelligent Traffic Management, you will need 2 Linux hosts: one for Kubernetes control plane and one for Kubernetes worker. The following steps describe how to prepare both targets before installing the reference implementation.
 
+>Note: Some of the steps below contain alternate commands for People's Republic
+>of China (PRC) network users.
+
 1. Install docker-ce and docker-compose. Run the following commands on both targets:
 
     - Install the latest Docker CLI and Docker daemon by following the Docker
@@ -161,11 +164,19 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     sudo apt-get install helm
     ```
 
+    If you are using the People’s Republic of China (PRC) network, run the command:
+    ```bash
+    sudo snap install helm --classic
+    ```
 3. Install and configure the Kubernetes cluster. Run the following commands on both targets:
 
     - Get Google key:
         ```bash
         curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+        ```
+        If you are using the PRC network, run:
+        ```bash
+        curl -s  https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add
         ```
 
     - Add kube apt repo:
@@ -173,12 +184,16 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" >> ~/kubernetes.list
         sudo mv ~/kubernetes.list /etc/apt/sources.list.d
         ```
+        If you are using the PRC network, run:
+        ```bash
+        echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" >> ~/kubernetes.list
+        sudo mv ~/kubernetes.list /etc/apt/sources.list.d
+        ```
 
     - Disable swap on your machine. (Kubernetes cluster doesn't work while using swap memory.)
         ```bash
         sudo swapoff -a
         ```
-
 
     - Install Kubernetes binaries:
         ```bash
@@ -190,6 +205,10 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     ```bash
     sudo kubeadm init --pod-network-cidr=10.244.0.0/16
     ```
+    If you are using the PRC network, run:
+    ```bash
+    sudo kubeadm init --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --kubernetes-version=v1.23.4 --pod-network-cidr=10.244.0.0/16
+    ```
 
     >**NOTE:** Save the kube join command prompted at the end of the cluster creation.
 
@@ -198,6 +217,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     - Current user configuration:
 
         ```bash
+        mkdir $HOME/.kube
         sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
         sudo chown $(id -u):$(id -g) $HOME/.kube/config
         ```
@@ -210,19 +230,22 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         exit
         ```
 
-    - Enable kubelet service:
-        ```bash
-        sudo chmod -R 755 /etc/cni/
-        sudo systemctl restart kubelet.service
-        ```
-
     - Check kubelet service status using ``sudo systemctl status kubelet.service`` (status should be active).
 
 6. Add network plugin to your Kubernetes cluster:
     ```bash
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
     ```
+    If you are using the PRC network, run:
+    ```bash
+    kubectl apply -f https://raw.fastgit.org/coreos/flannel/master/Documentation/kube-flannel.yml
+    ```
+
+   - Enable kubelet service:
+        ```bash
+        sudo chmod -R 755 /etc/cni/
+        sudo systemctl restart kubelet.service
+        ```
 
 7. Check that the current node is ready by using the following command:
 
@@ -308,6 +331,16 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     NAME                                    STATUS   ROLES                              AGE     VERSION
     Control-plane-host-name                 Ready    control-plane,master               5m      v1.23.4
     Worker-host-name                        Ready    worker                             1m      v1.23.4
+    ```
+
+12. Install required package on worker node:
+    ```bash
+    sudo apt-get install nfs-kernel-server -y
+    ```
+
+13. Install required package on control plane:
+    ```bash
+    sudo apt-get install jq -y
     ```
 
 >**NOTE:** For local build using harbor local registry, add the following line in the ``/etc/docker/daemon.json`` configuration file: 
@@ -490,7 +523,7 @@ Intelligent Traffic Management.
 
 Figure 14: Detection Results of all the Configured Camera Feeds
 
->**NOTE:** To open combined streams in full tab, go to: ``https://<Controller_IP>:30300/get_all_streams``
+>**NOTE:** To open combined streams in full tab, go to: ``https://<Controller_IP>:30303/get_all_streams``
 
 If the AWS credentials were provided during the installation steps, then you enabled the Cloud Upload feature. 
 
@@ -557,9 +590,48 @@ Change the directory to repository path with one of the following options.
 For GitHub:
 
 ```bash
-git clone
+git clone https://github.com/intel/intelligent-traffic-management.git
 cd intelligent_traffic_management/
+git checkout --track origin/2022.2
 ```
+
+Add the following line in the ``/etc/docker/daemon.json`` configuration file: 
+```bash
+"insecure-registries": ["https://WORKER_IP:30003"]
+```
+
+Restart docker service:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+>**NOTE:** You must check that the pods are ready and restarted after each
+>docker service restart.
+
+
+If the edgesoftware installation was not executed, install Grafana and local Harbor registry:
+
+
+- Grafana steps:
+    ```bash
+    cd intelligent_traffic_management/deploy_grafana
+    chmod +x install_grafana_in_kube.sh
+    sudo ./install_grafana_in_kube.sh -c <Controller_IP> -n <Worker_IP> -p <proxy>
+    ```
+
+- Harbor helm install command:
+
+    ```bash
+    helm repo add harbor https://helm.goharbor.io
+    helm install harbor harbor/harbor --set expose.type=nodePort \
+    --set expose.tls.auto.commonName=harbor_cert \
+    --set externalURL=https://<WORKER_IP>:30003 \
+    --set persistence.enabled=false \
+    --set proxy.http_proxy=<HTTP_PROXY> \
+    --set proxy.https_proxy=<HTTPS_PROXY> \
+    --set proxy.noProxy=127.0.0.1\\,localhost\\,.local\\,.internal\\,WORKER_IP\\,CONTROLLER_IP
+    ```
+
 
 Use your preferred text editor to make the following file updates.
 
@@ -595,6 +667,35 @@ In the Change examples, replace the line indicated by **-** with the line ind
     +   tag: "5.1"
     ```
 
+    Make sure the tag is identical to the tag used on ``build_images.sh`` script.
+
+4. This step is for Public Republic of China (PRC) network users only.
+
+    Update all Dockerfiles listed below with your preferred mirror for apt and Python pip commands.
+
+    ```bash
+    <REPOSITORY_PATH>/src/CloudConnector/Dockerfile
+    <REPOSITORY_PATH>/src/ITMAnalytics/Dockerfile
+    <REPOSITORY_PATH>/src/ITMDashboard/Dockerfile
+    <REPOSITORY_PATH>/src/PipelineServerInit/Dockerfile
+    <REPOSITORY_PATH>/src/RuleEngine/Dockerfile
+    ```
+
+    Example of a Dockerfile git diff change to include Python and Ubuntu apt mirror:
+
+    ```bash
+    USER root
+    +RUN sed -i 's!http://security.ubuntu.com/ubuntu!https://mirrors.tuna.tsinghua.edu.cn/ubuntu!g' /etc/apt/sources.list
+    +RUN sed -i 's!http://archive.ubuntu.com/ubuntu!https://mirrors.tuna.tsinghua.edu.cn/ubuntu!g' /etc/apt/sources.list
+    +
+    RUN apt-get update && apt-get install --no-install-recommends -y \
+                               python3.10 \
+                               python3-pip \
+
+    -RUN pip3 install -r requirements.txt
+    +RUN pip3 install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
+    ```
+
 ### Build and Install
 
 Build the Docker image with the following commands:
@@ -608,7 +709,7 @@ cd <REPOSITORY_PATH>/src/
 ./build_images.sh -c worker_ip   # The local Docker image will be built on the Ubuntu machine.
 ```
 
-Install Helm with the following commands:
+Install ITM application with the following commands:
 
 1. Get Grafana password:
 
@@ -638,7 +739,7 @@ Install Helm with the following commands:
 
     ```bash
     helm install broker broker/ --set namespace=default
-    kubectl wait --namespace=default --for=condition=Ready pods --timeout=600s --selector=app=hivemq-cluster
+    kubectl wait --namespace=default --for=condition=Ready pods --timeout=600s --selector=app=hivemq-cluster1
     ```
 
 
@@ -654,7 +755,8 @@ Install Helm with the following commands:
           --set proxy.https=<HTTPS_PROXY> \
           --set cloud_connector.aws_key=<AWS_KEY_ID> \
           --set cloud_connector.aws_secret=<AWS_SECRET> \
-          --set cloud_connector.aws_bucket=<AWS_BUCKET>
+          --set cloud_connector.aws_bucket=<AWS_BUCKET> \
+          --set cloud_connector.aws_region=<AWS_S3_REGION>
     ```
 
 >**NOTES:**
@@ -665,10 +767,286 @@ Install Helm with the following commands:
 >near miss and overcrowd events. If you don't want this feature enabled, then skip setting these parameters.
 >For instructions on how to configure AWS, refer to the [Set Up Amazon Web Services* Cloud Storage](#set-up-amazon-web-services-cloud-storage) section.
 
-
-
 After step 6 completes, use your preferred browser to access ITM at: ``https://Controller_IP:30300`` and
 Grafana at: ``https://Controller_IP:32000``.
+
+## Single-node deployment
+
+### Pre-requisite
+
+If user is running behind any proxy, ensure the system proxy is
+configured accordingly. Below example to configure the proxy
+environment. Else, user can skip and proceed to start the pre-requisite
+installation from step 1.2
+
+### Edit the /etc/environment file for proxy configuration
+
+$ sudo gedit /etc/environment
+
+Reboot the system for the new changes to take place.
+
+### Install and configuration for Docker*
+
+Follow below steps to continue installation for Docker* CE using the
+repository
+
+1.  Follow step at
+    <https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository>
+    for Set up the repository section.
+
+2.  Follow step at
+    <https://docs.docker.com/engine/install/ubuntu/#install-docker-engine>
+    for install Docker Engine section
+
+3.  ***OPTIONAL*** if user running behind proxy, follow step for
+    section configure docker to use a proxy server at
+    <https://docs.docker.com/engine/install/ubuntu/#install-docker-engine>
+    and HTTP/HTTPS proxy section at
+    <https://docs.docker.com/config/daemon/systemd/#httphttps-proxy> to
+    configure the system proxy.
+
+4.  Follow step at
+    <https://docs.docker.com/engine/install/linux-postinstall/> for
+    manage docker as a non-root user section
+
+5.  Install docker compose at
+    <https://docs.docker.com/compose/install/linux/#install-using-the-repository>
+    by following step for Ubuntu on Install using the repository
+    section.
+
+6.  Configure the docker service
+
+    - Add the following line to ``/etc/docker/daemon.json`` file
+
+    - Restart the docker service for the changes to take place
+
+    ```bash
+    sudo systemctl daemon-reload 
+    sudo systemctl restart docker
+    ```
+
+### Install Helm
+
+Follow below step to install helm component. If the user is running
+behind corporate proxy, please ensure the proxy is being setup
+accordingly.
+
+```bash
+  curl <https://baltocdn.com/helm/signing.asc | sudo apt-key add
+  sudo apt-get install apt-transport-https –y
+  echo "deb <https://baltocdn.com/helm/stable/debian/> all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+  sudo apt-get update
+  sudo apt-get install helm
+```
+
+If you are using the PRC network, run:
+```bash
+sudo snap install helm --classic
+```
+
+### Install and configure Kubernetes Cluster
+
+Follow the steps below to install and configure the Kubernetes cluster on the system. 
+
+>**NOTE:** If the system is rebooted or powered off, you must repeat step 2 to
+>disable swap.
+
+1.  Set up the Kubernetes environment for installation:
+
+    ```bash
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+    echo "deb <https://apt.kubernetes.io/> kubernetes-xenial main" ~/kubernetes.list
+    sudo mv ~/kubernetes.list /etc/apt/sources.list.d
+    ```
+
+    If you are using the PRC network, run:
+    ```bash
+    curl -s  https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add
+    echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" >> ~/kubernetes.list
+    sudo mv ~/kubernetes.list /etc/apt/sources.list.d
+    ```
+
+2.  Disable swap on the system:
+
+    ```bash
+    sudo swapoff -a
+    ```
+
+3.  Install kubelet, kubeadam, kubectl and Kubernetes-cni:
+
+    ```bash
+    sudo apt-get update && sudo apt-get install -yq 
+    kubelet=1.23.4-00 kubeadm=1.23.4-00 kubectl=1.23.4-00
+    kubernetes-cni
+    ```
+
+4.  Initialize the Kubernetes cluster on the machine
+
+    ```bash
+    sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+    ```
+
+    If you are using the PRC network, run:
+    ```bash
+    sudo kubeadm init --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --kubernetes-version=v1.23.4 --pod-network-cidr=10.244.0.0/16
+    ```
+
+5.  Configure access for the Kubernetes cluster for user
+
+    ```bash
+    mkdir -p $HOME/.kube
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    ```
+
+6.  Configure access for the Kubernetes cluster for Root user
+
+    ```bash
+    sudo su -
+    mkdir .kube
+    cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    exit
+    ```
+
+7.  Add the network plugin to the Kubernetes cluster
+
+    ```bash
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+    ```
+
+    If you are using the PRC network, run:
+    ```bash
+    kubectl apply -f https://raw.fastgit.org/coreos/flannel/master/Documentation/kube-flannel.yml
+    ```
+
+8.  Enable the Kubernetes service
+
+    ```bash
+    sudo systemctl restart kubelet.service
+    sudo chmod -R 755 /etc/cni/
+    ```
+
+### Installation ITM on single node deployment 
+
+Below steps will cover the installation of Intelligent Traffic
+Management Reference Implementation on Single-Node
+
+If user is running behind any proxy, please ensure to setup the proxy as
+mentioned on the pre-requisite section before proceeding with below
+steps.
+
+#### Enable Kube cluster on the Machine
+
+Below step will enable the kube cluster setup on the machine
+
+```bash
+kubectl taint nodes --all node-role.kubernetes.io/control-plane node-role.kubernetes.io/master-
+```
+
+#### Install and run ITM reference implementation 
+
+Below steps will install the ITM reference on the machine.
+
+1.  Clone the ITM Github repository
+
+    ```bash
+    git clone https://github.com/intel/intelligent-traffic-management.git
+    cd intelligent_traffic_management/
+    git checkout --track origin/2022.2
+    ```
+
+2.  Install Grafana in Kube using the script on the repository. Replace
+    the IP with the current system IP and use the proxy parameter if the
+    user is running behind proxy.
+
+    ```bash
+    cd intelligent_traffic_management/deploy_grafana
+    chmod +x install_grafana_in_kube.sh
+    sudo ./install_grafana_in_kube.sh -c <IP> -n <IP> -p <proxy>
+    ```
+
+    ![A console window with grafana install successfully](docs/intelligent-traffic-mgmt-ri-grafana-single-node-install.png)
+
+    Figure 20: Grafana install on single-node
+
+3.  Get the grafana service IP and Password for the deployment
+
+    ```bash
+    kubectl describe service -n default grafana |grep -i Endpoint
+    kubectl get secrets/grafana -n default -o json | jq -r '.data."admin-password"' | echo `base64 -d `
+    ```
+
+4.  Add inteldevcloud helm repository
+
+    ```bash
+    helm repo add inteldevcatalog-dev https://charts.inteldevcatalog.com/dev/
+    helm repo update
+    ```
+
+5.  Install ITM hivemq mqtt broker. Before proceeding with next step,
+    ensure the itm-mqtt broker is in running state.
+    
+    ```bash
+    helm install broker inteldevcatalog-dev/itm-mqtt-broker
+    watch -n 0.2 kubectl get pods -A
+    ```
+
+    ![A console window with hive-mq pods ready](docs/intelligent-traffic-mgmt-ri-hive-mq-pods-ready.png)
+
+    Figure 21: HiveMQ* Pods Ready 
+
+6.  Install the ITM application, change the grafana password, grafana
+    IP, host IP accordingly based on the information get on previous few
+    steps. If user is running behind corporate proxy, use the --set
+    proxy.http and --set proxy.https parameter else skip that parameter.
+    The –set num\_video\_instace can be change accordingly to the number
+    of instance that user want to use.
+    
+    ```bash
+    helm install --wait --timeout 20m itm inteldevcatalog-dev/itm-services \
+          --set grafana.password=<Grafana_Password> \
+          --set grafana.ip=<Grafana_PodIP> \
+          --set images.registry=intel/ \
+          --set host_ip=<SYSTEM_IP> \
+          --set namespace=default \
+          --set proxy.http=<HTTP_PROXY> \
+          --set proxy.https=<HTTPS_PROXY> \
+          --set cloud_connector.aws_key=<AWS_KEY_ID> \
+          --set cloud_connector.aws_secret=<AWS_SECRET> \
+          --set cloud_connector.aws_bucket=<AWS_BUCKET> \
+          --set cloud_connector.aws_region=<AWS_S3_REGION>
+    ```
+
+    ![A console window with itm install success](docs/intelligent-traffic-mgmt-ri-install-single-node.png)
+
+    Figure 22: Intelligent Traffic Management Install Success output 
+
+7.  Check on the installation
+    
+    ```bash
+    kubectl get pods -n default
+    ```
+
+    ![A console window with itm pods](docs/intelligent-traffic-mgmt-ri-install-single-node-all-pods.png)
+
+    Figure 23: Intelligent Traffic Management all pods running 
+
+8.  Access the dashboard and Grafana, change the HOST_IP accordingly.
+    Login to Grafana using the ***admin*** as username and password
+    generated from the previous step.
+    
+    Dashboard link https://Controller_IP:30300/dashboard
+
+    ![A console window with itm install success](docs/intelligent-traffic-mgmt-ri-install-dashboard-single-node.png)
+
+    Figure 24: Intelligent Traffic Management Dashboard
+
+    Grafana link : https://HOST_IP:32000  
+
+    ![A console window with itm install success](docs/intelligent-traffic-mgmt-ri-install-grafana-single-node.png)
+
+    Figure 25: Intelligent Traffic Management Grafana Web
+
 
 ## Optional Steps
 
@@ -676,7 +1054,7 @@ Grafana at: ``https://Controller_IP:32000``.
 
 The Helm templates contain all the necessary configurations for the cameras.
 
-If you wish to change the input, edit the ``./helm/services/values.yaml`` file and
+If you wish to change the input, edit the ``./deploy/services/values.yaml`` file and
 add the video inputs to the ``test_videos`` array:
 ```bash
 itm_video_inference:
@@ -692,12 +1070,12 @@ To use camera stream instead of video, replace the video file
 name with ``/dev/video0``
 
 To use RTSP stream instead of video, replace the video file name
-with the RTSP link.
+with the RTSP link. ``- uri: "rtsp://<RTSP_IP>:8554/mystream"``
 
 Each ITM Video Inference service will pick a video input in the order above.
 
 If you wish to change the coordinates, address and the analytics type of the cameras, edit
-the ``./helm/services/templates/itm-analytics-configmap.yaml`` file:
+the ``./deploy/services/templates/itm-analytics-configmap.yaml`` file:
 
 
 -   **address:** Name of the camera’s geographic location. Must be a
@@ -920,7 +1298,7 @@ resources:
 
 -   [Intel® Distribution of OpenVINO™ toolkit
     documentation](https://docs.openvinotoolkit.org/2021.1/index.html)
--   [Intel® DL Streamer documentation ](https://docs.openvino.ai/latest/openvino_docs_dlstreamer.html#doxid-openvino-docs-dlstreamer)
+-   [Intel® DL Streamer documentation](https://docs.openvino.ai/latest/openvino_docs_dlstreamer.html#doxid-openvino-docs-dlstreamer)
 
 ## Troubleshooting
 
