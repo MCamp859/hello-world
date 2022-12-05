@@ -619,14 +619,15 @@ Add the following line in the ``/etc/docker/daemon.json`` configuration file:
 "insecure-registries": ["https://WORKER_IP:30003"]
 ```
 
-Restart docker service:
+Restart the Docker service:
+
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
 >**NOTE:** You must check that the pods are ready and restarted after each
->docker service restart.
+>Docker service restart.
 
 
 If the edgesoftware installation was not executed, install Grafana and local Harbor registry using the below commands.
