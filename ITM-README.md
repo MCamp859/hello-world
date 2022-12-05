@@ -115,7 +115,7 @@ Figure 2: Architecture Diagram
 
 In order to run the latest version of Intelligent Traffic Management, you will need 2 Linux hosts: one for Kubernetes control plane and one for Kubernetes worker. The following steps describe how to prepare both targets before installing the reference implementation.
 
->Note: Some of the steps below contain alternate commands for People's Republic
+>NOTE: Some of the steps below contain alternate commands for People's Republic
 >of China (PRC) network users.
 
 1. Install docker-ce and docker-compose. Run the following commands on both targets:
@@ -230,24 +230,34 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         exit
         ```
 
-    - Check kubelet service status using ``sudo systemctl status kubelet.service`` (status should be active).
 
 6. Add network plugin to your Kubernetes cluster:
     ```bash
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
+
     If you are using the PRC network, run:
     ```bash
     kubectl apply -f https://raw.fastgit.org/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
 
-   - Enable kubelet service:
+7. Enable kubelet service and check status:
+
+    - Enable kubelet service:
         ```bash
         sudo chmod -R 755 /etc/cni/
         sudo systemctl restart kubelet.service
         ```
 
-7. Check that the current node is ready by using the following command:
+    - Check kubelet service status:
+
+        ```bash
+        sudo systemctl status kubelet.service
+        ```
+
+        The expected status is Active.
+
+8. Check that the current node is ready by using the following command:
 
     ```bash
     kubectl get nodes -A
@@ -260,7 +270,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     Machine1          Ready    control-plane,master   1m      v1.23.4
     ```
 
-8. Join Kubernetes worker node:
+9. Join Kubernetes worker node:
     - If you didn't save the join command in step 4, run the following command on the control plane to generate another token. (If you have the join command, skip this step.)
 
         ```bash
@@ -280,7 +290,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         sudo chmod -R 755 /etc/cni/
         ```
 
-9. Configure Kubernetes on the worker side:
+10. Configure Kubernetes on the worker side:
     - Create .kube config folder on worker side:
 
         ```bash
@@ -299,7 +309,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         sudo systemctl restart kubelet.service
         ```
 
-10. Check Kubernetes nodes from both machines to be ready with the command:
+11. Check Kubernetes nodes from both machines to be ready with the command:
 
     ```bash
     kubectl get nodes -A
@@ -313,7 +323,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     Worker-host-name                        Ready    <unassigned>                       1m      v1.23.4
 	```
 
-11. Assign role to the worker node from control-plane host:
+12. Assign role to the worker node from control-plane host:
 
     ```bash
     kubectl label node <node_name> node-role.kubernetes.io/worker=worker
@@ -333,12 +343,12 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     Worker-host-name                        Ready    worker                             1m      v1.23.4
     ```
 
-12. Install required package on worker node:
+13. Install required package on worker node:
     ```bash
     sudo apt-get install nfs-kernel-server -y
     ```
 
-13. Install required package on control plane:
+14. Install required package on control plane:
     ```bash
     sudo apt-get install jq -y
     ```
@@ -605,11 +615,12 @@ Restart docker service:
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
+
 >**NOTE:** You must check that the pods are ready and restarted after each
 >docker service restart.
 
 
-If the edgesoftware installation was not executed, install Grafana and local Harbor registry:
+If the edgesoftware installation was not executed, install Grafana and local Harbor registry using the below commands.
 
 
 - Grafana steps:
@@ -770,66 +781,62 @@ Install ITM application with the following commands:
 After step 6 completes, use your preferred browser to access ITM at: ``https://Controller_IP:30300`` and
 Grafana at: ``https://Controller_IP:32000``.
 
-## Single-node deployment
+## Single Node Deployment
 
-### Pre-requisite
+### Prerequisites
 
-If user is running behind any proxy, ensure the system proxy is
-configured accordingly. Below example to configure the proxy
-environment. Else, user can skip and proceed to start the pre-requisite
-installation from step 1.2
+Be sure you have completed the items below before continuing.
 
-### Edit the /etc/environment file for proxy configuration
+#### Proxy Settings
 
-$ sudo gedit /etc/environment
+If you are not behind a proxy network, skip this section.
 
-Reboot the system for the new changes to take place.
+If you are behind a proxy network, please ensure that proxy addresses are configured in the system. An example of configuring the proxy
+environment is shown below.
 
-### Install and configuration for Docker*
+Edit the ``/etc/environment`` file for proxy configuration.
 
-Follow below steps to continue installation for Docker* CE using the
-repository
+```bash
+sudo gedit /etc/environment
+```
 
-1.  Follow step at
-    <https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository>
-    for Set up the repository section.
+Reboot your system for the new changes to take place.
 
-2.  Follow step at
-    <https://docs.docker.com/engine/install/ubuntu/#install-docker-engine>
-    for install Docker Engine section
+#### Install and Configure Docker*
 
-3.  ***OPTIONAL*** if user running behind proxy, follow step for
-    section configure docker to use a proxy server at
-    <https://docs.docker.com/engine/install/ubuntu/#install-docker-engine>
-    and HTTP/HTTPS proxy section at
-    <https://docs.docker.com/config/daemon/systemd/#httphttps-proxy> to
-    configure the system proxy.
+Follow the below steps to continue installation for Docker* CE using the
+repository.
 
-4.  Follow step at
-    <https://docs.docker.com/engine/install/linux-postinstall/> for
-    manage docker as a non-root user section
+1.  Follow the Docker instructions to [Install using the repository](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
 
-5.  Install docker compose at
-    <https://docs.docker.com/compose/install/linux/#install-using-the-repository>
-    by following step for Ubuntu on Install using the repository
-    section.
+2.  Follow the Docker instructions to [Install Docker engine](https://docs.docker.com/engine/install/ubuntu/#install-docker-engine).
 
-6.  Configure the docker service
+3.  ***OPTIONAL*** If you are running behind a proxy, follow the Docker instructions to [configure Docker to use a proxy server](https://docs.docker.com/engine/install/ubuntu/#install-docker-engine) and the [HTTP/HTTPS proxy section](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy).
 
-    - Add the following line to ``/etc/docker/daemon.json`` file
+4.  Follow the Docker instructions to [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/).
 
-    - Restart the docker service for the changes to take place
+5.  Follow the Docker instructions to [Install docker compose on Ubuntu using
+    the repository](https://docs.docker.com/compose/install/linux/#install-using-the-repository).
 
-    ```bash
-    sudo systemctl daemon-reload 
-    sudo systemctl restart docker
-    ```
+6.  Configure the Docker service:
 
-### Install Helm
+    - Add the following line to ``/etc/docker/daemon.json`` file.
 
-Follow below step to install helm component. If the user is running
-behind corporate proxy, please ensure the proxy is being setup
-accordingly.
+        ```bash
+        TBD TBD TBD
+        ```
+
+    - Restart the docker service for the changes to take place.
+
+        ```bash
+        sudo systemctl daemon-reload
+        sudo systemctl restart docker
+        ```
+
+#### Install Helm
+
+Follow the below steps to install the Helm component. If you are running
+behind a corporate proxy, please ensure the proxy is set up correctly. For details, see [Proxy Settings](#proxy-settings).
 
 ```bash
   curl <https://baltocdn.com/helm/signing.asc | sudo apt-key add
@@ -844,9 +851,9 @@ If you are using the PRC network, run:
 sudo snap install helm --classic
 ```
 
-### Install and configure Kubernetes Cluster
+#### Install and Configure Kubernetes Cluster
 
-Follow the steps below to install and configure the Kubernetes cluster on the system. 
+Follow the steps below to install and configure the Kubernetes cluster on the system.
 
 >**NOTE:** If the system is rebooted or powered off, you must repeat step 2 to
 >disable swap.
@@ -875,12 +882,12 @@ Follow the steps below to install and configure the Kubernetes cluster on the sy
 3.  Install kubelet, kubeadam, kubectl and Kubernetes-cni:
 
     ```bash
-    sudo apt-get update && sudo apt-get install -yq 
+    sudo apt-get update && sudo apt-get install -yq
     kubelet=1.23.4-00 kubeadm=1.23.4-00 kubectl=1.23.4-00
     kubernetes-cni
     ```
 
-4.  Initialize the Kubernetes cluster on the machine
+4.  Initialize the Kubernetes cluster on the machine:
 
     ```bash
     sudo kubeadm init --pod-network-cidr=10.244.0.0/16
@@ -891,7 +898,7 @@ Follow the steps below to install and configure the Kubernetes cluster on the sy
     sudo kubeadm init --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --kubernetes-version=v1.23.4 --pod-network-cidr=10.244.0.0/16
     ```
 
-5.  Configure access for the Kubernetes cluster for user
+5.  Configure access for the Kubernetes cluster for user:
 
     ```bash
     mkdir -p $HOME/.kube
@@ -899,7 +906,7 @@ Follow the steps below to install and configure the Kubernetes cluster on the sy
     sudo chown $(id -u):$(id -g) $HOME/.kube/config
     ```
 
-6.  Configure access for the Kubernetes cluster for Root user
+6.  Configure access for the Kubernetes cluster for Root user:
 
     ```bash
     sudo su -
@@ -908,7 +915,7 @@ Follow the steps below to install and configure the Kubernetes cluster on the sy
     exit
     ```
 
-7.  Add the network plugin to the Kubernetes cluster
+7.  Add the network plugin to the Kubernetes cluster:
 
     ```bash
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
@@ -919,35 +926,34 @@ Follow the steps below to install and configure the Kubernetes cluster on the sy
     kubectl apply -f https://raw.fastgit.org/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
 
-8.  Enable the Kubernetes service
+8.  Enable the Kubernetes service:
 
     ```bash
     sudo systemctl restart kubelet.service
     sudo chmod -R 755 /etc/cni/
     ```
 
-### Installation ITM on single node deployment 
+### Install ITM on Single Node Deployment
 
-Below steps will cover the installation of Intelligent Traffic
-Management Reference Implementation on Single-Node
+The below steps describe how to install the Intelligent Traffic
+Management Reference Implementation on a single node.
 
-If user is running behind any proxy, please ensure to setup the proxy as
-mentioned on the pre-requisite section before proceeding with below
-steps.
+If you are running behind a corporate proxy, please ensure the proxy is set up
+correctly. For details, see [Proxy Settings](#proxy-settings).
 
 #### Enable Kube cluster on the Machine
 
-Below step will enable the kube cluster setup on the machine
+Enable kube cluster setup on the machine with the command:
 
 ```bash
 kubectl taint nodes --all node-role.kubernetes.io/control-plane node-role.kubernetes.io/master-
 ```
 
-#### Install and run ITM reference implementation 
+#### Install and Run ITM Reference Implementation
 
-Below steps will install the ITM reference on the machine.
+Install the ITM reference implementation on the machine with these commands:
 
-1.  Clone the ITM Github repository
+1.  Clone the ITM GitHub repository:
 
     ```bash
     git clone https://github.com/intel/intelligent-traffic-management.git
@@ -956,8 +962,7 @@ Below steps will install the ITM reference on the machine.
     ```
 
 2.  Install Grafana in Kube using the script on the repository. Replace
-    the IP with the current system IP and use the proxy parameter if the
-    user is running behind proxy.
+    the IP with the current system IP and use the proxy parameter if you are running behind a proxy.
 
     ```bash
     cd intelligent_traffic_management/deploy_grafana
@@ -965,42 +970,47 @@ Below steps will install the ITM reference on the machine.
     sudo ./install_grafana_in_kube.sh -c <IP> -n <IP> -p <proxy>
     ```
 
-    ![A console window with grafana install successfully](docs/intelligent-traffic-mgmt-ri-grafana-single-node-install.png)
+    ![A console window showing successfull Grafana install.](docs/intelligent-traffic-mgmt-ri-grafana-single-node-install.png)
 
-    Figure 20: Grafana install on single-node
+    Figure 20: Grafana Install on Single Node
 
-3.  Get the grafana service IP and Password for the deployment
+3.  Get the Grafana service IP and Password for the deployment:
 
     ```bash
     kubectl describe service -n default grafana |grep -i Endpoint
     kubectl get secrets/grafana -n default -o json | jq -r '.data."admin-password"' | echo `base64 -d `
     ```
 
-4.  Add inteldevcloud helm repository
+4.  Add the ``inteldevcloud`` Helm repository:
 
     ```bash
     helm repo add inteldevcatalog-dev https://charts.inteldevcatalog.com/dev/
     helm repo update
     ```
 
-5.  Install ITM hivemq mqtt broker. Before proceeding with next step,
-    ensure the itm-mqtt broker is in running state.
-    
+5.  Install the ITM hivemq mqtt broker:
+
     ```bash
     helm install broker inteldevcatalog-dev/itm-mqtt-broker
     watch -n 0.2 kubectl get pods -A
     ```
 
+    Before proceeding with the next step,
+    ensure the itm-mqtt broker (Pods named ``hivemq-``) is in the running state.
+
     ![A console window with hive-mq pods ready](docs/intelligent-traffic-mgmt-ri-hive-mq-pods-ready.png)
 
-    Figure 21: HiveMQ* Pods Ready 
+    Figure 21: HiveMQ* Pods Ready
 
-6.  Install the ITM application, change the grafana password, grafana
-    IP, host IP accordingly based on the information get on previous few
-    steps. If user is running behind corporate proxy, use the --set
-    proxy.http and --set proxy.https parameter else skip that parameter.
-    The –set num\_video\_instace can be change accordingly to the number
-    of instance that user want to use.
+6.  Install the ITM application and change the Grafana password, Grafana
+    IP, and host IP accordingly using the information from the previous few
+    steps.
+
+    If you are running behind a corporate proxy, use the ``--set proxy.http``
+    and ``--set proxy.https`` parameters, otherwise you can skip those settings.
+
+    The ``--set num\_video\_instance`` can be changed according to the number
+    of instances that you want to use.
     
     ```bash
     helm install --wait --timeout 20m itm inteldevcatalog-dev/itm-services \
@@ -1017,35 +1027,35 @@ Below steps will install the ITM reference on the machine.
           --set cloud_connector.aws_region=<AWS_S3_REGION>
     ```
 
-    ![A console window with itm install success](docs/intelligent-traffic-mgmt-ri-install-single-node.png)
+    ![A console window with showing itm install success.](docs/intelligent-traffic-mgmt-ri-install-single-node.png)
 
-    Figure 22: Intelligent Traffic Management Install Success output 
+    Figure 22: Intelligent Traffic Management Install Success Output
 
-7.  Check on the installation
-    
+7.  Check the installation:
+
     ```bash
     kubectl get pods -n default
     ```
 
-    ![A console window with itm pods](docs/intelligent-traffic-mgmt-ri-install-single-node-all-pods.png)
+    ![A console window showing system output after running the “kubectl get pods” command. The system displays a list of all the pods and the pod status. The expected status for the ITM pods is “Running”.](docs/intelligent-traffic-mgmt-ri-install-single-node-all-pods.png)
 
-    Figure 23: Intelligent Traffic Management all pods running 
+    Figure 23: Intelligent Traffic Management Pods in Running State
 
 8.  Access the dashboard and Grafana, change the HOST_IP accordingly.
     Login to Grafana using the ***admin*** as username and password
     generated from the previous step.
-    
-    Dashboard link https://Controller_IP:30300/dashboard
 
-    ![A console window with itm install success](docs/intelligent-traffic-mgmt-ri-install-dashboard-single-node.png)
+    Dashboard link: ``https://Controller_IP:30300/dashboard``
+
+    ![A browser window showing the ITM dashboard.](docs/intelligent-traffic-mgmt-ri-install-dashboard-single-node.png)
 
     Figure 24: Intelligent Traffic Management Dashboard
 
-    Grafana link : https://HOST_IP:32000  
+    Grafana link: ``https://HOST_IP:32000``
 
-    ![A console window with itm install success](docs/intelligent-traffic-mgmt-ri-install-grafana-single-node.png)
+    ![A browser window showwing the ITM Grafana dashboard.](docs/intelligent-traffic-mgmt-ri-install-grafana-single-node.png)
 
-    Figure 25: Intelligent Traffic Management Grafana Web
+    Figure 25: Intelligent Traffic Management Grafana Dashboard
 
 
 ## Optional Steps
