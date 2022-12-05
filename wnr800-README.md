@@ -42,6 +42,8 @@ Once you have installed the Intel® Smart Edge Open Developer Experience Kit, se
 
 [Configure & Download](http://software.intel.com/iot/edgesoftwarehub/download/home/ri/wireless_network_ready_intelligent_traffic_management)
 
+>**NOTE:** This software package will not work on the People's Republic of China (PRC) network.
+
 For the open source application, visit the [GitHub WNR-ITM
 repository](https://github.com/intel/wireless-network-ready-intelligent-traffic-management)
 for the source code.
