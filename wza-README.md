@@ -1,32 +1,36 @@
 # Work Zone Analytics Reference Implementation
 ## Overview
 
-Based on Intel® Edge Insights for Fleet (EIF) framework, the Work Zone Analytics Reference Implementation delivers DL models, computer vision algorithms, 
-OpenVINO™ toolkit, Edge2Cloud connectivity, and other software dependencies.
-The Work Zone Analytics Reference Implementation uses an IP camera which is mounted at the back of construction machinery. 
-The camera is placed at road work zone and is connected to a Power over Ethernet (PoE) port of an in-vehicle Edge PC based on the Intel® Core™ processor or 
-Intel Atom® processor. 
-The models will detect people standing or walking behind the vehicle, and if an individual person is wearing required Personal Protective Equipment (PPE), 
-which is a hard hat and a lighted vest.
+Based on Intel® Edge Insights for Fleet (EIF) framework, the Work Zone Analytics
+Reference Implementation delivers DL models, computer vision algorithms,
+OpenVINO™ toolkit, Edge2Cloud connectivity, and other software dependencies. The
+Work Zone Analytics Reference Implementation uses an IP camera which is mounted
+at the back of construction machinery. The camera is placed at road work zone
+and is connected to a Power over Ethernet (PoE) port of an in-vehicle Edge PC
+based on the Intel® Core™ processor or Intel Atom® processor. The models will
+detect people standing or walking behind the vehicle, and if an individual
+person is wearing required Personal Protective Equipment (PPE), which is a hard
+hat and a lighted vest.
 
-Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/work_zone_analytics) to download the reference implementation and the software listed below.
+Select **Configure & Download** to download the reference implementation and the software listed below.
 
 [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/work_zone_analytics)
+
 
 >**Legal Disclaimers**\
 Recipient is solely responsible for compliance with all applicable regulatory standards and safety, privacy, and security related requirements concerning Recipient's use of the Intel hardware and software.\
 Recipient is solely responsible for any and all integration tasks, functions, and performance in connection with use of the Intel hardware or software as part of a larger system. Intel does not have sufficient knowledge of any adjoining, connecting, or component parts used with or possibly impacted by the Intel hardware or software or information about operating conditions or operating environments in which the Intel hardware or software may be used by Recipient.  Intel bears no responsibility, liability, or fault for any integration issues associated with the inclusion of the Intel hardware or software into a system.  It is Recipient’s responsibility to design, manage, and assure safeguards to anticipate, monitor, and control component, system, quality, and or safety failures.
 
-| Table 1 |  |
-| ----------- | ----------- |
-| Time to Complete | Approximately 60 minutes |
-| Programming Language | Python* |
-| Available Software | Intel® Distribution of OpenVINO™ toolkit 2020 Release |
+
+-   **Time to Complete:** Approximately 60 minutes
+-   **Programming Language:** Python*
+-   **Available Software:** Intel® Distribution of OpenVINO™ toolkit 2021.4.2 Release
 
 
-**Recommended Hardware**
+### Recommended Hardware
 
-The below hardware is recommended for use with this reference implementation. See the [Recommended Hardware](https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/edge-solutions/hardware.html?s=Newest) page for other suggestions. 
+The below hardware is recommended for use with this reference implementation. For other suggestions, see [Recommended Hardware](https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/edge-solutions/hardware.html?s=Newest).
+
 
 -   [ADLINK MXE-5500 Series](https://www.adlinktech.com/Products/Industrial_PCs_Fanless_Embedded_PCs/IntegratedFanlessEmbeddedComputers/MXE-5500_Series?lang=en)
 
@@ -34,27 +38,32 @@ The below hardware is recommended for use with this reference implementation. Se
 
 ## Target System Requirements
 
--   Ubuntu* 18.04.3 LTS
+-   Ubuntu* 20.04 LTS
 
 -   6th to 10th Generation Intel® Core™ processors with Intel® Iris® Plus graphics or Intel® HD Graphics
 
 ## How It Works
 
-The reference implementation contains a full pipeline of analytics on video streams from a camera which is mounted at the back of construction machinery 
-and is connected with an Intel® Core™ or Intel Atom® processor-based computer.
-Pretrained models are used to detect people standing or walking behind the vehicle, and if an individual person is wearing required 
-Personal Protective Equipment (PPE), which is a hard hat and a lighted vest.
+The reference implementation contains a full pipeline of analytics on video
+streams from a camera which is mounted at the back of construction machinery and
+is connected with an Intel® Core™ or Intel Atom® processor-based computer.
+Pretrained models are used to detect people standing or walking behind the
+vehicle, and if an individual person is wearing required Personal Protective
+Equipment (PPE), which is a hard hat and a lighted vest.
 
-This reference implementation contains a notification subsystem which includes a local dashboard, and a cloud dashboard.
+This reference implementation contains a notification subsystem which includes a cloud dashboard, and a cloud storage.
 
 
-<img src="docs/work-zone-analytics-ri-arch.png"/>
+![The architecture is represented by a complex block diagram.](docs/work-zone-analytics-ri-arch.png)
+
+Figure 1: Architecture Diagram
 
 ## Get Started
 
 ### Step 1: Install the Reference Implementation
 
-Select [Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/work_zone_analytics) to download the reference implementation and then follow the steps below to install it.
+Select **Configure & Download** to download the reference implementation and
+then follow the steps below to install it.
 
 >**NOTE:** The images provided in the reference implementation are ONLY to be used
 for validating the accuracy of detection events.
@@ -70,170 +79,203 @@ implementation installation.
 
 1. Open a new terminal, go to the downloaded folder and unzip the downloaded RI package.
 
-`unzip work_zone_analytics.zip`
+    ```bash
+    unzip work_zone_analytics.zip
+    ```
 
-2. Go to the *work_zone_analytics/* directory.
+2. Go to the `work_zone_analytics/` directory.
 
-`cd work_zone_analytics/`
+    ```bash
+    cd work_zone_analytics/
+    ```
 
 3. Change permission of the executable *edgesoftware* file.
 
-`chmod 755 edgesoftware`
+    ```bash
+    chmod 755 edgesoftware
+    ```
 
 4. Run the command below to install the Reference Implementation.
 
-`./edgesoftware install`
+    ```bash
+    ./edgesoftware install
+    ```
 
 5. During the installation, you will be prompted for the **Product Key**. The **Product Key** is contained in the email you received from Intel confirming your download.
 
+    ![A console window showing a system prompt to enter the product key.](docs/work-zone-analytics-ri-product-key.png)
 
-<img src="docs/work-zone-analytics-ri-product-key.png"/>
+    Figure 2: Product Key
 
 6. When the installation is complete, you see the message "Installation of package complete" and the installation status for each module.
 
-<img src="docs/work-zone-analytics-ri-install.png"/>
+    ![A console window showing system output during the install process. At the end of the process, the system displays the message “Installation of package complete” and the installation status for each module. ](docs/work-zone-analytics-ri-install.png)
 
->**NOTE:** If you encounter any issues, please refer to the
-[Troubleshooting](#troubleshooting)
-section at the end of this document. Installation failure logs will be
-available at the path:
-`/var/log/esb-cli/Work_Zone_Analytics_2022.1/output.log`
+    Figure 3: Installation Success
 
-7. In order to start the application, you need to change the directory using the cd command printed at the end of the installation process:
+    >**NOTE:** If you encounter any issues, refer to the
+    [Troubleshooting](#troubleshooting)
+    section at the end of this document. Installation failure logs will be
+    available at the path:
+    `/var/log/esb-cli/Work_Zone_Analytics_<version>/output.log`
 
-`cd <INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_2022.1/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase`
+7. To start the application, change the directory using the cd command printed
+   at the end of the installation process:
+
+    ```bash
+    cd /opt/intel/eif/EII-UseCaseManager
+    ```
 
 ### Step 2: Run the Application
 
-**Prerequisites**
-- [Set Up ThingsBoard* Local Cloud Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/tutorials/set-up-thingsboard-local-cloud-data.html)
-- [Set Up Amazon Web Services* Cloud Storage](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/tutorials/set-up-amazon-web-services-cloud-storage.html)
+#### Prerequisites
+
+-   [Set Up ThingsBoard* Cloud Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-thingsboard-cloud-data.html)
+-   [Set Up Amazon Web Services* Cloud Storage](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-amazon-web-services-cloud-storage.html)
 
 1. Run the application:
 
-Copy and run the `make webui` command from the end of the installation log:
+    Copy and run the `make webui` command from the end of the installation log:
 
-`make webui EII_BASE=<INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_2022.1/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase`
+    ```bash
+    make webui
+    ```
 
-For example:
+2. Open the Web UI: Go to **127.0.0.1:9090** on your web browser.
 
-`make webui EII_BASE=/home/intel/work_zone_analytics/Work_Zone_Analytics_2022.1/IEdgeInsights REPO_FOLDER=/home/intel/work_zone_analytics/Work_Zone_Analytics_2022.1/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase`
+    ![A browser window showing the reference implementation dashboard.](docs/work-zone-analytics-ri-open-webgui.png)
 
-2. Open the Web UI: Go to **127.0.0.1:9096** on your web browser.
+    Figure 4: Reference Implementation Dashboard
 
-<img src="docs/work-zone-analytics-ri-open-webgui.png" />
+3. If you installed your ThingsBoard Cloud Server and you have enabled S3 Bucket
+   Server on your AWS account, you can provide your configured **AWS Access Key
+   ID**, **AWS Secret Access Key**, **Thingsboard IP**, **Thingsboard Port** and
+   **Thingsboard Device token** on the **Cloud Data Configuration** tab. After you
+   complete the Cloud configuration, make sure you click on the **Save
+   Credentials** and **Save Token** buttons. Now you can import the ThingsBoard
+   dashboard as described at the end of the [Set Up ThingsBoard* Cloud
+   Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-thingsboard-cloud-data.html)
+   to enable all dashboard features, including the cloud storage.
 
-3. If you installed your ThingsBoard Local Cloud Server and you have enabled S3 Bucket Server
-on your AWS account, you can provide your configured **AWS Access Key ID**, **AWS Secret Access Key**,
-**Thingsboard IP**, **Thingsboard Port** and **Thingsboard Device token** on **Cloud Data Configuration** tab.
-After you complete the Cloud configuration, make sure you click on the **Save Credentials** and **Save Token** buttons.
-Now you can import the ThingsBoard dashboard as described at the end of the [Set Up ThingsBoard* Local Cloud Data](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/tutorials/set-up-thingsboard-local-cloud-data.html)
-to enable all dashboard features, including the cloud storage.
+    ![A web app dashboard showing the Configuration tab. Certain fields are
+    covered with a blue bar for security](docs/work-zone-analytics-ri-aws.png)
 
-<img src="docs/work-zone-analytics-ri-aws.png" />
+    Figure 5: Configuration Tab Contents
 
->**NOTE:** If you don't have an AWS account, you can still enable the ThingsBoard Cloud Data.
+    > **NOTE:** If you don't have an AWS account, you will not be able to access Storage Cloud. You can still enable the Thingsboard Cloud Data if you configured it locally or on another machine.
 
 4. Access the Work Zone Analytics Dashboard with the following steps.
 
--   Go to sidebar and select **Run Use Case**.
+    -   Go to sidebar and select the **Run Application** menu option.
 
-<img src="docs/work-zone-analytics-ri-run-usecase.png" />
+        ![A web app dashboard showing the Run Application menu option.](docs/work-zone-analytics-ri-run-usecase.png)
 
--   Configure the use case. Select video sample and the CPU or GPU device to run on it.
-    >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+        Figure 6: Select Run Application Menu Option
 
-<img src="docs/work-zone-analytics-ri-dashboard.png" />
+    -   Configure the use case by selecting the video sample and the device for all UDF models.
+        >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
--   Click on the **Browse** button and search for video on the following path:
-    `<INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_2022.1/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase\config\VideoIngestion\test_videos`
+    -   Optionally, you can also set the simulation data that you want to use. You can choose between using the [KnowGo Simulator](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/set-up-know-go-simulator.html) or simply use the CSV pre-recorded simulation data.
 
--   After selecting the video sample, select the target CPU or GPU and click on **Run Use Case.**
+        #### Model Description
+        -   **Person Detection:** Detects all the persons in the video frame.
+        -   **Safety Classifier:** Detects the safety gear [hard hat(s), safety vest(s)]
+        for every person detected.
 
--   The application will start the Visualizer App that will detect Personal Protective Equipment (PPE), which is a hard hat and a lighted vest as shown in the following image:
-    >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+            ![A web app dashboard showing the Dashboard.](docs/work-zone-analytics-ri-dashboard.png)
 
-<img src="docs/work-zone-analytics-ri-visualizer.png"/>
+            Figure 7: Configure Use Case
+
+    -   Click on the **Browse** button and search for video on the following path:
+        `/opt/intel/eif/EII-UseCaseManager/modules/EII-WorkZoneDetection-UseCase/config/VideoIngestion/test_videos`
+
+    -   After selecting the video sample, select the device for all UDF models. Options include **CPU** or **GPU**. Click on **Run Application.**
+
+    -   The application will start the Visualizer App that will detect Personal Protective Equipment (PPE), which is a hard hat and a lighted vest as shown in the following image:
+
+        >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+
+        ![A web app dashboard showing output from the visualizer.](docs/work-zone-analytics-ri-visualizer.png)
+
+        Figure 8: Visualizer Output
+
+    - **Focal Length** is a configurable parameter that is used to estimate the
+    distance between the camera and the detected object. Lower Focal Length value
+    results in a closer distance to the camera, and a higher Focal Length will
+    result in a higher distance from the camera. The default setting is 600.
+
+        To tune this parameter for the correct distance estimation in the application, you must measure the following:
+        - real distance from camera to object, in meters
+        - width of object, in meters
+        - width of the object in the image, in pixels
+
+        Apply the formula on the measurements: focal_length = (width_pixels * distance)/width_meters and add the result in the **Focal Length** dialog.
+
+
 
 5. After the visualizer starts, you can go to the ThingsBoard link and check the alerts sent by the
 reference implementation. If you configured the AWS credentials, you will also have access to
 video snapshots taken by the application on the video stream.
 
-<img src="docs/work-zone-analytics-ri-tb-dashboard-with-data.png"/>
+    ![A browser window showing the ThingsBoard link with the Intel Fleet Manager dashboard in the main view. Several components are displayed, including Alerts, Temperature, and a map showing the vehicle location.](docs/work-zone-analytics-ri-tb-dashboard-with-data.png)
 
-6. You can also check the cloud storage from the Reference Implementation **Storage** tab.
-   >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+    Figure 9: Intel Fleet Manager Dashboard shown in ThingsBoard
 
-<img src="docs/work-zone-analytics-ri-aws-storage.png"/>
+6. You can also check the cloud storage from the Reference Implementation **Storage** menu option.
+
+    >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
+
+    ![A web app dashboard showing the Storage menu option.](docs/work-zone-analytics-ri-aws-storage.png)
+
+    Figure 10: Reference Implementation Storage Menu Option
 
 
 ## Run in Parallel with Address Recognition and Analytics Reference Implementation
 
 To run this task you will need to download and install [Address Recognition and Analytics](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/address_recognition_and_analytics) Reference Implementation.
 
-### Prerequisites
+For more details about parallel execution, see the Edge Insights for Fleet [Use Case
+Manager](https://www.intel.com/content/www/us/en/develop/documentation/edge-insights-fleet-doc/top/reference-implementations/use-case-manager.html) documentation.
 
--   Two terminals
+### Prerequisites
 
 -   Follow the steps to install [Address Recognition and Analytics](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/address_recognition_and_analytics.html#install) after installing [Work Zone Analytics](#step-1-install-the-reference-implementation)
 
 ### Steps to Run the Application
 
-1.  Change directory to **Address Recognition and Analytics Use Case** path on terminal 1:
+1.  Change directory to **EII-UseCaseManager** path on your terminal:
 
-`cd <INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.1/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase`
+    ```bash
+    cd /opt/intel/eif/EII-UseCaseManager
+    ```
 
-<img src="docs/address-recognition-and-analytics-change-directory.png" />
+2.  Run the following command on your terminal to start the web server application.
 
-2.  Change directory to **Work Zone Analytics Use Case** path on terminal 2:
+    ```bash
+    make webui
+    ```
 
-`cd <INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_2022.1/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase`
+3.  Open your browser and go to **127.0.0.1:9090**.
 
-<img src="docs/address-recognition-and-analytics-change-directory2.png" />
+4.  Configure both installed reference implementations by setting the **video source** and the **target**. Click on **Run Application**.
 
-3.  Run the following command on terminal 1 to start the webserver application.
+    >**NOTE:** Configure each reference implementation by selecting the desired tab. For example, click the **Run Application** menu option, then click on **ARA** to configure the Address Recognition and Analytics RI. Next, click on **WZA** to configure the Work Zone Analytics RI.
 
-Copy and run the `make webui` command from the end of the installation log:
+    ![A browser window showing application with ARA and WZA tabs - ARA selected.](docs/work-zone-analytics-ri-configure-ara.png)
 
-`make webui EII_BASE=<INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.1/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase`
+    Figure 11: Configure Address Recognition and Analytics Reference Implementation
 
-For example:
+    ![A browser window showing application with ARA and WZA tabs - WZA selected.](docs/work-zone-analytics-ri-configure-wza.png)
 
-`make webui EII_BASE=/home/intel/work_zone_analytics/Work_Zone_Analytics_2022.1/IEdgeInsights REPO_FOLDER=/home/intel/address_recognition_and_analytics/Address_Recognition_And_Analytics_2022.1/Address_Recognition_And_Analytics/EII-AddressDetection-UseCase`
+    Figure 12: Configure Work Zone Analytics Reference Implementation
 
+5.  Wait for both Visualizers to get up and running.
 
-4.  Run the following command on terminal 2 to start the webserver application.
-
-Copy and run the `make webui` command from the end of the installation log:
-
-`make webui EII_BASE=<INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_2022.1/IEdgeInsights REPO_FOLDER=<INSTALL_PATH>/work_zone_analytics/Work_Zone_Analytics_2022.1/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase`
-
-For example:
-
-`make webui EII_BASE=/home/intel/work_zone_analytics/Work_Zone_Analytics_2022.1/IEdgeInsights REPO_FOLDER=/home/intel/work_zone_analytics/Work_Zone_Analytics_2022.1/Work_Zone_Analytics/EII-WorkZoneDetection-UseCase`
-
-
-<img src="docs/address-recognition-and-analytics-webserver-app.png" />
-
-5.  Open your browser and go to **127.0.0.1:9097**.
-
-6.  Configure Address Recognition and Analytics by setting the **video source**, the **target** and click on **Run Use Case**.
-
-7.  Wait for Visualizer to get up and running.
-
-8.  Open the Work Zone Analytics page by going to address **127.0.0.1:9096**.
-
-9.  Configure all available cameras with the desired videos and set the target for each one (**CPU** or **GPU**) and click **Run Use Case**.
     >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-<img src="docs/address-recognition-and-analytics-configure-wza.png" />
+    ![A browser window showing output of 2 visualizers in a side-by-side view.](docs/work-zone-analytics-ri-two-use-cases.png)
 
-At this point Address Recognition and Analytics will close and after that both use cases will start.
->**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
-
-<img src="docs/address-recognition-and-analytics-two-use-cases.png" />
-
->**NOTE:** If you reinstall the first reference implementation, you must also reinstall the second one.
+    Figure 13: Visualizer Output for 2 Reference Implementations
 
 ## Summary and Next Steps
 
@@ -242,14 +284,16 @@ detect if an individual person is wearing required Personal Protective Equipment
 
 Extend the reference implementation to:
 
-- Detect other types of PPE, such as boots, with other DL models.  
-- Add distance detection by adding calibration parameters and logic. 
-- Support work zone manager alerts and notifications by extending the reference Cloud Dashboard.
+-   Detect other types of PPE, such as boots, with other DL models.
+-   Add distance detection by adding calibration parameters and logic.
+-   Support work zone manager alerts and notifications by extending the
+    reference Cloud Dashboard.
 
 ## Learn More
 
 To continue your learning, see the following guides and software resources:
 
+-   For additional reference implementations, visit [Edge Insights for Fleet](https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/edge-solutions/fleet-recipes.html?s=Newest).
 -   [Intel® Distribution of OpenVINO™ toolkit documentation](http://docs.openvinotoolkit.org/2019_R3/index.html)
 
 ## Known Issues
@@ -257,7 +301,7 @@ To continue your learning, see the following guides and software resources:
 ### Uninstall Reference Implementation
 
 If you uninstall one of the reference implementations, you need to reinstall
-the other ones because the Docker images will be cleared.
+the other reference implementation because the Docker images will be cleared.
 
 ## Troubleshooting
 
@@ -266,37 +310,51 @@ the other ones because the Docker images will be cleared.
 If the host system already has Docker images and its containers running, you will have issues during the RI installation.
 You must stop/force stop existing containers and images.
 
--   To remove all stopped containers, dangling images, and unused networks:
+-  To remove all stopped containers, dangling images, and unused networks:
 
-`sudo docker system prune --volumes`
+    ```bash
+    sudo docker system prune --volumes
+    ```
 
--   To stop Docker containers:
+-  To stop Docker containers:
 
-`sudo docker stop $(sudo docker ps -aq)`
+    ```bash
+    sudo docker stop $(sudo docker ps -aq)
+    ```
 
--   To remove Docker containers:
+-  To remove Docker containers:
 
-`sudo docker rm $(sudo docker ps -aq)`
+    ```bash
+    sudo docker rm $(sudo docker ps -aq)
+    ```
 
--   To remove all Docker images:
+-  To remove all Docker images:
 
-`sudo docker rmi -f $(sudo docker images -aq)`
+    ```bash
+    sudo docker rmi -f $(sudo docker images -aq)
+    ```
 
 ### Docker Image Build Failure
 
 If Docker image build on corporate network fails, follow the steps below.
 
-1.  Get DNS server using the command:
+1. Get DNS server using the command:
 
-`nmcli dev show | grep 'IP4.DNS'`
+    ```bash
+    nmcli dev show | grep 'IP4.DNS'
+    ```
 
-2.  Configure Docker to use the server. Paste the line below in the `/etc/docker/daemon.json` file:
+2. Configure Docker to use the server. Paste the line below in the `/etc/docker/daemon.json` file:
 
-`{ "dns": ["<dns-server-from-above-command>"]}`
+    ```bash
+    { "dns": ["<dns-server-from-above-command>"]}
+    ```
 
-3.  Restart Docker:
+3. Restart Docker:
 
-`sudo systemctl daemon-reload && sudo systemctl restart docker`
+    ```bash
+    sudo systemctl daemon-reload && sudo systemctl restart docker
+    ```
 
 ### Installation Failure Due to Ubuntu Timezone Setting
 
@@ -306,7 +364,9 @@ While building the reference implementation, if you see `/etc/timezone && apt-ge
 
 Run the following command in your terminal:
 
-`sudo timedatectl set-local-rtc 0`
+```bash
+sudo timedatectl set-local-rtc 0
+```
 
 ### Installation Encoding Issue
 
@@ -314,21 +374,36 @@ While building the reference implementation, if you see `ERROR: 'latin-1' codec 
 
 Run the following command in your terminal:
 
-`export LANG=en_US.UTF-8`
+```bash
+export LANG=en_US.UTF-8
+```
 
 ### Can't Connect to Docker Daemon
 
 If you can't connect to docker daemon at http+docker://localhost, run the following command in your terminal:
 
-`sudo usermod -aG docker $USER`
+```bash
+sudo usermod -aG docker $USER
+```
 
 Log out and log back in to Ubuntu.
 
-Check before retrying to install if group docker is available for you by running the following command in a terminal:
+Check before retrying to install if group Docker is available for you by running the following command in a terminal:
 
-`groups`
+```bash
+groups
+```
 
-The output should contain “docker”.
+The output should contain "docker".
+
+### Installation Timeout When Using pip or apt Commands
+
+You may experience a timeout issue when using the People's Republic of China (PRC)
+internet network.
+
+Make sure that you have a stable internet connection while installing the
+packages. If you experience timeouts due to Linux* apt or Python* pip
+installation, try to reinstall the package.
 
 ### Support Forum
 If you're unable to resolve your issues, contact the [Support Forum](https://software.intel.com/en-us/forums/intel-edge-software-recipes).
