@@ -639,7 +639,7 @@ If the edgesoftware installation was not executed, install Grafana and local Har
     sudo ./install_grafana_in_kube.sh -c <Controller_IP> -n <Worker_IP> -p <proxy>
     ```
 
-- Harbor helm install command:
+- Harbor Helm install command:
 
     ```bash
     helm repo add harbor https://helm.goharbor.io
@@ -835,7 +835,7 @@ repository.
         TBD TBD TBD
         ```
 
-    - Restart the docker service for the changes to take place.
+    - Restart the Docker service for the changes to take place.
 
         ```bash
         sudo systemctl daemon-reload
@@ -1158,24 +1158,27 @@ Cloud Connector - Configuration.
 
 
 1. From your AWS management console, search for IAM and open the IAM Dashboard.
+
    ![A web app dashboard showing the AWS management console with the IAM dashboard in the main view.](docs/intelligent-traffic-mgmt-ri-aws_1.png)
 
-   Figure 20: IAM Dashboard
+   Figure 26: IAM Dashboard
 
 2. On the left menu of the dashboard, go to **Access management** and
    click on **Users** to open the IAM Users tab.
+
    ![The AWS management console showing the IAM dashboard with the IAM Users tab in the main view.](docs/intelligent-traffic-mgmt-ri-aws_2.png)
 
-   Figure 21: IAM Users Tab
+   Figure 27: IAM Users Tab
 
 3. From the IAM users tab, click on **Add User** to access the AWS add
    user setup.
 
 4. On the first tab, provide the username and select the AWS credentials
    type to be **Access key**.
+
    ![The AWS management console showing the IAM dashboard with the Set user details tab in the main view. The User name field is highlighted, indicating you should enter a user name.](docs/intelligent-traffic-mgmt-ri-aws_3.png)
 
-   Figure 22: Set User Details Tab
+   Figure 28: Set User Details Tab
 
 5. On the second tab, create a group to attach policies for the new IAM
    user.
@@ -1186,7 +1189,7 @@ Cloud Connector - Configuration.
 
       ![The AWS management console showing the IAM dashboard with the Create Group tab in the main view. The Group name field is highlighted, indicating you should enter a group name.](docs/intelligent-traffic-mgmt-ri-aws_4.png)
 
-      Figure 23: Create Group Tab
+      Figure 29: Create Group Tab
 
 6. Select the group you have created and click on **Next: Tags**.
 
@@ -1211,7 +1214,7 @@ Cloud Connector - Configuration.
 
       ![The AWS management console showing the IAM dashboard with the Add User Success dialog in the main view. The AWS Key and AWS Secret Access key are covered with a blue bar for security.](docs/intelligent-traffic-mgmt-ri-aws_5.png)
 
-      Figure 24: AWS Key and Secret Access Key
+      Figure 30: AWS Key and Secret Access Key
 
 10. After you have saved the keys, close the tab. You are returned to the
    IAM Dashboard page.
@@ -1239,7 +1242,7 @@ Perform the steps below to set up S3 Bucket Service.
 2. Click on **S3** to open the AWS S3 Bucket dashboard.
    ![The AWS management console showing the AWS S3 Bucket dashboard with the Account snapshot and Buckets list in the main view. The Account Snapshot details, Bucket Name, and AWS Region are covered with a blue bar for security.](docs/intelligent-traffic-mgmt-ri-aws_6.png)
 
-   Figure 25: AWS S3 Bucket Dashboard
+   Figure 31: AWS S3 Bucket Dashboard
 
 3. On the left side menu, click on **Buckets**.
 
@@ -1249,7 +1252,7 @@ Perform the steps below to set up S3 Bucket Service.
 5. Enter a name for your bucket and select your preferred region.
    ![The AWS management console showing the Create Bucket dialog with General Configuration and Block Public Access settings in the main view. The AWS Region is covered with a blue bar for security.](docs/intelligent-traffic-mgmt-ri-aws_7.png)
 
-   Figure 26: Create Bucket General Configuration
+   Figure 32: Create Bucket General Configuration
 
 6. Scroll down and click on **Create Bucket**.
 
@@ -1261,7 +1264,7 @@ Perform the steps below to set up S3 Bucket Service.
    uploads.
    ![The AWS management console showing the Create Bucket dialog with Edit Bucket Policy settings in the main view. The Bucket ARN is covered with a blue bar for security.](docs/intelligent-traffic-mgmt-ri-aws_8.png)
 
-   Figure 27: Edit Bucket Policy
+   Figure 33: Edit Bucket Policy
 
 9. You must add a comma before adding the following information.
     ```bash
