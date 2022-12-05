@@ -191,20 +191,24 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         ```
 
     - Disable swap on your machine. (Kubernetes cluster doesn't work while using swap memory.)
+
         ```bash
         sudo swapoff -a
         ```
 
     - Install Kubernetes binaries:
+
         ```bash
         sudo apt-get update && sudo apt-get install -yq kubelet=1.23.4-00 kubeadm=1.23.4-00 kubectl=1.23.4-00 kubernetes-cni
         ```
 
 
 4. Initialize the Kubernetes cluster on the Control Plane machine:
+
     ```bash
     sudo kubeadm init --pod-network-cidr=10.244.0.0/16
     ```
+
     If you are using the PRC network, run:
     ```bash
     sudo kubeadm init --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --kubernetes-version=v1.23.4 --pod-network-cidr=10.244.0.0/16
@@ -223,6 +227,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         ```
 
     - Root user configuration:
+
         ```bash
         sudo su -
         mkdir .kube
@@ -232,11 +237,13 @@ In order to run the latest version of Intelligent Traffic Management, you will n
 
 
 6. Add network plugin to your Kubernetes cluster:
+
     ```bash
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
 
     If you are using the PRC network, run:
+
     ```bash
     kubectl apply -f https://raw.fastgit.org/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
@@ -309,7 +316,7 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         sudo systemctl restart kubelet.service
         ```
 
-11. Check Kubernetes nodes from both machines to be ready with the command:
+11. Check that Kubernetes nodes on both machines are ready with the command:
 
     ```bash
     kubectl get nodes -A
@@ -344,16 +351,18 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     ```
 
 13. Install required package on worker node:
+
     ```bash
     sudo apt-get install nfs-kernel-server -y
     ```
 
 14. Install required package on control plane:
+
     ```bash
     sudo apt-get install jq -y
     ```
 
->**NOTE:** For local build using harbor local registry, add the following line in the ``/etc/docker/daemon.json`` configuration file: 
+>**NOTE:** For local build using Harbor local registry, add the following line in the ``/etc/docker/daemon.json`` configuration file: 
 ``"insecure-registries": ["https://WORKER_IP:30003"]``
 
 
@@ -376,7 +385,7 @@ Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intell
     are met properly before proceeding further.
 
 
-2.  If you are behind a proxy network, please ensure that proxy addresses are configured in the system:
+2.  If you are behind a proxy network, be sure that proxy addresses are configured in the system:
 
     ```bash
     export http_proxy=proxy-address:proxy-port
@@ -791,8 +800,8 @@ Be sure you have completed the items below before continuing.
 
 If you are not behind a proxy network, skip this section.
 
-If you are behind a proxy network, please ensure that proxy addresses are configured in the system. An example of configuring the proxy
-environment is shown below.
+If you are behind a proxy network, check that proxy addresses are configured in
+the system. An example of configuring the proxy environment is shown below.
 
 Edit the ``/etc/environment`` file for proxy configuration.
 
@@ -811,7 +820,7 @@ repository.
 
 2.  Follow the Docker instructions to [Install Docker engine](https://docs.docker.com/engine/install/ubuntu/#install-docker-engine).
 
-3.  ***OPTIONAL*** If you are running behind a proxy, follow the Docker instructions to [configure Docker to use a proxy server](https://docs.docker.com/engine/install/ubuntu/#install-docker-engine) and the [HTTP/HTTPS proxy section](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy).
+3.  **(OPTIONAL)** If you are running behind a proxy, follow the Docker instructions to [configure Docker to use a proxy server](https://docs.docker.com/network/proxy/) and [Docker daemon HTTP/HTTPS proxy](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy).
 
 4.  Follow the Docker instructions to [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/).
 
@@ -836,7 +845,7 @@ repository.
 #### Install Helm
 
 Follow the below steps to install the Helm component. If you are running
-behind a corporate proxy, please ensure the proxy is set up correctly. For details, see [Proxy Settings](#proxy-settings).
+behind a corporate proxy, be sure the proxy is set up correctly. For details, see [Proxy Settings](#proxy-settings).
 
 ```bash
   curl <https://baltocdn.com/helm/signing.asc | sudo apt-key add
@@ -941,7 +950,7 @@ Management Reference Implementation on a single node.
 If you are running behind a corporate proxy, please ensure the proxy is set up
 correctly. For details, see [Proxy Settings](#proxy-settings).
 
-#### Enable Kube cluster on the Machine
+#### Enable Kube Cluster on the Machine
 
 Enable kube cluster setup on the machine with the command:
 
@@ -970,7 +979,7 @@ Install the ITM reference implementation on the machine with these commands:
     sudo ./install_grafana_in_kube.sh -c <IP> -n <IP> -p <proxy>
     ```
 
-    ![A console window showing successfull Grafana install.](docs/intelligent-traffic-mgmt-ri-grafana-single-node-install.png)
+    ![A console window showing successful Grafana install.](docs/intelligent-traffic-mgmt-ri-grafana-single-node-install.png)
 
     Figure 20: Grafana Install on Single Node
 
@@ -988,29 +997,29 @@ Install the ITM reference implementation on the machine with these commands:
     helm repo update
     ```
 
-5.  Install the ITM hivemq mqtt broker:
+5.  Install the ITM ``hivemq`` mqtt broker:
 
     ```bash
     helm install broker inteldevcatalog-dev/itm-mqtt-broker
     watch -n 0.2 kubectl get pods -A
     ```
 
-    Before proceeding with the next step,
-    ensure the itm-mqtt broker (Pods named ``hivemq-``) is in the running state.
+    Before proceeding with the next step, ensure itm-mqtt broker pods named
+    ``hivemq-`` are in the running state.
 
-    ![A console window with hive-mq pods ready](docs/intelligent-traffic-mgmt-ri-hive-mq-pods-ready.png)
+    ![A console window with hive-mq pods ready.](docs/intelligent-traffic-mgmt-ri-hive-mq-pods-ready.png)
 
     Figure 21: HiveMQ* Pods Ready
 
 6.  Install the ITM application and change the Grafana password, Grafana
-    IP, and host IP accordingly using the information from the previous few
+    IP, and host IP using the information from the previous few
     steps.
 
     If you are running behind a corporate proxy, use the ``--set proxy.http``
     and ``--set proxy.https`` parameters, otherwise you can skip those settings.
 
-    The ``--set num\_video\_instance`` can be changed according to the number
-    of instances that you want to use.
+    The ``--set num_video_instance`` parameter can be changed according to the
+    number of instances that you want to use.
     
     ```bash
     helm install --wait --timeout 20m itm inteldevcatalog-dev/itm-services \
@@ -1027,7 +1036,7 @@ Install the ITM reference implementation on the machine with these commands:
           --set cloud_connector.aws_region=<AWS_S3_REGION>
     ```
 
-    ![A console window with showing itm install success.](docs/intelligent-traffic-mgmt-ri-install-single-node.png)
+    ![A console window with showing ITM install success.](docs/intelligent-traffic-mgmt-ri-install-single-node.png)
 
     Figure 22: Intelligent Traffic Management Install Success Output
 
