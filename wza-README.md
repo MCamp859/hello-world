@@ -209,8 +209,9 @@ implementation installation.
         - width of object, in meters
         - width of the object in the image, in pixels
 
-        Apply the formula on the measurements: focal_length = (width_pixels * distance)/width_meters and add the result in the **Focal Length** dialog.
-
+        Apply the formula on the measurements:
+        `focal_length = (width_pixels * distance)/width_meters` and add the
+        result in the **Focal Length** dialog.
 
 
 5. After the visualizer starts, you can go to the ThingsBoard link and check the alerts sent by the
