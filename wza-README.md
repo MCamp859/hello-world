@@ -54,7 +54,7 @@ Equipment (PPE), which is a hard hat and a lighted vest.
 This reference implementation contains a notification subsystem which includes a cloud dashboard, and a cloud storage.
 
 
-![The architecture is represented by a complex block diagram.](docs/work-zone-analytics-ri-arch.png)
+![The architecture is represented by a complex block diagram.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-arch.png)
 
 Figure 1: Architecture Diagram
 
@@ -103,13 +103,13 @@ implementation installation.
 
 5. During the installation, you will be prompted for the **Product Key**. The **Product Key** is contained in the email you received from Intel confirming your download.
 
-    ![A console window showing a system prompt to enter the product key.](docs/work-zone-analytics-ri-product-key.png)
+    ![A console window showing a system prompt to enter the product key.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-product-key.png)
 
     Figure 2: Product Key
 
 6. When the installation is complete, you see the message "Installation of package complete" and the installation status for each module.
 
-    ![A console window showing system output during the install process. At the end of the process, the system displays the message “Installation of package complete” and the installation status for each module. ](docs/work-zone-analytics-ri-install.png)
+    ![A console window showing system output during the install process. At the end of the process, the system displays the message “Installation of package complete” and the installation status for each module. ](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-install.png)
 
     Figure 3: Installation Success
 
@@ -143,7 +143,7 @@ implementation installation.
 
 2. Open the Web UI: Go to **127.0.0.1:9090** on your web browser.
 
-    ![A browser window showing the reference implementation dashboard.](docs/work-zone-analytics-ri-open-webgui.png)
+    ![A browser window showing the reference implementation dashboard.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-open-webgui.png)
 
     Figure 4: Reference Implementation Dashboard
 
@@ -158,7 +158,7 @@ implementation installation.
    to enable all dashboard features, including the cloud storage.
 
     ![A web app dashboard showing the Configuration tab. Certain fields are
-    covered with a blue bar for security](docs/work-zone-analytics-ri-aws.png)
+    covered with a blue bar for security](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-aws.png)
 
     Figure 5: Configuration Tab Contents
 
@@ -168,7 +168,7 @@ implementation installation.
 
     -   Go to sidebar and select the **Run Application** menu option.
 
-        ![A web app dashboard showing the Run Application menu option.](docs/work-zone-analytics-ri-run-usecase.png)
+        ![A web app dashboard showing the Run Application menu option.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-run-usecase.png)
 
         Figure 6: Select Run Application Menu Option
 
@@ -182,7 +182,7 @@ implementation installation.
         -   **Safety Classifier:** Detects the safety gear [hard hat(s), safety vest(s)]
         for every person detected.
 
-            ![A web app dashboard showing the Dashboard.](docs/work-zone-analytics-ri-dashboard.png)
+            ![A web app dashboard showing the Dashboard.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-dashboard.png)
 
             Figure 7: Configure Use Case
 
@@ -195,7 +195,7 @@ implementation installation.
 
         >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-        ![A web app dashboard showing output from the visualizer.](docs/work-zone-analytics-ri-visualizer.png)
+        ![A web app dashboard showing output from the visualizer.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-visualizer.png)
 
         Figure 8: Visualizer Output
 
@@ -218,7 +218,7 @@ implementation installation.
 reference implementation. If you configured the AWS credentials, you will also have access to
 video snapshots taken by the application on the video stream.
 
-    ![A browser window showing the ThingsBoard link with the Intel Fleet Manager dashboard in the main view. Several components are displayed, including Alerts, Temperature, and a map showing the vehicle location.](docs/work-zone-analytics-ri-tb-dashboard-with-data.png)
+    ![A browser window showing the ThingsBoard link with the Intel Fleet Manager dashboard in the main view. Several components are displayed, including Alerts, Temperature, and a map showing the vehicle location.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-tb-dashboard-with-data.png)
 
     Figure 9: Intel Fleet Manager Dashboard shown in ThingsBoard
 
@@ -226,7 +226,7 @@ video snapshots taken by the application on the video stream.
 
     >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-    ![A web app dashboard showing the Storage menu option.](docs/work-zone-analytics-ri-aws-storage.png)
+    ![A web app dashboard showing the Storage menu option.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-aws-storage.png)
 
     Figure 10: Reference Implementation Storage Menu Option
 
@@ -260,21 +260,22 @@ Manager](https://www.intel.com/content/www/us/en/develop/documentation/edge-insi
 
 4.  Configure both installed reference implementations by setting the **video source** and the **target**. Click on **Run Application**.
 
-    >**NOTE:** Configure each reference implementation by selecting the desired tab. For example, click the **Run Application** menu option, then click on **ARA** to configure the Address Recognition and Analytics RI. Next, click on **WZA** to configure the Work Zone Analytics RI.
+    >**NOTE:** Configure each reference implementation by selecting the desired tab. For example, click the **Run Application** menu option, then click on **WZA** to configure the Work Zone Analytics RI. Next, click on **ARA** to configure the Address Recognition and Analytics RI.
 
-    ![A browser window showing application with ARA and WZA tabs - ARA selected.](docs/work-zone-analytics-ri-configure-ara.png)
+    ![A browser window showing application with ARA and WZA tabs - WZA selected.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-configure-wza.png)
+
+    Figure 12: Configure Work Zone Analytics Reference Implementation
+
+    ![A browser window showing application with ARA and WZA tabs - ARA selected.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-configure-ara.png)
 
     Figure 11: Configure Address Recognition and Analytics Reference Implementation
 
-    ![A browser window showing application with ARA and WZA tabs - WZA selected.](docs/work-zone-analytics-ri-configure-wza.png)
-
-    Figure 12: Configure Work Zone Analytics Reference Implementation
 
 5.  Wait for both Visualizers to get up and running.
 
     >**NOTE:** These images are ONLY to be used for validating the accuracy of detection events.
 
-    ![A browser window showing output of 2 visualizers in a side-by-side view.](docs/work-zone-analytics-ri-two-use-cases.png)
+    ![A browser window showing output of 2 visualizers in a side-by-side view.](/content/dam/develop/external/us/en/images/reference-implementation/work-zone-analytics-ri-two-use-cases.png)
 
     Figure 13: Visualizer Output for 2 Reference Implementations
 
