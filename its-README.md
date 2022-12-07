@@ -2,20 +2,25 @@
 
 ## Overview
 
-Create a solution that monitors vehicles in traffic using Intel® Edge Video
-Infrastructure Reference Architecture and Intel® Smart Edge Open.
+A reference implementation for a solution that monitors vehicles in traffic to
+extract information useful for several applications for cities. The solution is
+using Intel® Edge Video Infrastructure Reference Architecture and Intel® Smart
+Edge Open.
 
 *  Intel® Edge Video Infrastructure Reference Architecture: A containerized,
-   microservice architecture used to easily deploy video processing, AI, and big
-   data edge video applications.
+   microservice architecture used to easily deploy video processing, AI, and
+   edge video applications with big data analysis.
 
-*  Intel® Smart Edge Open: A software toolkit for building edge platforms.
+*  Intel® Smart Edge: An Edge Native software framework solutions enabling
+   microservices-based workload (for edge applications and network services)
+   onboarding, orchestration and management with diverse optimization on Intel
+   hardware.
 
 To run the Intelligent Traffic Searching (ITS) reference implementation, you
-will need to first download and install the [Intel® Smart Edge Open Developer
+will need to first download and install the [Intel® Smart Edge Developer
 Experience Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
 
-Once you have installed the Intel® Smart Edge Open Developer Experience Kit,
+Once you have installed the Intel® Smart Edge Developer Experience Kit,
 select **Configure & Download** to download the reference implementation and the
 software listed below.
 
@@ -23,12 +28,12 @@ software listed below.
 
 -  **Time to Complete:** Approximately 60 - 90 minutes
 -  **Programming Language:** Python\*, C++
--  **Software:** Intel® Smart Edge Open Developer Experience Kit version 22.03.03
+-  **Software:** Intel® Smart Edge Developer Experience Kit version 22.03.03
 
 
 ## Target System Requirements
 
-### Intel® Smart Edge Open Nodes
+### Intel® Smart Edge Nodes
 
 * Intel® Xeon® Scalable Processor, such as
     * Intel® Xeon® Gold 6330 Processor @ 2.00 GHz
@@ -94,17 +99,14 @@ the huge amount of database and returns the best matching pictures to the user.
 
 ### Prerequisites
 
-To run the reference implementation, you will need to first download and install the [Intel® Smart Edge Open Developer Experience Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
+To run the reference implementation, you will need to first download and install the [Intel® Smart Edge Developer Experience Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
 
-Make sure that Intel® Smart Edge Open Developer Experience Kit package is
-installed properly as per installation guide to ensure a smooth installation of
-ITS RI.
+Make sure that Intel® Smart Edge Open Developer Experience Kit package is installed properly as per installation guide to ensure a smooth installation of ITS RI.
 
 Refer to the link below:
-[Intel® Smart Edge Open Developer Experience Kit Install](https://github.com/smart-edge-open/docs/blob/main/experience-kits/developer-experience-kit.md#install-the-developer-experience-kit)
+[Intel® Smart Edge Developer Experience Kit Install](https://github.com/smart-edge-open/docs/blob/main/experience-kits/developer-experience-kit.md#install-the-developer-experience-kit)
 
-Configure the Docker\* logging driver to prevent running out of storage space by
-editing `/etc/docker/daemon.json`:
+Configure the Docker\* logging driver to prevent running out of storage space by editing `/etc/docker/daemon.json`:
 
 ```console
 "log-driver": "json-file",
@@ -206,55 +208,47 @@ then follow the steps below to install it.
 
     * For single-device mode, only one machine is needed. (Both controller and edge node will be on same device.)
 
-    > NOTE : Multi-device mode is not supported in the current release.
+    > NOTE: Multi-device mode is not supported in the current release.
 
-2. Create a user account for Intel® Smart Edge Open:
+2. If you are behind a proxy network, be sure that proxy addresses are configured in the system:
 
     ```bash
-    sudo adduser "smartedge-open"
-    sudo passwd "smartedge-open"
-    echo "smartedge-open ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/smartedge-open
+    export http_proxy=proxy-address:proxy-port
+    export https_proxy=proxy-address:proxy-port
     ```
 
-3. Open a new terminal as smartedge-open user:
+3. Under the user deploy Intel® Smart Edge Developer Experience Kit (DEK), for example `smartedge`, download the ITS RI package:
 
     ```bash
-    su - smartedge-open
+    mkdir <path-of-downloaded-directory>
     ```
 
-4. Generate an SSH key under smartedge-open user:
+4. Move the downloaded zip package to the `/home/smartedge` folder.
 
     ```bash
-    ssh-keygen
-    ssh-copy-id smartedge-open@target_server_IP
+    mv <path-of-downloaded-directory>/intelligent-traffic-searching.zip /home/smartedge
     ```
 
-5. Move the downloaded zip package to the `/home/smartedge-open` folder.
+5. Go to the `/home/smartedge` directory using the following command and unzip the RI:
 
     ```bash
-    sudo mv <path-of-downloaded-directory>/intelligent-traffic-searching.zip /home/smartedge-open
-    ```
-
-6. Go to the `/home/smartedge-open` directory using the following command and unzip the RI:
-
-    ```bash
-    cd /home/smartedge-open
+    cd /home/smartedge
     unzip intelligent-traffic-searching.zip
     ```
 
-7. Go to the `intelligent-traffic-searching/` directory: 
+6. Go to the `intelligent-traffic-searching/` directory: 
 
     ```bash
     cd intelligent-traffic-searching/
     ```
 
-8. Change permission of the executable edgesoftware file: 
+7. Change permission of the executable edgesoftware file: 
 
     ```bash
     chmod 755 edgesoftware
     ```
 
-9. Run the command below to install the Reference Implementation: 
+8. Run the command below to install the Reference Implementation: 
 
     ```bash
     ./edgesoftware install
@@ -263,7 +257,7 @@ then follow the steps below to install it.
     >**NOTE:** Installation logs are available at the following path:
     ``/var/log/esb-cli/Intelligent_Traffic_Searching_Reference_Implementation_<version>/output.log``
 
-10. When the installation is complete, you see the message “Installation of package complete” and the installation status for each module.
+9. When the installation is complete, you see the message “Installation of package complete” and the installation status for each module.
 
     ![A console window showing system output during the install process.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-install-success.png)
 
@@ -275,7 +269,7 @@ then follow the steps below to install it.
     are deployed, and the wait time will depend upon the network bandwidth
     available.
 
-11. If Intel® Smart Edge Open Developer Experience Kit is installed, running the following command should show output similar
+10. If Intel® Smart Edge Developer Experience Kit is installed, running the following command should show output similar
     to the outputs below. All the pods should be either in running or completed stage.
 
     ```bash
@@ -286,7 +280,7 @@ then follow the steps below to install it.
 
     Figure 5: Pods Status
 
-12. If ITS RI is installed, running the following command should show output as follows:
+11. If ITS RI is installed, running the following command should show output as follows:
 
     ```bash
     kubectl get pods -n smartedge-apps
@@ -423,7 +417,7 @@ bash ./reset_demo_data.sh -y
 1. Check installed modules with the following command:
 
     ```bash
-    cd /home/smartedge-open/intelligent-traffic-searching
+    cd /home/smartedge/intelligent-traffic-searching
     ./edgesoftware list
     ```
     ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-esh-list.png)
@@ -450,17 +444,18 @@ bash ./reset_demo_data.sh -y
 ## Summary and Next Steps
 
 ITS is an easy-to-deploy cloud native software suite to meet the "image
-searching in huge database" requirements in smart traffic management in video
-domain. As a next step, you can extend the RI with customized service and
-application modules. You can also visit ESH to try other Reference Implementations.
+searching in huge database" requirements in smart traffic management in diverse
+applications for cities. As a next step, you can extend the Reference
+Implementation with customized services helping widerapplication. You can also
+visit ESH to try other Reference Implementations.
 
 
 ## Learn More
 
 To continue learning, see the following guides:
 
--  [Intel® Smart Edge Open Developer Experience Kit](https://smart-edge-open.github.io/ido-specs/doc/architecture/)
--  [Intel® Distribution of OpenVINO™ Toolkit](https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/overview.html)
+-   [Intel® Smart Edge Developer Experience Kit](https://smart-edge-open.github.io/ido-specs/doc/architecture/)
+-   [Intel® Distribution of OpenVINO™ Toolkit](https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/overview.html)
 
 
 ## Support Forum
