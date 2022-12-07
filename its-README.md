@@ -55,13 +55,13 @@ After you complete the installation, you will have the following components:
 
 ### Architecture
 
-![The architecture is represented by a complex block diagram.](./images/intelligent-traffic-searching-ri-arch-diagram.png)
+![The architecture is represented by a complex block diagram.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-arch-diagram.png)
 
 Figure 1: Architecture Diagram
 
 ### Typical Workflow
 
-![The typical workflow is represented by a complex block diagram.](./images/intelligent-traffic-searching-ri-typical-workflow.png)
+![The typical workflow is represented by a complex block diagram.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-typical-workflow.png)
 
 Figure 2: ITS RI Typical Workflow
 
@@ -79,12 +79,16 @@ Figure 2: ITS RI Typical Workflow
 The Use Case diagram below shows the workflow of search image by image use case.
 
 ![The Use Case for search image by image is represented by a complex block
-diagram.](./images/intelligent-traffic-searching-ri-use-case.png)
+diagram.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-use-case.png)
 
 Figure 3: Use Case Diagram
 
-The Search Image by Image Sample Application leverages the *Media & AI Inference* and *Feature Matching* Service to search the target image(s) in huge database.
-It invokes the *Media & AI Inference* service to decode the input image and extract the vehicle feature from it, and then sends the feature to *Feature Matching* service which will do the feature matching/searching against the huge amount of database and returns the best matching pictures to the user.
+The Search Image by Image Sample Application leverages the *Media & AI
+Inference* and *Feature Matching* Service to search the target image(s) in huge
+database. It invokes the *Media & AI Inference* service to decode the input
+image and extract the vehicle feature from it, and then sends the feature to
+*Feature Matching* service which will do the feature matching/searching against
+the huge amount of database and returns the best matching pictures to the user.
 
 ## Get Started
 
@@ -92,12 +96,15 @@ It invokes the *Media & AI Inference* service to decode the input image and extr
 
 To run the reference implementation, you will need to first download and install the [Intel® Smart Edge Open Developer Experience Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
 
-Make sure that Intel® Smart Edge Open Developer Experience Kit package is installed properly as per installation guide to ensure a smooth installation of ITS RI.
+Make sure that Intel® Smart Edge Open Developer Experience Kit package is
+installed properly as per installation guide to ensure a smooth installation of
+ITS RI.
 
 Refer to the link below:
 [Intel® Smart Edge Open Developer Experience Kit Install](https://github.com/smart-edge-open/docs/blob/main/experience-kits/developer-experience-kit.md#install-the-developer-experience-kit)
 
-Configure the Docker\* logging driver to prevent running out of storage space by editing `/etc/docker/daemon.json`:
+Configure the Docker\* logging driver to prevent running out of storage space by
+editing `/etc/docker/daemon.json`:
 
 ```console
 "log-driver": "json-file",
@@ -258,7 +265,7 @@ then follow the steps below to install it.
 
 10. When the installation is complete, you see the message “Installation of package complete” and the installation status for each module.
 
-    ![A console window showing system output during the install process.](images/intelligent-traffic-searching-ri-install-success.png)
+    ![A console window showing system output during the install process.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-install-success.png)
 
     Figure 4: Install Success
 
@@ -275,7 +282,7 @@ then follow the steps below to install it.
     $ kubectl get pods -A
     ```
 
-    ![A console window showing system output after running the "kubectl get pods" command. The system displays a list of all the pods and the pod status. The expected status is "Running" or "Completed".](images/intelligent-traffic-searching-ri-pods-status.png)
+    ![A console window showing system output after running the "kubectl get pods" command. The system displays a list of all the pods and the pod status. The expected status is "Running" or "Completed".](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-pods-status.png)
 
     Figure 5: Pods Status
 
@@ -285,7 +292,7 @@ then follow the steps below to install it.
     kubectl get pods -n smartedge-apps
     ```
 
-    ![A console window showing system output after running the "kubectl get pods" command.](images/intelligent-traffic-searching-ri-its-pods.png)
+    ![A console window showing system output after running the "kubectl get pods" command.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-its-pods.png)
 
     Figure 6: ITS Pods Status
 
@@ -377,7 +384,7 @@ Now, visit `https://$host:$port` through a browser (such as Chrome\*). Login wit
 * User: `evi`
 * Password: `evi`
 
-![A browser window showing the EVI login screen.](images/intelligent-traffic-searching-ri-query-evi-login.png)
+![A browser window showing the EVI login screen.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-query-evi-login.png)
 
 Figure 7: EVI Login Screen
 
@@ -385,7 +392,7 @@ Figure 7: EVI Login Screen
 
 #### Query Image
 
-![A browser window showing a large map of a city. Many vehicles are identified on the map. A rectangular area is highlighted in blue.](images/intelligent-traffic-searching-ri-query-image.png)
+![A browser window showing a large map of a city. Many vehicles are identified on the map. A rectangular area is highlighted in blue.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-query-image.png)
 
 Figure 8: Map in Browser
 
@@ -394,7 +401,7 @@ Figure 8: Map in Browser
 3. Specify filter criteria. The valid date range is `2021.08.10 - 2021.08.12`.
 4. Click **Search** button.
 
-![A browser window showing a large map of a city. The right side of the window shows the search results pane.](images/intelligent-traffic-searching-ri-query-history.png)
+![A browser window showing a large map of a city. The right side of the window shows the search results pane.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-query-history.png)
 
 Figure 9: Search Results
 
@@ -419,7 +426,7 @@ bash ./reset_demo_data.sh -y
     cd /home/smartedge-open/intelligent-traffic-searching
     ./edgesoftware list
     ```
-    ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](images/intelligent-traffic-searching-ri-esh-list.png)
+    ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-esh-list.png)
 
     Figure 10: Module List
 
@@ -435,7 +442,7 @@ bash ./reset_demo_data.sh -y
     ./edgesoftware uninstall <its-id>
     ```
 
-    ![A console window showing the output of the "edgesoftware uninstall" command. At the end of the process, the system displays the message "Uninstall finished" and the uninstallation status for each module.](images/intelligent-traffic-searching-ri-esh-uninstall.png)
+    ![A console window showing the output of the "edgesoftware uninstall" command. At the end of the process, the system displays the message "Uninstall finished" and the uninstallation status for each module.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-esh-uninstall.png)
 
     Figure 11: Uninstallation Successful
 
@@ -453,8 +460,7 @@ application modules. You can also visit ESH to try other Reference Implementatio
 To continue learning, see the following guides:
 
 -  [Intel® Smart Edge Open Developer Experience Kit](https://smart-edge-open.github.io/ido-specs/doc/architecture/)
--  [relevant link title](URL) *OPEN*
--  [relevant link title](URL) *OPEN*
+-  [Intel® Distribution of OpenVINO™ Toolkit](https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/overview.html)
 
 
 ## Support Forum
