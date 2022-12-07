@@ -1017,9 +1017,9 @@ Install the ITM reference implementation on the machine with these commands:
     If you are running behind a corporate proxy, use the ``--set proxy.http``
     and ``--set proxy.https`` parameters, otherwise you can skip those settings.
 
-    The ``--set num_video_instance`` parameter is optional. The default value is
-    8. You can change the value to the number of instances that you want to use.
-    
+    The ``--set num_video_instance`` parameter is optional. The default value is 8.
+    You can change the value to the number of instances that you want to use.
+
     ```bash
     helm install --wait --timeout 20m itm intel/itm-services \
           --set grafana.password=<Grafana_Password> \
@@ -1086,10 +1086,10 @@ itm_video_inference:
 ```
 
 To use camera stream instead of video, replace the video file
-name with ``/dev/video0``
+name with: ``/dev/video0``
 
 To use RTSP stream instead of video, replace the video file name
-with the RTSP link. ``- uri: "rtsp://<RTSP_IP>:8554/mystream"``
+with the RTSP link: ``- uri: "rtsp://<RTSP_IP>:8554/mystream"``
 
 Each ITM Video Inference service will pick a video input in the order above.
 
