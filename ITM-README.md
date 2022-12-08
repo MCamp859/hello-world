@@ -22,6 +22,8 @@ control plane host and the worker node host as presented in
 Select **Configure & Download** to download the reference implementation and the
 software listed below.
 
+>**NOTE:** This software package will not work on the People's Republic of China (PRC) network.
+
 [Configure &
 Download](https://software.intel.com/iot/edgesoftwarehub/download/home/ri/intelligent_traffic_management)
 
@@ -113,9 +115,6 @@ Figure 2: Architecture Diagram
 
 In order to run the latest version of Intelligent Traffic Management, you will need 2 Linux hosts: one for Kubernetes control plane and one for Kubernetes worker. The following steps describe how to prepare both targets before installing the reference implementation.
 
->NOTE: Some of the steps below contain alternate commands for People's Republic
->of China (PRC) network users.
-
 1. Install docker-ce and docker-compose. Run the following commands on both targets:
 
     - Install the latest Docker CLI and Docker daemon by following the Docker
@@ -162,29 +161,16 @@ In order to run the latest version of Intelligent Traffic Management, you will n
     sudo apt-get install helm
     ```
 
-    If you are using the People’s Republic of China (PRC) network, run the command:
-    ```bash
-    sudo snap install helm --classic
-    ```
 3. Install and configure the Kubernetes cluster. Run the following commands on both targets:
 
     - Get Google key:
         ```bash
         curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
         ```
-        If you are using the PRC network, run:
-        ```bash
-        curl -s  https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add
-        ```
 
     - Add kube apt repo:
         ```bash
         echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" >> ~/kubernetes.list
-        sudo mv ~/kubernetes.list /etc/apt/sources.list.d
-        ```
-        If you are using the PRC network, run:
-        ```bash
-        echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" >> ~/kubernetes.list
         sudo mv ~/kubernetes.list /etc/apt/sources.list.d
         ```
 
@@ -205,11 +191,6 @@ In order to run the latest version of Intelligent Traffic Management, you will n
 
     ```bash
     sudo kubeadm init --pod-network-cidr=10.244.0.0/16
-    ```
-
-    If you are using the PRC network, run:
-    ```bash
-    sudo kubeadm init --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --kubernetes-version=v1.23.4 --pod-network-cidr=10.244.0.0/16
     ```
 
     >**NOTE:** Save the kube join command prompted at the end of the cluster creation.
@@ -238,12 +219,6 @@ In order to run the latest version of Intelligent Traffic Management, you will n
 
     ```bash
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-    ```
-
-    If you are using the PRC network, run:
-
-    ```bash
-    kubectl apply -f https://raw.fastgit.org/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
 
 7. Enable kubelet service and check status:
@@ -688,32 +663,6 @@ In the Change examples, replace the line indicated by **-** with the line ind
 
     Make sure the tag is identical to the tag used on ``build_images.sh`` script.
 
-4. This step is for Public Republic of China (PRC) network users only.
-
-    Update all Dockerfiles listed below with your preferred mirror for apt and Python pip commands.
-
-    ```bash
-    <REPOSITORY_PATH>/src/CloudConnector/Dockerfile
-    <REPOSITORY_PATH>/src/ITMAnalytics/Dockerfile
-    <REPOSITORY_PATH>/src/ITMDashboard/Dockerfile
-    <REPOSITORY_PATH>/src/PipelineServerInit/Dockerfile
-    <REPOSITORY_PATH>/src/RuleEngine/Dockerfile
-    ```
-
-    Example of a Dockerfile git diff change to include Python and Ubuntu apt mirror:
-
-    ```bash
-    USER root
-    +RUN sed -i 's!http://security.ubuntu.com/ubuntu!https://mirrors.tuna.tsinghua.edu.cn/ubuntu!g' /etc/apt/sources.list
-    +RUN sed -i 's!http://archive.ubuntu.com/ubuntu!https://mirrors.tuna.tsinghua.edu.cn/ubuntu!g' /etc/apt/sources.list
-    +
-    RUN apt-get update && apt-get install --no-install-recommends -y \
-                               python3.10 \
-                               python3-pip \
-
-    -RUN pip3 install -r requirements.txt
-    +RUN pip3 install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
-    ```
 
 ### Build and Install
 
@@ -854,11 +803,6 @@ behind a corporate proxy, be sure the proxy is set up correctly. For details, se
   sudo apt-get install helm
 ```
 
-If you are using the PRC network, run:
-```bash
-sudo snap install helm --classic
-```
-
 #### Install and Configure Kubernetes Cluster
 
 Follow the steps below to install and configure the Kubernetes cluster on the system.
@@ -871,13 +815,6 @@ Follow the steps below to install and configure the Kubernetes cluster on the sy
     ```bash
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
     echo "deb <https://apt.kubernetes.io/> kubernetes-xenial main" ~/kubernetes.list
-    sudo mv ~/kubernetes.list /etc/apt/sources.list.d
-    ```
-
-    If you are using the PRC network, run:
-    ```bash
-    curl -s  https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add
-    echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" >> ~/kubernetes.list
     sudo mv ~/kubernetes.list /etc/apt/sources.list.d
     ```
 
@@ -901,11 +838,6 @@ Follow the steps below to install and configure the Kubernetes cluster on the sy
     sudo kubeadm init --pod-network-cidr=10.244.0.0/16
     ```
 
-    If you are using the PRC network, run:
-    ```bash
-    sudo kubeadm init --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --kubernetes-version=v1.23.4 --pod-network-cidr=10.244.0.0/16
-    ```
-
 5.  Configure access for the Kubernetes cluster for user:
 
     ```bash
@@ -927,11 +859,6 @@ Follow the steps below to install and configure the Kubernetes cluster on the sy
 
     ```bash
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-    ```
-
-    If you are using the PRC network, run:
-    ```bash
-    kubectl apply -f https://raw.fastgit.org/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
 
 8.  Enable the Kubernetes service:
