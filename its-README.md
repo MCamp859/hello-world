@@ -48,15 +48,15 @@ software listed below.
 
 Intelligent Traffic Searching (ITS) is a reference implementation demonstrating
 the capabilities of Intel® Edge Video Infrastructure Reference Architecture.
-After you complete the installation, you will have the following components:
+After you complete the installation, you will have the following edge services:
 
-*  Query Web, which provides a user interface from which the user can input an image of
-   a vehicle and obtain the historical record of the vehicle.
-*  Query REST, which receives API requests from Query Web, then queries Search
-   Image by Image service and Storage REST service to obtain and reconstruct the
-   data.
-*  Search Image by Image service, which receives requests from Query REST and sends
-   requests to Feature Matching services to obtain related features.
+* Intelligent Traffic Searching Web UI, which provides a user interface enabling the user to input an image of a vehicle and show images of similar vehicles.
+* Query edge service, which calls the Search Image by Image edge service and the Storage REST service to obtain images of similar vehicles.
+* Search Image by Image edge service, which enables searching images by using input images.
+* Feature Matching edge service, which receives requests from the Search Image by Image edge service to obtain the most similar features.
+* Media & AI inference edge service, which receives requests from the Search Image by Image edge service to detect vehicles and extract features from input images.
+* Clustering & Archiving Edge Service performs clustering analysis on vehicle features and metadata to cluster similar feature vectors and archive them into the vehicle’s history. This service can be triggered on-demand or periodically.
+* Storage REST edge service, which stores metadata that can be searched through a REST interface.
 
 ### Architecture
 
@@ -70,30 +70,14 @@ Figure 1: Architecture Diagram
 
 Figure 2: ITS RI Typical Workflow
 
-1. The user uploads an image to search, the browser sends `get data-source` request to *Query* service via *API Gateway*.
-1. Browser sends `reverse image search` request to *Query* service via *API Gateway*.
-1. *Query* service parses the request and finds out the query as a `reverse image search` query, then sends it to *Search Image by Image* service and waits for the response.
-1. *Search Image by Image* service needs to convert the unstructured images into feature vector at first, so images and additional job requirements (e.g., models, pre-processing and post-processing mechanism) are transferred to *Structuring* service for computer vision inference. Additionally, *Search Image by Image* service waits for the response from *Structuring* service.
-1. *Structuring* service parses the job and builds an inference pipeline which is then sent to *AI Inference* service together with the images to be queried. *Structuring* service waits for the response of *AI Inference* service. As models and dependencies are pre-loaded in *AI Inference* service, the service can process the images and turn them into feature vectors. Extracted feature vectors are sent back to *Structuring* service.
-1. *Search Image by Image* service receives the response from *Structuring* service and moves on to feature matching. *Feature Matching* service calculates the similarity between the feature vectors of the images to be queried and the ones in the database. The k most similar feature vectors are sent back to *Search Image by Image* service.
-1. *Query* service gets a response from *Search Image by Image* service and queries the storage for full information of the feature vectors.
-1. The user selects one vehicle from the top-k result to further get the history of the details.
-
-### Example Use Case: Search Image by Image
-
-The Use Case diagram below shows the workflow of search image by image use case.
-
-![The Use Case for search image by image is represented by a complex block
-diagram.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-use-case.png)
-
-Figure 3: Use Case Diagram
-
-The Search Image by Image Sample Application leverages the *Media & AI
-Inference* and *Feature Matching* Service to search the target image(s) in huge
-database. It invokes the *Media & AI Inference* service to decode the input
-image and extract the vehicle feature from it, and then sends the feature to
-*Feature Matching* service which will do the feature matching/searching against
-the huge amount of database and returns the best matching pictures to the user.
+The ITS RI typical workflow leverages the Media & AI Inference and Feature Matching Service to search the target image(s) in huge database. It invokes the Media & AI Inference service to decode the input image and extract the vehicle feature from it, and then sends the feature to Feature Matching edge service which will do the feature matching/searching against the huge database and returns the best matching pictures to the user. The following steps show the details of the ITS RI typical workflow.
+1. The user inputs an image in Intelligent Traffic Searching Web UI to search, then the Web UI sends get data-source request and reverse image search request to the Query edge service.
+1. The Query edge service parses the requests and finds out the query as a reverse image search query, then sends it to the Search Image by Image edge service and waits for the response.
+1. The Search Image by Image edge service  converts the unstructured images into feature vector at first, so images and additional job requirements (e.g., models, pre-processing and post-processing mechanism) are transferred to Media & AI Inference edge service for computer vision inference. Additionally, the Search Image by Image edge service waits for the response from the Media & AI Inference edge service.
+1. The Media & AI Inference edge service parses the job and builds an inference pipeline to process the images and turn them into feature vectors. Extracted feature vectors are sent back to the Search Image by Image edge service.
+1. The Search Image by Image edge service receives the response from the Media & AI Inference edge service and moves on to feature matching.
+1. The Feature Matching edge service calculates the similarity between the feature vectors of the images to be queried and the ones in the database. The k most similar feature vectors are sent back to the Search Image by Image edge service.
+1. The Query edge service gets a response from the Search Image by Image edge service and queries the storage for full information of the feature vectors. Then the Web UI shows the corresponding images.
 
 ## Get Started
 
@@ -236,19 +220,19 @@ then follow the steps below to install it.
     unzip intelligent-traffic-searching.zip
     ```
 
-6. Go to the `intelligent-traffic-searching/` directory: 
+6. Go to the `intelligent-traffic-searching/` directory:
 
     ```bash
     cd intelligent-traffic-searching/
     ```
 
-7. Change permission of the executable edgesoftware file: 
+7. Change permission of the executable edgesoftware file:
 
     ```bash
     chmod 755 edgesoftware
     ```
 
-8. Run the command below to install the Reference Implementation: 
+8. Run the command below to install the Reference Implementation:
 
     ```bash
     ./edgesoftware install
@@ -261,7 +245,7 @@ then follow the steps below to install it.
 
     ![A console window showing system output during the install process.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-install-success.png)
 
-    Figure 4: Install Success
+    Figure 3: Install Success
 
     >**NOTE:** If the pods have a status of “ContainerCreating”, please wait
     for some time, since Kubernetes will pull the images from the registry
@@ -278,7 +262,7 @@ then follow the steps below to install it.
 
     ![A console window showing system output after running the "kubectl get pods" command. The system displays a list of all the pods and the pod status. The expected status is "Running" or "Completed".](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-pods-status.png)
 
-    Figure 5: Pods Status
+    Figure 4: Pods Status
 
 11. If ITS RI is installed, running the following command should show output as follows:
 
@@ -288,7 +272,7 @@ then follow the steps below to install it.
 
     ![A console window showing system output after running the "kubectl get pods" command.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-its-pods.png)
 
-    Figure 6: ITS Pods Status
+    Figure 5: ITS Pods Status
 
 ##  Demonstration
 
@@ -380,7 +364,7 @@ Now, visit `https://$host:$port` through a browser (such as Chrome\*). Login wit
 
 ![A browser window showing the EVI login screen.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-query-evi-login.png)
 
-Figure 7: EVI Login Screen
+Figure 6: EVI Login Screen
 
 > **NOTE**: The browser will display a warning for self-signed certificate, click **Advanced** and then **Proceed to…** link to continue.
 
@@ -388,7 +372,7 @@ Figure 7: EVI Login Screen
 
 ![A browser window showing a large map of a city. Many vehicles are identified on the map. A rectangular area is highlighted in blue.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-query-image.png)
 
-Figure 8: Map in Browser
+Figure 7: Map in Browser
 
 1. Select the **rectangle icon** at the top right corner of the map, click and drag to select an area on the map.
 2. Upload a vehicle image from the test dataset.
@@ -397,7 +381,7 @@ Figure 8: Map in Browser
 
 ![A browser window showing a large map of a city. The right side of the window shows the search results pane.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-query-history.png)
 
-Figure 9: Search Results
+Figure 8: Search Results
 
 > **KNOWN ISSUE**: The result images can't be shown correctly on the first run. To work around it, right-click on the image and select **Open image in new tab**, then click **Previous** button, and search again.
 
@@ -422,7 +406,7 @@ bash ./reset_demo_data.sh -y
     ```
     ![A console window showing the output of the "edgesoftware list" command. The installed modules are listed.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-esh-list.png)
 
-    Figure 10: Module List
+    Figure 9: Module List
 
 2. Run the command below to uninstall all the modules:
 
@@ -438,7 +422,7 @@ bash ./reset_demo_data.sh -y
 
     ![A console window showing the output of the "edgesoftware uninstall" command. At the end of the process, the system displays the message "Uninstall finished" and the uninstallation status for each module.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-esh-uninstall.png)
 
-    Figure 11: Uninstallation Successful
+    Figure 10: Uninstallation Successful
 
 
 ## Summary and Next Steps
