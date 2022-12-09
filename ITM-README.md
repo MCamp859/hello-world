@@ -137,8 +137,8 @@ In order to run the latest version of Intelligent Traffic Management, you will n
         - Configure proxy settings for the Docker\* daemon by following
            [HTTP/HTTPS proxy](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy).
  
-    - Install the docker-compose tool by following [Install Compose](
-    https://docs.docker.com/compose/install/#install-compose).
+    - Install the docker-compose tool by following
+      [Install Compose](https://docs.docker.com/compose/install/#install-compose).
  
     - Configure the Docker service by adding the following in the
     ``/etc/docker/daemon.json`` file:
