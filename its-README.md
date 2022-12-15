@@ -76,14 +76,14 @@ Figure 1: Architecture Diagram
 
 Figure 2: ITS RI Typical Workflow
 
-The ITS RI typical workflow leverages the Media & AI Inference and Feature Matching Service to search the target image(s) in huge database. It invokes the Media & AI Inference service to decode the input image and extract the vehicle feature from it, and then sends the feature to Feature Matching Edgeservice which will do the feature matching/searching against the huge amount of database and returns the best matching pictures to the user.  The following steps show the details of the ITS RI typical workflow.
-1. The user uploads a vehicle image in Intelligent Traffic Searching WebUI to be searched, then the WebUI sends image search request tothe Queryedge service.
-1. Query edge service parses the requests and sends it tothe Search Image by Imageedge service.
-1. The Search Image by Imageedge service need to get feature vector of the vehicle from input image first, so images and additional job requirements (e.g., models, pre-processing and post-processing mechanism) are transferred to Media & AI Inference edge service to extract feature vector.
-1. Media & AI Inference edge service parses the job and builds an inference pipeline to process the images and  and extract feature vector from the image. Extracted feature vectors are sent back to the Search Image by Image edge service.
+The ITS RI typical workflow leverages the Media & AI Inference and Feature Matching Service to search the target image(s) in huge database. It invokes the Media & AI Inference service to decode the input image and extract the vehicle feature from it, and then sends the feature to Feature Matching Edge service which will do the feature matching/searching against the huge amount of database and returns the best matching pictures to the user.  The following steps show the details of the ITS RI typical workflow.
+1. The user uploads a vehicle image in Intelligent Traffic Searching Web UI to be searched, then the Web UI sends image search request to the Query edge service.
+1. Query edge service parses the requests and sends it to the Search Image by Image edge service.
+1. The Search Image by Image edge service needs to get the feature vector of the vehicle from input image first, so images and additional job requirements (e.g., models, pre-processing and post-processing mechanism) are transferred to Media & AI Inference edge service to extract feature vector.
+1. Media & AI Inference edge service parses the job and builds an inference pipeline to process the images and extract feature vector from the image. Extracted feature vectors are sent back to the Search Image by Image edge service.
 1. The Search Image by Image edge service receives the feature vector from the Media & AI Inference edge service, then calls the Feature Matching Edge service to get similar feature vectors.
-1. The Feature Matching Edge service calculates the similarity between the input feature vectors and the ones in the database. The k most similar feature vectors are sent back tothe Search Image by Image edge service.
-1. The Query edge service gets a response from the Search Image by Image edge service and queries the storage for full information of the feature vectors. Then the WebUI shows the corresponding images on the map.
+1. The Feature Matching Edge service calculates the similarity between the input feature vectors and the ones in the database. The k most similar feature vectors are sent back to the Search Image by Image edge service.
+1. The Query edge service gets a response from the Search Image by Image edge service and queries the storage for full information of the feature vectors. Then the We UI shows the corresponding images on the map.
 
 ## Get Started
 
@@ -125,7 +125,7 @@ Prepare a disk larger than **1.3 TB** to mount to the machine, and then divide t
 Run the following commands to create the script `mount_disks.sh`:
 
 ```bash
-$ cat << 'EOF' > mount_disks.sh
+cat << 'EOF' > mount_disks.sh
 #!/bin/bash
 
 # $1 indicates the path of the disk, such as: /dev/sdd
@@ -308,7 +308,7 @@ mkdir -p /home/data/{images,metadata_ms}
 Run the following commands to create script `select_subset_images.sh`:
 
    ```shell
-   $ cat << 'EOF' > select_subset_images.sh
+   cat << 'EOF' > select_subset_images.sh
    #!/bin/bash
 
       function rand(){
@@ -352,7 +352,7 @@ Run the following commands to create script `select_subset_images.sh`:
 Use the script to select the subset images of dataset:
 
    ```shell
-   $ bash select_subset_images.sh /hom/data/Insight-MVT_Annotation_Test /home/data/images
+   bash select_subset_images.sh /hom/data/Insight-MVT_Annotation_Test /home/data/images
    ```
 
 Generate metadata for each image by the following command:
@@ -440,7 +440,7 @@ Figure 7: Map in Browser
 
 #### Get Search Result
 
-After you click *Search* button, the most-similar vehicle images will be shown in the WebUI as show in the following picture.
+After you click *Search* button, the most-similar vehicle images will be shown in the Web UI as shown in the following picture.
 
 ![A browser window showing a large map of a city. The right side of the window shows the search results pane.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-query-history.png)
 
