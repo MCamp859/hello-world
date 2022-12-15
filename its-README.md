@@ -263,7 +263,7 @@ then follow the steps below to install it.
     to the outputs below. All the pods should be either in running or completed stage.
 
     ```bash
-    $ kubectl get pods -A
+    kubectl get pods -A
     ```
 
     ![A console window showing system output after running the "kubectl get pods" command. The system displays a list of all the pods and the pod status. The expected status is "Running" or "Completed".](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-pods-status.png)
