@@ -83,7 +83,7 @@ The ITS RI typical workflow leverages the Media & AI Inference and Feature
 1. Media & AI Inference edge service parses the job and builds an inference pipeline to process the images and extract feature vector from the image. Extracted feature vectors are sent back to the Search Image by Image edge service.
 1. The Search Image by Image edge service receives the feature vector from the Media & AI Inference edge service, then calls the Feature Matching Edge service to get similar feature vectors.
 1. The Feature Matching Edge service calculates the similarity between the input feature vectors and the ones in the database. The k most similar feature vectors are sent back to the Search Image by Image edge service.
-1. The Query edge service gets a response from the Search Image by Image edge service and queries the storage for full information of the feature vectors. Then the We UI shows the corresponding images on the map.
+1. The Query edge service gets a response from the Search Image by Image edge service and queries the storage for full information of the feature vectors. Then the Web UI shows the corresponding images on the map.
 
 ## Get Started
 
