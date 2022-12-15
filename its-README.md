@@ -5,7 +5,7 @@
 A reference implementation for a solution that monitors vehicles in traffic to
 extract information useful for several applications for cities. The solution is
 using Intel® Edge Video Infrastructure Reference Architecture and Intel® Smart
-Edge Open.
+Edge.
 
 *  Intel® Edge Video Infrastructure Reference Architecture: A containerized,
    microservice architecture used to easily deploy video processing, AI, and
@@ -18,17 +18,23 @@ Edge Open.
 
 To run the Intelligent Traffic Searching (ITS) reference implementation, you
 will need to first download and install the [Intel® Smart Edge Developer
-Experience Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
+Experience Kit (DEK)](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
 
-Once you have installed the Intel® Smart Edge Developer Experience Kit,
+Once you have installed the Intel® Smart Edge Developer Experience Kit (DEK),
 select **Configure & Download** to download the reference implementation and the
 software listed below.
 
-[Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/intelligent-traffic-searching)
+> **NOTE: Intelligent Traffic Searching Reference Implementation, version 1.0 is a
+> beta release** that does not include the latest functional and security updates.
+> **Intelligent Traffic Searching Reference Implementation, version 2.0** is targeted
+> to be released and will include additional functional and security updates.
+> Customers should update to the latest version as it becomes available.
+
+[Configure & Download](https://edgesoftwaretestingwebui.intel.com/iot/edgesoftwarehub/download/home/intelligent-traffic-searching)
 
 -  **Time to Complete:** Approximately 60 - 90 minutes
 -  **Programming Language:** Python\*, C++
--  **Software:** Intel® Smart Edge Developer Experience Kit version 22.03.03
+-  **Software:** Intel® Smart Edge Developer Experience Kit (DEK) version 22.03.03
 
 
 ## Target System Requirements
@@ -70,25 +76,25 @@ Figure 1: Architecture Diagram
 
 Figure 2: ITS RI Typical Workflow
 
-The ITS RI typical workflow leverages the Media & AI Inference and Feature Matching Service to search the target image(s) in huge database. It invokes the Media & AI Inference service to decode the input image and extract the vehicle feature from it, and then sends the feature to Feature Matching edge service which will do the feature matching/searching against the huge database and returns the best matching pictures to the user. The following steps show the details of the ITS RI typical workflow.
-1. The user inputs an image in Intelligent Traffic Searching Web UI to search, then the Web UI sends get data-source request and reverse image search request to the Query edge service.
-1. The Query edge service parses the requests and finds out the query as a reverse image search query, then sends it to the Search Image by Image edge service and waits for the response.
-1. The Search Image by Image edge service  converts the unstructured images into feature vector at first, so images and additional job requirements (e.g., models, pre-processing and post-processing mechanism) are transferred to Media & AI Inference edge service for computer vision inference. Additionally, the Search Image by Image edge service waits for the response from the Media & AI Inference edge service.
-1. The Media & AI Inference edge service parses the job and builds an inference pipeline to process the images and turn them into feature vectors. Extracted feature vectors are sent back to the Search Image by Image edge service.
-1. The Search Image by Image edge service receives the response from the Media & AI Inference edge service and moves on to feature matching.
-1. The Feature Matching edge service calculates the similarity between the feature vectors of the images to be queried and the ones in the database. The k most similar feature vectors are sent back to the Search Image by Image edge service.
-1. The Query edge service gets a response from the Search Image by Image edge service and queries the storage for full information of the feature vectors. Then the Web UI shows the corresponding images.
+The ITS RI typical workflow leverages the Media & AI Inference and Feature Matching Service to search the target image(s) in huge database. It invokes the Media & AI Inference service to decode the input image and extract the vehicle feature from it, and then sends the feature to Feature Matching Edgeservice which will do the feature matching/searching against the huge amount of database and returns the best matching pictures to the user.  The following steps show the details of the ITS RI typical workflow.
+1. The user uploads a vehicle image in Intelligent Traffic Searching WebUI to be searched, then the WebUI sends image search request tothe Queryedge service.
+1. Query edge service parses the requests and sends it tothe Search Image by Imageedge service.
+1. The Search Image by Imageedge service need to get feature vector of the vehicle from input image first, so images and additional job requirements (e.g., models, pre-processing and post-processing mechanism) are transferred to Media & AI Inference edge service to extract feature vector.
+1. Media & AI Inference edge service parses the job and builds an inference pipeline to process the images and  and extract feature vector from the image. Extracted feature vectors are sent back to the Search Image by Image edge service.
+1. The Search Image by Image edge service receives the feature vector from the Media & AI Inference edge service, then calls the Feature Matching Edge service to get similar feature vectors.
+1. The Feature Matching Edge service calculates the similarity between the input feature vectors and the ones in the database. The k most similar feature vectors are sent back tothe Search Image by Image edge service.
+1. The Query edge service gets a response from the Search Image by Image edge service and queries the storage for full information of the feature vectors. Then the WebUI shows the corresponding images on the map.
 
 ## Get Started
 
 ### Prerequisites
 
-To run the reference implementation, you will need to first download and install the [Intel® Smart Edge Developer Experience Kit](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
+To run the reference implementation, you will need to first download and install the [Intel® Smart Edge Developer Experience Kit (DEK)](https://software.intel.com/iot/edgesoftwarehub/download/home/Smart_Edge_Open_Developer_Experience_Kits).
 
-Make sure that Intel® Smart Edge Open Developer Experience Kit package is installed properly as per installation guide to ensure a smooth installation of ITS RI.
+Make sure that Intel® Smart Edge Developer Experience Kit (DEK) package is installed properly as per installation guide to ensure a smooth installation of ITS RI.
 
 Refer to the link below:
-[Intel® Smart Edge Developer Experience Kit Install](https://github.com/smart-edge-open/docs/blob/main/experience-kits/developer-experience-kit.md#install-the-developer-experience-kit)
+[Intel® Smart Edge Developer Experience Kit (DEK) Install](https://github.com/smart-edge-open/docs/blob/main/experience-kits/developer-experience-kit.md#install-the-developer-experience-kit)
 
 Configure the Docker\* logging driver to prevent running out of storage space by editing `/etc/docker/daemon.json`:
 
@@ -186,7 +192,7 @@ bash mount_disks.sh /dev/sdd
 Select **Configure & Download** to download the reference implementation and
 then follow the steps below to install it.
 
-[Configure & Download](https://software.intel.com/iot/edgesoftwarehub/download/home/intelligent-traffic-searching)
+[Configure & Download](https://edgesoftwaretestingwebui.intel.com/iot/edgesoftwarehub/download/home/intelligent-traffic-searching)
 
 1. Make sure that the [Target System Requirements](#target-system-requirements) are accomplished properly before proceeding further.
 
@@ -253,7 +259,7 @@ then follow the steps below to install it.
     are deployed, and the wait time will depend upon the network bandwidth
     available.
 
-10. If Intel® Smart Edge Developer Experience Kit is installed, running the following command should show output similar
+10. If Intel® Smart Edge Developer Experience Kit (DEK) is installed, running the following command should show output similar
     to the outputs below. All the pods should be either in running or completed stage.
 
     ```bash
@@ -286,15 +292,68 @@ Create `/home/data` folder:
 sudo mkdir -p /home/data && sudo chown $USER: $_
 ```
 
+Download [DETRAC-test-data.zip](https://detrac-db.rit.albany.edu/Data/DETRAC-test-data.zip) to `/home/data/` and extract it.
+
+```bash
+cd /home/data
+unzip ./DETRAC-test-data.zip
+```
+
 Create two folders:
 
 ```bash
 mkdir -p /home/data/{images,metadata_ms}
 ```
 
-Download [BIT-Vehicle Dataset](http://shujujishi.com/dataset/ff01a9be-f417-4e73-923b-1bc6408ee7aa.html) and extract to `/home/data/images`.
+Run the following commands to create script `select_subset_images.sh`:
 
-> **NOTE**: If you don't have an account yet, you need to create one.
+   ```shell
+   $ cat << 'EOF' > select_subset_images.sh
+   #!/bin/bash
+
+      function rand(){
+       min=$1
+       max=$(($2 - $min + 1))
+       num=$(($RANDOM+1000000000))
+       echo $(($num%$max + $min))
+
+      }
+
+
+   if [ $# -ne 2   ];then
+       echo "USAGE $0 <ORIGINAL_DATASET_DIRECTORY> <CONVERTED_DATASET_DIRECTORY>"
+       exit 1
+   fi
+
+   ORIGINAL_DATASET_DIRECTORY=$1
+   CONVERTED_DATASET_DIRECTORY=$(realpath $2)
+
+   mkdir -p ${CONVERTED_DATASET_DIRECTORY}
+   cd ${ORIGINAL_DATASET_DIRECTORY} || { echo "${ORIGINAL_DATASET_DIRECTORY} no exit!"; exit 2;  }
+
+   echo "start convert ......"
+   for directory_name in $(ls)
+   do
+       cd $directory_name
+       for filename in $(ls)
+       do
+           rand_no=$(rand 1 100)
+           if [ $rand_no -le 10  ] # extract 10% of the dataset
+           then
+               cp $filename ${CONVERTED_DATASET_DIRECTORY}/${directory_name}_${filename}
+               echo "cp $filename ${CONVERTED_DATASET_DIRECTORY}/${directory_name}_${filename}"
+           fi
+       done
+       cd ..
+   done
+   echo "All done."
+   ```
+
+Use the script to select the subset images of dataset:
+
+   ```shell
+   $ bash select_subset_images.sh /hom/data/Insight-MVT_Annotation_Test /home/data/images
+   ```
 
 Generate metadata for each image by the following command:
 
@@ -336,11 +395,11 @@ Restart **FM worker** to reload data:
 kubectl -n smartedge-apps delete pod evi-fm-worker-fs-0
 ```
 
-### Search Image by Image
+### Search Image
 
 #### Login
 
-Find the port number of *Query Web* using the command:
+Find the port number of *Intelligent Traffic Searching Web UI* using the command:
 
 ```bash
 kubectl get svc istio-ingressgateway -n istio-system | perl -ne 'print "$1\n" if /\b443:(\d+)/'
@@ -368,7 +427,7 @@ Figure 6: EVI Login Screen
 
 > **NOTE**: The browser will display a warning for self-signed certificate, click **Advanced** and then **Proceed to…** link to continue.
 
-#### Query Image
+#### Input image to search
 
 ![A browser window showing a large map of a city. Many vehicles are identified on the map. A rectangular area is highlighted in blue.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-query-image.png)
 
@@ -378,6 +437,10 @@ Figure 7: Map in Browser
 2. Upload a vehicle image from the test dataset.
 3. Specify filter criteria. The valid date range is `2021.08.10 - 2021.08.12`.
 4. Click **Search** button.
+
+#### Get Search Result
+
+After you click *Search* button, the most-similar vehicle images will be shown in the WebUI as show in the following picture.
 
 ![A browser window showing a large map of a city. The right side of the window shows the search results pane.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-query-history.png)
 
@@ -438,7 +501,7 @@ visit ESH to try other Reference Implementations.
 
 To continue learning, see the following guides:
 
--   [Intel® Smart Edge Developer Experience Kit](https://smart-edge-open.github.io/ido-specs/doc/architecture/)
+-   [Intel® Smart Edge Developer Experience Kit (DEK)](https://smart-edge-open.github.io/ido-specs/doc/architecture/)
 -   [Intel® Distribution of OpenVINO™ Toolkit](https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/overview.html)
 
 
