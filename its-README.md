@@ -80,8 +80,8 @@ The ITS RI typical workflow leverages the Media & AI Inference and Feature
 1. The user uploads a vehicle image in Intelligent Traffic Searching Web UI to be searched, then the Web UI sends image search request to the Query edge service.
 1. Query edge service parses the requests and sends it to the Search Image by Image edge service.
 1. The Search Image by Image edge service needs to get the feature vector of the vehicle from input image first, so images and additional job requirements (e.g., models, pre-processing and post-processing mechanism) are transferred to Media & AI Inference edge service to extract feature vector.
-1. Media & AI Inference edge service parses the job and builds an inference pipeline to process the images and extract feature vector from the image. Extracted feature vectors are sent back to the Search Image by Image edge service.
-1. The Search Image by Image edge service receives the feature vector from the Media & AI Inference edge service, then calls the Feature Matching Edge service to get similar feature vectors.
+1. Media & AI Inference edge service parses the job and builds an inference pipeline to process the images and extract feature vector from the image. Extracted feature vectors are sent back to the Search Image by Image edge service.
+1. The Search Image by Image edge service receives the feature vector from the Media & AI Inference edge service, then calls the Feature Matching Edge service to get similar feature vectors.
 1. The Feature Matching Edge service calculates the similarity between the input feature vectors and the ones in the database. The k most similar feature vectors are sent back to the Search Image by Image edge service.
 1. The Query edge service gets a response from the Search Image by Image edge service and queries the storage for full information of the feature vectors. Then the Web UI shows the corresponding images on the map.
 
@@ -244,10 +244,12 @@ then follow the steps below to install it.
     ./edgesoftware install
     ```
 
+9. During the installation, you will be prompted for the Product Key. The Product Key is contained in the email you received from Intel confirming your download.
+
     >**NOTE:** Installation logs are available at the following path:
     ``/var/log/esb-cli/Intelligent_Traffic_Searching_Reference_Implementation_<version>/output.log``
 
-9. When the installation is complete, you see the message “Installation of package complete” and the installation status for each module.
+10. When the installation is complete, you see the message “Installation of package complete” and the installation status for each module.
 
     ![A console window showing system output during the install process.](/content/dam/develop/external/us/en/images/reference-implementation/intelligent-traffic-searching-ri-install-success.png)
 
@@ -259,7 +261,7 @@ then follow the steps below to install it.
     are deployed, and the wait time will depend upon the network bandwidth
     available.
 
-10. If Intel® Smart Edge Developer Experience Kit (DEK) is installed, running the following command should show output similar
+11. If Intel® Smart Edge Developer Experience Kit (DEK) is installed, running the following command should show output similar
     to the outputs below. All the pods should be either in running or completed stage.
 
     ```bash
@@ -270,7 +272,7 @@ then follow the steps below to install it.
 
     Figure 4: Pods Status
 
-11. If ITS RI is installed, running the following command should show output as follows:
+12. If ITS RI is installed, running the following command should show output as follows:
 
     ```bash
     kubectl get pods -n smartedge-apps
@@ -307,53 +309,53 @@ mkdir -p /home/data/{images,metadata_ms}
 
 Run the following commands to create script `select_subset_images.sh`:
 
-   ```shell
-   cat << 'EOF' > select_subset_images.sh
-   #!/bin/bash
+```shell
+cat << 'EOF' > select_subset_images.sh
+#!/bin/bash
 
-      function rand(){
-       min=$1
-       max=$(($2 - $min + 1))
-       num=$(($RANDOM+1000000000))
-       echo $(($num%$max + $min))
+function rand(){
+    min=$1
+    max=$(($2 - $min + 1))
+    num=$(($RANDOM+1000000000))
+    echo $(($num%$max + $min))
+}
 
-      }
 
+if [ $# -ne 2   ];then
+    echo "USAGE $0 <ORIGINAL_DATASET_DIRECTORY> <CONVERTED_DATASET_DIRECTORY>"
+    exit 1
+fi
 
-   if [ $# -ne 2   ];then
-       echo "USAGE $0 <ORIGINAL_DATASET_DIRECTORY> <CONVERTED_DATASET_DIRECTORY>"
-       exit 1
-   fi
+ORIGINAL_DATASET_DIRECTORY=$1
+CONVERTED_DATASET_DIRECTORY=$(realpath $2)
 
-   ORIGINAL_DATASET_DIRECTORY=$1
-   CONVERTED_DATASET_DIRECTORY=$(realpath $2)
+mkdir -p ${CONVERTED_DATASET_DIRECTORY}
+cd ${ORIGINAL_DATASET_DIRECTORY} || { echo "${ORIGINAL_DATASET_DIRECTORY} no exit!"; exit 2;  }
 
-   mkdir -p ${CONVERTED_DATASET_DIRECTORY}
-   cd ${ORIGINAL_DATASET_DIRECTORY} || { echo "${ORIGINAL_DATASET_DIRECTORY} no exit!"; exit 2;  }
-
-   echo "start convert ......"
-   for directory_name in $(ls)
-   do
-       cd $directory_name
-       for filename in $(ls)
-       do
-           rand_no=$(rand 1 100)
-           if [ $rand_no -le 10  ] # extract 10% of the dataset
-           then
-               cp $filename ${CONVERTED_DATASET_DIRECTORY}/${directory_name}_${filename}
-               echo "cp $filename ${CONVERTED_DATASET_DIRECTORY}/${directory_name}_${filename}"
-           fi
-       done
-       cd ..
-   done
-   echo "All done."
-   ```
+echo "start convert ......"
+for directory_name in $(ls)
+do
+    cd $directory_name
+    for filename in $(ls)
+    do
+        rand_no=$(rand 1 100)
+        if [ $rand_no -le 10  ] # extract 10% of the dataset
+        then
+            cp $filename ${CONVERTED_DATASET_DIRECTORY}/${directory_name}_${filename}
+            echo "cp $filename ${CONVERTED_DATASET_DIRECTORY}/${directory_name}_${filename}"
+        fi
+    done
+    cd ..
+done
+echo "All done."
+EOF
+```
 
 Use the script to select the subset images of dataset:
 
-   ```shell
-   bash select_subset_images.sh /hom/data/Insight-MVT_Annotation_Test /home/data/images
-   ```
+```shell
+bash select_subset_images.sh /home/data/Insight-MVT_Annotation_Test /home/data/images
+```
 
 Generate metadata for each image by the following command:
 
