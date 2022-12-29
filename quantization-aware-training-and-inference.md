@@ -119,22 +119,22 @@ Choose one of the following options:
 
 Edit the ``helmchart/qat/values.yaml`` file as follows:
 
-*   Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the
-    current working repo directory.
+*  Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the
+   current working repo directory.
 
     >**NOTE:** Relative paths do not work with Helm.
 
-*   Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and
-    `<inference_node>` values under `'nodeselector'` key.
+*  Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and
+   `<inference_node>` values under the `nodeselector` key.
 
-    Pick any of the available nodes for training and inference with the nodename
-    of this command.
+   Pick any of the available nodes for training and inference with the nodename
+   of this command.
 
     ```bash 
     kubectl get nodes --show-labels
     ```
 
-    ``values.yaml``
+   ``values.yaml``
 
     ```bash
     nodeselector:
@@ -142,12 +142,12 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
        inferencenode: <inference_node>
     ```
 
-*   Edit `helmchart/qat/values.yaml` file with higher values of
-    `MAX_TRAIN_SAMPLES` and `MAX_EVAL_SAMPLES` parameters for better fine-tuning
-    of data. Default value is 50 samples.
+*  Edit `helmchart/qat/values.yaml` file with higher values of
+   `MAX_TRAIN_SAMPLES` and `MAX_EVAL_SAMPLES` parameters for better fine-tuning
+   of data. Default value is 50 samples.
 
-*   Find details on all the parameters in the
-    [Parameters Table](https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat/docs/params_table.md).
+*  Find details on all the parameters in the
+   [Parameters Table](https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat/docs/params_table.md).
 
 ## Step 2: Run Helm Charts
 
