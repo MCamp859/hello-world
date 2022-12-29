@@ -119,12 +119,12 @@ Choose one of the following options:
 
 Edit the ``helmchart/qat/values.yaml`` file as follows:
 
-*  Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the current working repo directory. 
+*   Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the current working repo directory. 
 
     >**NOTE:** Relative paths do not work with Helm.
 
-*  Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and `<inference_node>` values under `'nodeselector'` key.  
-    
+*   Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and `<inference_node>` values under `'nodeselector'` key.  
+
     Pick any of the available nodes for training and inference with the nodename of this command.
 
     ```bash 
@@ -139,10 +139,12 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
        inferencenode: <inference_node>
     ```
 
-*  Edit `helmchart/qat/values.yaml` file with higher values of `MAX_TRAIN_SAMPLES`
-   and `MAX_EVAL_SAMPLES` parameters for better finetuning of data. Default value
-   is 50 samples.
-  * Find details on all the parameters in the [Parameters Table](https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat/docs/params_table.md).
+*   Edit `helmchart/qat/values.yaml` file with higher values of `MAX_TRAIN_SAMPLES`
+    and `MAX_EVAL_SAMPLES` parameters for better finetuning of data. Default value
+    is 50 samples.
+
+*   Find details on all the parameters in the
+    [Parameters Table](https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat/docs/params_table.md).
 
 ## Step 2: Run Helm Charts
 
@@ -196,12 +198,12 @@ takes in model generated from training pod as input.
 
 #### Optimum Inference Output
 
-1. Input to the inference pod will be taken from the `openvino_optimum_inference/data` folder.
+1.   Input to the inference pod will be taken from the `openvino_optimum_inference/data` folder.
 
-2. Output of the OpenVINO™ Integration with Optimum* inference pod will be
-   stored in the `openvino_optimum_inference/logs.txt` file.
+2.   Output of the OpenVINO™ Integration with Optimum* inference pod will be
+    stored in the `openvino_optimum_inference/logs.txt` file.
 
-3. View the logs using:
+3.  View the logs using:
 
     ```bash
     kubectl logs <pod_name>
@@ -474,6 +476,7 @@ Error: INSTALLATION FAILED: failed pre-install: timed out waiting for the condit
 ```
 #### Workaround 1
 Based on the system performance, add `--timeout <seconds>` to the helm command:
+
 ```bash
 helm install qatchart qat --timeout <time>
 ```
@@ -485,15 +488,18 @@ finetune on the whole dataset.
 #### Workaround 2
 
 
-1. Even if Helm issues an error, the training pod will get schedule and will
-   keep running and finish its job. Verify ``kubectl logs <training_pod>``
-   when the pod is completed.
+1.  Even if Helm issues an error, the training pod will get schedule and will
+    keep running and finish its job. Verify ``kubectl logs <training_pod>`` when
+    the pod is completed.
 
-2. Run the command:
+2.  Run the command:
+
     ```bash
     helm uninstall qatchart
     ```
-3. Install the qatchart with just inference as training has completed:
+
+3.  Install the qatchart with just inference as training has completed:
+
     ```bash
     helm install qatchart qat --no-hooks
     ```
