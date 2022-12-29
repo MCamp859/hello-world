@@ -119,19 +119,19 @@ Choose one of the following options:
 
 Edit the ``helmchart/qat/values.yaml`` file as follows:
 
-* Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the current working repo directory. 
+*  Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the current working repo directory. 
 
-    >**Note:** Relative paths do not work with Helm.
+    >**NOTE:** Relative paths do not work with Helm.
 
-* Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and `<inference_node>` values under `'nodeselector'` key.  
+*  Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and `<inference_node>` values under `'nodeselector'` key.  
     
     Pick any of the available nodes for training and inference with the nodename of this command.
 
     ```bash 
-      kubectl get nodes --show-labels
+    kubectl get nodes --show-labels
     ```
 
-   `values.yaml`
+    `values.yaml`
 
     ```bash
     nodeselector:
@@ -139,7 +139,6 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
        inferencenode: <inference_node>
     ```
 
-   
 *  Edit `helmchart/qat/values.yaml` file with higher values of `MAX_TRAIN_SAMPLES`
    and `MAX_EVAL_SAMPLES` parameters for better finetuning of data. Default value
    is 50 samples.
@@ -252,13 +251,15 @@ Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-usin
 #### Run Client Application to Send Request to OpenVINO™ Model Server
 
 This will download inference script from open_model_zoo and serve inference using ovms server.
-    
+
 ```bash
    cd <gitrepofolder>/openvino_inference
     docker run -it --entrypoint /bin/bash -v "$(pwd)":/home/inference -v "$(pwd)"/../quantization_aware_training/models/bert_int8/vocab.txt:/home/inference/vocab.txt --env VOCAB_FILE=/home/inference/vocab.txt --env  INPUT="https://en.wikipedia.org/wiki/Bert_(Sesame_Street)" --env MODEL_PATH=<hostname>:9000/models/bert openvino/ubuntu20_dev:2022.2.0  -c /home/inference/run_ov_client.sh
 ```
    
-The client application will trigger a interactive terminal to ask questions based on the context for "https://en.wikipedia.org/wiki/Bert_(Sesame_Street)" as this is given as input. Please input a question.
+The client application will trigger a interactive terminal to ask questions
+based on the context for `https://en.wikipedia.org/wiki/Bert_(Sesame_Street)`
+as this is given as input. Please input a question.
 
 ### Use Case 3: QAT with Inference using OpenVINO™ Execution Provider
 
@@ -266,7 +267,9 @@ The Training pod is deployed through `pre_install_job.yaml`.
 
 The Optimum ONNX Runtime with OpenVINO™ Execution Provider pod is deployed through `deployment_onnx.yaml`. 
 
-Copy `deployment_onnx.yaml` from `helmchart/deployment_yaml` folder into `helmchart/qat/templates`. Make sure there is only one deployment_*.yaml file in the templates folder.
+Copy `deployment_onnx.yaml` from `helmchart/deployment_yaml` folder into
+`helmchart/qat/templates`. Make sure there is only one `deployment_*.yaml` file
+in the templates folder.
 
 Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-using-openvino™-integration-with-optimum).
 
@@ -285,7 +288,7 @@ Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-usin
 Before triggering the inference, make sure you have access to the model file and
 also edit the model path in the `qat/values.yaml` file.
 
-Keep only one deployment-*.yaml file in the `qat/templates` folder to deploy
+Keep only one `deployment_*.yaml` file in the `qat/templates` folder to deploy
 just one inference application.
 
 *  For Onnxruntime with OpenVINO-EP, use `deployment_onnx.yaml` file. Model
@@ -294,7 +297,7 @@ just one inference application.
 *  For Huggingface API  with OpenVINO™ runtime, use `deployment_optimum.yaml`.
    Model format acceptable is pytorch or IR.xml
 
-*  For OpenVINO™ model server, use `deployment-ovms.yaml`. Model format
+*  For OpenVINO™ model server, use `deployment_ovms.yaml`. Model format
    acceptable is IR.xml
 
 
