@@ -33,8 +33,8 @@ The workflow executes as follows:
 2. Once the model is generated, then inference applications can be deployed with
    one of the following APIs:
 
-    *  Inference using Hugging Face API
-    *  Inference using ONNX Runtime API
+    *  Inference using Hugging Face API with Optimum Intel
+    *  Inference using Hugging Face API with Optimum ONNX Runtime
     *  Deploy the model using OpenVINO™ Model Server and send in grpc requests
 
 The workflow architecture is shown below.
@@ -110,7 +110,7 @@ Choose one of the following options:
 
     ```bash
     git clone https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat
-    cd frameworks.ai.edgecsp.quantization-training-inference
+    cd nlp-training-and-inference-openvino/question-answering-bert-qat
     ```
 
 
@@ -119,21 +119,15 @@ Choose one of the following options:
 
 Edit the ``helmchart/qat/values.yaml`` file as follows:
 
-*  Replace ``<registry_name>`` under ``image:`` with your private registry
-   path or with the `'localhost:5000'` for the local registry name.
+* Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the current working repo directory. 
 
-*  Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the current
-   working repo directory.
+    >**Note:** Relative paths do not work with Helm.
 
-      >**Note:** Relative paths do not work with Helm.
+* Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and `<inference_node>` values under `'nodeselector'` key.  
+    
+    Pick any of the available nodes for training and inference with the nodename of this command.
 
-*  Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and
-   `<inference_node>` values under `'nodeselector'` key.
-
-   Pick any of the available nodes for training and inference with the nodename
-   of this command.
-
-    ```bash
+    ```bash 
       kubectl get nodes --show-labels
     ```
 
@@ -145,13 +139,11 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
        inferencenode: <inference_node>
     ```
 
-
+   
 *  Edit `helmchart/qat/values.yaml` file with higher values of `MAX_TRAIN_SAMPLES`
    and `MAX_EVAL_SAMPLES` parameters for better finetuning of data. Default value
    is 50 samples.
-
-*  Find details on all the parameters in the [Parameters Table](https://github.com/intel/nlp-training-and-inference-openvino/blob/main/question-answering-bert-qat/docs/params_table.md).
-
+  * Find details on all the parameters in the [Parameters Table](https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat/docs/params_table.md).
 
 ## Step 2: Run Helm Charts
 
@@ -159,6 +151,15 @@ This section contains step-by-step details to install specific Helm charts with 
 
 
 ### Use Case 1: QAT with Inference using OpenVINO™ Integration with Optimum*
+
+We have options to run inference in two ways:
+
+1.  Using Input CSV file (Default).
+2.  Using Arguments (Optional) - Question and Context Argument. We need to edit `deployment_optimum.yaml` to run inference based on question and context argument. We need to pass question and context as below in `deployment_optimum.yaml`:  
+
+    ```bash
+    args: ["-c", "chown openvino -R /home/inference && cd /home/inference && ./run_onnx_inference.sh 'Who is sachin' 'Sachin is a cricket player'"]
+    ```
 
 The Training pod is deployed through `pre_install_job.yaml`.
 The Inference pod is deployed through `deployment_optimum.yaml`.
@@ -196,10 +197,12 @@ takes in model generated from training pod as input.
 
 #### Optimum Inference Output
 
-1. Output of the OpenVINO™ Integration with Optimum* inference pod will be
+1. Input to the inference pod will be taken from the `openvino_optimum_inference/data` folder.
+
+2. Output of the OpenVINO™ Integration with Optimum* inference pod will be
    stored in the `openvino_optimum_inference/logs.txt` file.
 
-2. View the logs using:
+3. View the logs using:
 
     ```bash
     kubectl logs <pod_name>
@@ -226,56 +229,53 @@ Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-usin
     kubectl logs <pod_name>
     ```
 
-2. The client can send in grpc request to server through Hugging Face API user
-   application using the openvino_optimum image.
+2. The client can send in grpc request to server using OpenVINO™ APIs.
+  
+   Find more details on the [OpenVINO™ Model Server Adapter API](https://docs.openvino.ai/latest/omz_model_api_ovms_adapter.html).
 
-   Find more details on the [OpenVINO™ Model Server Adapter
-API](https://docs.openvino.ai/latest/omz_model_api_ovms_adapter.html).
-
-   Find the ip address of the system where the OpenVINO™ Model Server has been
-   deployed.
-
-3. Change the `<registry>` tag and `<hostname>` in the command below before
-   running.
-
-   ``<hostname>`` hostname of the node where the OpenVINO™ Model Server has been deployed.
-
-   ``<registry>`` It should be local or private registry address. If using local registry, edit it to "localhost:5000".
-
-
-    ```bash
-    kubectl get nodes
-
-    azureuser@SRDev:~/frameworks.ai.edgecsp.quantization-training-inference-master/openvino_optimum_inference$ kubectl get nodes
-    NAME    STATUS   ROLES                  AGE   VERSION
-    srdev   Ready    control-plane,master   16d   v1.24.6+k3s1
-    ```
-
+3. Run a sample OpenVINO™ client application as below. 
+  
+   Open a new terminal to run the client application. Change the `<hostname>` in the command below before running.
+ 
+   ``<hostname>`` hostname of the node where the OpenVINO™ Model Server has been deployed.  
+ ```bash
+ kubectl get nodes  
+     
+ azureuser@SRDev:~/nlp-training-and-inference-openvino/question-answering-bert-qat/openvino_optimum_inference$ kubectl get nodes  
+ NAME    STATUS   ROLES                  AGE   VERSION  
+ srdev   Ready    control-plane,master   16d   v1.24.6+k3s1   
+ ```
+ 
    In this case, hostname should be `srdev`.
+   
 
-    ```bash
-    cd <gitrepofolder>/openvino_optimum_inference
+#### Run Client Application to Send Request to OpenVINO™ Model Server
 
-    docker run -it --entrypoint /bin/bash --env MODEL_NAME=bert-large-uncased-whole-word-masking-finetuned-squad --env MODEL_PATH=<hostname>:9000/models/bert --env MODEL_TYPE=ov  --env ADAPTER=ovms --env ITERATIONS=100 --env INFERENCE_SCRIPT=/home/inference/inference_scripts/bert_qa.py -v  $(pwd):/home/inference/ <registry>/openvino_optimum -c "/home/inference/run_openvino_optimum_inference.sh"
-    ```
+This will download inference script from open_model_zoo and serve inference using ovms server.
+    
+```bash
+   cd <gitrepofolder>/openvino_inference
+    docker run -it --entrypoint /bin/bash -v "$(pwd)":/home/inference -v "$(pwd)"/../quantization_aware_training/models/bert_int8/vocab.txt:/home/inference/vocab.txt --env VOCAB_FILE=/home/inference/vocab.txt --env  INPUT="https://en.wikipedia.org/wiki/Bert_(Sesame_Street)" --env MODEL_PATH=<hostname>:9000/models/bert openvino/ubuntu20_dev:2022.2.0  -c /home/inference/run_ov_client.sh
+```
+   
+The client application will trigger a interactive terminal to ask questions based on the context for "https://en.wikipedia.org/wiki/Bert_(Sesame_Street)" as this is given as input. Please input a question.
 
 ### Use Case 3: QAT with Inference using OpenVINO™ Execution Provider
 
 The Training pod is deployed through `pre_install_job.yaml`.
 
-ONNX Runtime with
-OpenVINO™ Execution Provider pod is deployed through `deployment_onnx.yaml`.
+The Optimum ONNX Runtime with OpenVINO™ Execution Provider pod is deployed through `deployment_onnx.yaml`. 
 
 Copy `deployment_onnx.yaml` from `helmchart/deployment_yaml` folder into `helmchart/qat/templates`. Make sure there is only one deployment_*.yaml file in the templates folder.
 
 Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-using-openvino™-integration-with-optimum).
 
 #### Onnxruntime Inference Output
-1. Output of the onnxruntime inference pod will be stored in the
-   onnxruntime_inference/logs.txt file.
+1. Input to the inference pod will be taken from the `onnxovep_optimum_inference/data` folder.
 
-2. View the logs using:
+2. Output of the onnxruntime inference pod will be stored in the `onnxovep_optimum_inference/logs.txt` file. 
 
+3. View the logs using: 
     ```bash
     kubectl logs <pod_name>
     ```
