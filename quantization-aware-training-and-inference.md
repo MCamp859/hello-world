@@ -134,7 +134,7 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
     kubectl get nodes --show-labels
     ```
 
-   ``values.yaml``
+   `values.yaml`
 
     ```bash
     nodeselector:
