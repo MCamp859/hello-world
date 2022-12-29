@@ -198,9 +198,9 @@ takes in model generated from training pod as input.
 
 #### Optimum Inference Output
 
-1.   Input to the inference pod will be taken from the `openvino_optimum_inference/data` folder.
+1.  Input to the inference pod will be taken from the `openvino_optimum_inference/data` folder.
 
-2.   Output of the OpenVINO™ Integration with Optimum* inference pod will be
+2.  Output of the OpenVINO™ Integration with Optimum* inference pod will be
     stored in the `openvino_optimum_inference/logs.txt` file.
 
 3.  View the logs using:
