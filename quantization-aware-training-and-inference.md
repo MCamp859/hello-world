@@ -119,19 +119,22 @@ Choose one of the following options:
 
 Edit the ``helmchart/qat/values.yaml`` file as follows:
 
-*   Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the current working repo directory. 
+*   Replace ``<current_working_gitfolder>`` under ``mountpath:`` with the
+    current working repo directory.
 
     >**NOTE:** Relative paths do not work with Helm.
 
-*   Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and `<inference_node>` values under `'nodeselector'` key.  
+*   Edit the `helmchart/qat/values.yaml` file for the `<train_node>` and
+    `<inference_node>` values under `'nodeselector'` key.
 
-    Pick any of the available nodes for training and inference with the nodename of this command.
+    Pick any of the available nodes for training and inference with the nodename
+    of this command.
 
     ```bash 
     kubectl get nodes --show-labels
     ```
 
-    `values.yaml`
+    ``values.yaml``
 
     ```bash
     nodeselector:
@@ -139,9 +142,9 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
        inferencenode: <inference_node>
     ```
 
-*   Edit `helmchart/qat/values.yaml` file with higher values of `MAX_TRAIN_SAMPLES`
-    and `MAX_EVAL_SAMPLES` parameters for better finetuning of data. Default value
-    is 50 samples.
+*   Edit `helmchart/qat/values.yaml` file with higher values of
+    `MAX_TRAIN_SAMPLES` and `MAX_EVAL_SAMPLES` parameters for better fine-tuning
+    of data. Default value is 50 samples.
 
 *   Find details on all the parameters in the
     [Parameters Table](https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat/docs/params_table.md).
@@ -276,11 +279,15 @@ in the templates folder.
 Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-using-openvino™-integration-with-optimum).
 
 #### Onnxruntime Inference Output
-1. Input to the inference pod will be taken from the `onnxovep_optimum_inference/data` folder.
 
-2. Output of the onnxruntime inference pod will be stored in the `onnxovep_optimum_inference/logs.txt` file. 
+1.  Input to the inference pod will be taken from the
+    `onnxovep_optimum_inference/data` folder.
 
-3. View the logs using: 
+2.  Output of the onnxruntime inference pod will be stored in the
+    `onnxovep_optimum_inference/logs.txt` file.
+
+3.  View the logs using: 
+
     ```bash
     kubectl logs <pod_name>
     ```
