@@ -130,11 +130,11 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
    Pick any of the available nodes for training and inference with the nodename
    of this command.
 
-    ```bash 
+    ```bash
     kubectl get nodes --show-labels
     ```
 
-   `values.yaml`
+   values.yaml file
 
     ```bash
     nodeselector:
