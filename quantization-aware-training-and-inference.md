@@ -1,4 +1,4 @@
-# Quantization-Aware Training and Inference using OpenVINO™ Toolkit through Optimum Intel
+# Quantization-Aware Training and Inference using OpenVINO™ Toolkit
 
 ## Overview
 
@@ -33,9 +33,8 @@ The workflow executes as follows:
    one of the following APIs:
 
     *  Inference using Hugging Face API with Optimum Intel
-	*  Deploy the model using OpenVINO™ Model Server and send in grpc requests
     *  Inference using Hugging Face API with Optimum ONNX Runtime
-   
+    *  Deploy the model using OpenVINO™ Model Server and send in grpc requests
 
 The workflow architecture is shown below.
 
@@ -474,7 +473,7 @@ helm uninstall qatchart
 
 Then install it again:
 ```bash
-helm uninstall qatchart
+helm install qatchart
 ```
 ### Helm Timeout
 If the training is taking a long time, you may see a timeout error during helm
