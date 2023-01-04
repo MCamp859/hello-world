@@ -1,12 +1,11 @@
-# Quantization-Aware Training and Inference using OpenVINO™ Toolkit
+# Quantization-Aware Training and Inference using OpenVINO™ Toolkit through Optimum Intel
 
 ## Overview
 
 Create an end-to-end AI/ML (Artificial Intelligence/Machine Learning) pipeline
 demonstrating Quantization-Aware Training and Inference using a wide array of
 Intel® software including the OpenVINO™ toolkit. The workflow is deployed
-through Helm* by using microservices and Docker* images, which are built or
-taken from Microsoft Azure* Marketplace.†
+through Helm* by using microservices and Docker* images.
 
 Select **Configure & Download** to download the workflow.
 
@@ -34,8 +33,9 @@ The workflow executes as follows:
    one of the following APIs:
 
     *  Inference using Hugging Face API with Optimum Intel
+	*  Deploy the model using OpenVINO™ Model Server and send in grpc requests
     *  Inference using Hugging Face API with Optimum ONNX Runtime
-    *  Deploy the model using OpenVINO™ Model Server and send in grpc requests
+   
 
 The workflow architecture is shown below.
 
@@ -266,7 +266,7 @@ The client application will trigger a interactive terminal to ask questions
 based on the context for `https://en.wikipedia.org/wiki/Bert_(Sesame_Street)`
 as this is given as input. Please input a question.
 
-### Use Case 3: QAT with Inference using OpenVINO™ Execution Provider
+### Use Case 3: QAT with Inference using OpenVINO™ Execution Provider through Optimum* ONNX Runtime
 
 The Training pod is deployed through `pre_install_job.yaml`.
 
@@ -300,14 +300,15 @@ also edit the model path in the `qat/values.yaml` file.
 Keep only one `deployment_*.yaml` file in the `qat/templates` folder to deploy
 just one inference application.
 
-*  For Onnxruntime with OpenVINO-EP, use `deployment_onnx.yaml` file. Model
-   format acceptable is .onnx
 
-*  For Huggingface API  with OpenVINO™ runtime, use `deployment_optimum.yaml`.
+*  For Huggingface API  with OpenVINO™ Intel, use `deployment_optimum.yaml`.
    Model format acceptable is pytorch or IR.xml
 
 *  For OpenVINO™ model server, use `deployment_ovms.yaml`. Model format
    acceptable is IR.xml
+   
+*  For Optimum ONNX Runtime with OpenVINO-EP use `deployment_onnx.yaml` file. Model
+   format acceptable is .onnx
 
 
 To run inference, use the following commands:
@@ -371,7 +372,7 @@ task.
 
 ## Set Up Azure Storage (Optional)
 
-Use Azure Storage for multi-node Kubernetes setup if you want to use the same
+Use Azure† Storage for multi-node Kubernetes setup if you want to use the same
 storage across all the nodes.
 
 ### Azure References
@@ -511,7 +512,20 @@ finetune on the whole dataset.
     helm install qatchart qat --no-hooks
     ```
 
+### Clean Up Resources
 
+Remove the Helm chart:
+
+```bash
+helm uninstall qatchart
+```
+
+Delete any pods of jobs after the execution:
+
+```bash
+kubectl delete pod <pod_name>
+kubectl delete job <job_name>
+```
 
 
 ### Support Forum
