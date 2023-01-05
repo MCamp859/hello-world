@@ -14,8 +14,8 @@ Select **Configure & Download** to download the workflow.
 
 -  **Time to Complete:** 10 minutes
 -  **Programming Language:** Python*
--  **Available Software:** OpenVINO™ toolkit, OpenVINO™ Integration with
-   Optimum\*, Docker\*, Kubernetes\*, Helm\*
+-  **Available Software:** OpenVINO™ toolkit, Hugging Face Optimum\* Intel®
+   interface, Docker\*, Kubernetes\*, Helm\*
 
 
 ## How It Works
@@ -63,11 +63,11 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 
 -  An Internet connection.
 
--  Ubuntu\* 20.04 LTS
+-  Ubuntu\* 20.04 LTS.
 
 #### Software Requirements
 
--  [Docker & Docker Compose installation](https://docs.docker.com/engine/install/ubuntu/)
+-  [Docker & Docker Compose installation](https://docs.docker.com/engine/install/ubuntu/).
 
 -  Any flavor of Kubernetes variations.
 
@@ -153,7 +153,7 @@ Edit the ``helmchart/qat/values.yaml`` file as follows:
 This section contains step-by-step details to install specific Helm charts with both training and inference. [Learn more about Helm commands.](https://helm.sh/docs/helm/helm_install/)
 
 
-### Use Case 1: QAT with Inference using OpenVINO™ Integration with Optimum*
+### Use Case 1: QAT with Inference using OpenVINO™ through Optimum* Intel® Interface
 
 We have options to run inference in two ways:
 
@@ -221,7 +221,7 @@ Copy `deployment_ovms.yaml` from `helmchart/deployment_yaml` folder into
 `helmchart/qat/templates`. Make sure there is only one `deployment_*.yaml` file
 in the templates folder for single deployment.
 
-Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-using-openvino™-integration-with-optimum).
+Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-using-openvino™-through-optimum*-intel®-interface).
 
 
 #### OpenVINO™ Model Server Inference Output
@@ -275,7 +275,7 @@ Copy `deployment_onnx.yaml` from `helmchart/deployment_yaml` folder into
 `helmchart/qat/templates`. Make sure there is only one `deployment_*.yaml` file
 in the templates folder.
 
-Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-using-openvino™-integration-with-optimum).
+Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-using-openvino™-through-optimum*-intel®-interface).
 
 #### Onnxruntime Inference Output
 
@@ -442,7 +442,7 @@ storage across all the nodes.
 
 To continue your learning, see the following guides and software resources:
 
-* [OpenVINO™ Integration with Hugging Face Optimum](https://github.com/openvinotoolkit/openvino_contrib/tree/master/modules/optimum)
+* [Hugging Face Optimum Intel Interface](https://github.com/huggingface/optimum-intel)
 * [Neural Network Compression Framework (NNCF)](https://github.com/openvinotoolkit/nncf)
 * [Hugging Face Transformers training pipelines](https://github.com/huggingface/transformers/tree/main/examples/pytorch)
 * [OpenVINO™ Execution Provider](https://onnxruntime.ai/docs/execution-providers/OpenVINO-ExecutionProvider.html)
