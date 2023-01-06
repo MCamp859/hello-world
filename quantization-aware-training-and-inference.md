@@ -55,9 +55,10 @@ You need a Kubernetes* cluster that meets the Edge Node and Software requirement
 -  One of the following processors:
 
     -  Intel® Xeon® Platinum 8370C Processor @ 2.80GHz (16 vCPUs).
-    -  Intel® Xeon® Processor with NVIDIA* GPU.
+        -   At least 64 GB RAM.
 
--  At least 64 GB RAM.
+    -  Intel® Xeon® Processor with NVIDIA* GPU.
+        -   At least 112 GB RAM.
 
 -  At least 256 GB hard drive.
 
@@ -108,8 +109,13 @@ Choose one of the following options:
 *  Or, run the command:
 
     ```bash
-    git clone https://github.com/intel/nlp-training-and-inference-openvino/tree/main/question-answering-bert-qat
-    cd nlp-training-and-inference-openvino/question-answering-bert-qat
+    git clone https://github.com/intel/nlp-training-and-inference-openvino
+    cd nlp-training-and-inference-openvino/
+
+    #checkout latest tag
+    tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+    echo $tag
+    git checkout $tag -b latest
     ```
 
 
@@ -164,7 +170,10 @@ We have options to run inference in two ways:
     args: ["-c", "chown openvino -R /home/inference && cd /home/inference && ./run_onnx_inference.sh 'Who is sachin' 'Sachin is a cricket player'"]
     ```
 
-The Training pod is deployed through `pre_install_job.yaml`.
+The Training pod is deployed through `pre_install_job.yaml`. Default training
+happens on CPU. To enable GPU for training, refer to
+[Enable NVIDIA GPU for training](https://github.com/intel/nlp-training-and-inference-openvino/blob/main/question-answering-bert-qat/docs/gpu_instructions.md).
+
 The Inference pod is deployed through `deployment_optimum.yaml`.
 
 
@@ -254,7 +263,7 @@ Follow the same instructions as [Use Case 1](#use-case-1-qat-with-inference-usin
 
 #### Run Client Application to Send Request to OpenVINO™ Model Server
 
-This will download inference script from open_model_zoo and serve inference using ovms server.
+This will download inference script from `open_model_zoo` and serve inference using ovms server.
 
 ```bash
    cd <gitrepofolder>/openvino_inference
